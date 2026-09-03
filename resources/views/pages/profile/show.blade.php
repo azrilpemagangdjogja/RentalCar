@@ -241,7 +241,7 @@
                     </div>
                 </div>
 
-                {{-- QUICK ACTION --}}
+                {{-- QUICKT ACTION --}}
 
                 @if ($user->id == auth()->user()->id)
                     <div class="rounded-2xl bg-white dark:bg-gray-700">
