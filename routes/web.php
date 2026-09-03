@@ -10,6 +10,7 @@ use App\Http\Controllers\VehicleTypeController;
 use App\Http\Controllers\PickupLocationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ProfileController;
 
 
 
@@ -28,6 +29,7 @@ Route::post('/authorized', [AuthController::class, 'authorized'])->name('authori
 Route::post('/registration', [AuthController::class, 'registration'])->name('registration');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::resource('profile', ProfileController::class);
 
 
 
@@ -43,7 +45,8 @@ Route::middleware(['auth','mitra.verified'])->group(function () {
     Route::get('/mitra-dashboard', [LayoutsController::class,'indexmitra'])->name('mitra.dashboard');
     Route::patch('/pickup-location/{id}/status', [PickupLocationController::class,'status'])->name('pickup-location.status');
     Route::get('/pickup-location/{id}/veh', [PickupLocationController::class,'veh'])->name('pickup-location.veh');
-    Route::post('/pickup-location/{id}/addveh', [PickupLocationController::class,'addveh'])->name('pickup-location.addveh');
+    Route::post('/pickup-location/{pickupLocation}/addveh/{vehicle}', [PickupLocationController::class,'addveh'])->name('pickup-location.addveh');
+    Route::patch('/pickup-location/{pickupLocation}/unveh/{vehicle}', [PickupLocationController::class,'unveh'])->name('pickup-location.unveh');
     Route::get('/pickup-location/{id}/manage', [PickupLocationController::class,'manage'])->name('pickup-location.manage');
     Route::put('/pickup-location/{id}/addmanage', [PickupLocationController::class,'addmanage'])->name('pickup-location.addmanage');
     Route::get('/pickup-location/{id}/profile', [PickupLocationController::class,'profile'])->name('pickup-location.profile');

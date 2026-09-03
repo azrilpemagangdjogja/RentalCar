@@ -21,7 +21,7 @@
                 </div>
                 <input type="search" name="search" value="{{ request('search') }}"
                     placeholder="Cari merek, model, atau tipe kendaraan..."
-                    class="w-full rounded-2xl border border-gray-200 bg-white py-4 pl-12 pr-28 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
+                    class="w-full rounded-2xl border border-gray-100 bg-white py-4 pl-12 pr-28 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
                 <button type="submit"
                     class="absolute right-2 top-2 rounded-xl bg-gray-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">Cari</button>
             </div>
@@ -33,7 +33,7 @@
     <section class="mb-8">
         <div class="grid grid-cols-4 gap-3 sm:grid-cols-4 lg:grid-cols-6">
             <a href="#"
-                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
+                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <span
                     class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -45,7 +45,7 @@
                 <span class="text-[11px] font-medium text-gray-700 dark:text-gray-200 sm:text-xs">Transaksi Saya</span>
             </a>
             <a href="#"
-                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
+                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <span
                     class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -57,7 +57,7 @@
                 <span class="text-[11px] font-medium text-gray-700 dark:text-gray-200 sm:text-xs">Riwayat</span>
             </a>
             <a href="#"
-                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
+                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <span
                     class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -69,7 +69,7 @@
                 <span class="text-[11px] font-medium text-gray-700 dark:text-gray-200 sm:text-xs">Denda</span>
             </a>
             <a href="#"
-                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
+                class="group flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600">
                 <span
                     class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -82,7 +82,7 @@
                 <span class="text-[11px] font-medium text-gray-700 dark:text-gray-200 sm:text-xs">Favorit</span>
             </a>
             <a href="#"
-                class="group hidden flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 lg:flex">
+                class="group hidden flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 lg:flex">
                 <span
                     class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -94,7 +94,7 @@
                 <span class="text-xs font-medium text-gray-700 dark:text-gray-200">Menunggu</span>
             </a>
             <a href="#"
-                class="group hidden flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 lg:flex">
+                class="group hidden flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-white p-3 text-center transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 lg:flex">
                 <span
                     class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -124,7 +124,7 @@
             class="flex snap-x gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-4 xl:grid-cols-5">
             @forelse ($recommendedVehicles as $vehicle)
                 <a href="{{ route('vehicles.show', $vehicle->id) }}"
-                    class="group w-[78%] shrink-0 snap-start overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:w-auto">
+                    class="group w-[78%] shrink-0 snap-start overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:w-auto">
                     <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
                         <img src="{{ asset('storage/' . $vehicle->profile) }}"
                             alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
@@ -154,7 +154,7 @@
 
     {{-- AREA FILTER --}}
 
-    <section class="mb-8 rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+    <section class="mb-8 rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
         <div class="mb-4">
             <h2 class="text-base font-bold text-gray-800 dark:text-white">Pilih Berdasarkan Daerah</h2>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Cari kendaraan berdasarkan lokasi pickup yang dekat
@@ -163,7 +163,7 @@
         <div class="flex flex-wrap gap-2">
             @forelse ($areas as $area)
                 {{-- <a href="{{ route('vehicles.index', ['area' => $area]) }}"
-                    class="rounded-xl border border-gray-200 bg-gray-50 px-3.5 py-2 text-xs font-medium text-gray-600 transition hover:border-gray-400 hover:bg-gray-100 hover:text-gray-800 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">{{ $area }}</a> --}}
+                    class="rounded-xl border border-gray-100 bg-gray-50 px-3.5 py-2 text-xs font-medium text-gray-600 transition hover:border-gray-400 hover:bg-gray-100 hover:text-gray-800 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">{{ $area }}</a> --}}
             @empty
                 <p class="text-sm text-gray-400 dark:text-gray-500">Belum ada daerah yang tersedia.</p>
             @endforelse
@@ -186,7 +186,7 @@
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
             @forelse ($otherVehicles as $vehicle)
                 <a href="{{ route('vehicles.show', $vehicle->id) }}"
-                    class="group overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
+                    class="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
                     <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
                         <img src="{{ asset('storage/' . $vehicle->profile) }}"
                             alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
@@ -229,7 +229,7 @@
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
             @forelse ($vehicles as $vehicle)
                 <a href="{{ route('vehicles.show', $vehicle->id) }}"
-                    class="group overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
+                    class="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
                     <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
                         <img src="{{ asset('storage/' . $vehicle->profile) }}"
                             alt="{{ $vehicle->brand }} {{ $vehicle->model }}"

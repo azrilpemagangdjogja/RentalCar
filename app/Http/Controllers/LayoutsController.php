@@ -22,9 +22,9 @@ class LayoutsController extends Controller
             ->where('pickup_location_id', '!=', 'NULL')
             ->take(5)
             ->get();
-        $otherVehicles = Vehicle::inRandomOrder()->where('status', 'Active')->take(3)->get();
-        $vehicles = Vehicle::inRandomOrder()->where('status', 'Active')->take(3)->get();
-        $areas = Vehicle::inRandomOrder()->where('status', 'Active')->take(3)->get();
+        $otherVehicles = Vehicle::inRandomOrder()->where('status', 'Active')->take(6)->get();
+        $vehicles = Vehicle::inRandomOrder()->where('status', 'Active')->get();
+        $areas = Vehicle::inRandomOrder()->where('status', 'Active')->get();
         return view("pages.customer.dashboard.index", compact(['recommendedVehicles', 'otherVehicles', 'vehicles', 'areas']));
     }
 }

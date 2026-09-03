@@ -133,21 +133,15 @@ class PickupLocationController extends Controller
         return view("pages.mitra.pickup-location.addveh", compact(["pickupLocation", "vehicles", "usedVehicles"]));
     }
 
-    public function addveh(Request $request, string $id)
+    public function addveh($pickupLocation, $vehicle)
     {
         $user = auth()->user();
         if ($user->mitra_status !== 'Verified') {
             abort(404);
         }
 
-        $data = $request->validate([
-            "vehicles" => "nullable|array",
-            "vehicles.*" => "required|exists:vehicles,id",
-        ]);
-        $pickupLocation = PickupLocation::where("owner_id", $user->id)->findOrFail($id);
-        $vehicle = Vehicle::where("owner_id", $user->id)->whereIn("id", $data["vehicles"]);
-
-        
+        $pickupLocation = PickupLocation::where("owner_id", $user->id)->findOrFail($pickupLocation);
+        $vehicle = Vehicle::where("owner_id", $user->id)->findOrFail($vehicle);
 
         $vehicle->update([
             "pickup_location_id" => $pickupLocation->id,
@@ -163,7 +157,19 @@ class PickupLocationController extends Controller
             return back()->with("error", "Kapasitas telah penuh");
         }
 
-        return redirect()->route("pickup-location.show", $id);
+        return redirect()->route("pickup-location.veh", $pickupLocation->id);
+    }
+
+    public function unveh($pickupLocation, $vehicle){
+        $user = auth()->user();
+        if ($user->mitra_status !== 'Verified') {
+            abort(404);
+        }
+        $vehicle = Vehicle::where('pickup_location_id', $pickupLocation)->where('id', $vehicle)->firstOrFail();
+        $vehicle->update([
+            "pickup_location_id" => null,
+        ]);
+        return back();
     }
 
     public function manage(string $id)

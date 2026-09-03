@@ -7,7 +7,7 @@
             <div class="min-w-0">
                 <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('pickup-location.index') }}"
-                        class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">Pickup Locations</a>
+                        class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">Lokasi Pengambilan</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4 shrink-0">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
@@ -16,8 +16,7 @@
                 </div>
                 <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     {{ $pickupLocation->name }}</h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia pada pickup
-                    location ini.</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia pada lokasi pengambilan ini.</p>
             </div>
             <a href="{{ route('pickup-location.index') }}"
                 class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
@@ -65,7 +64,7 @@
 
                 {{-- STATISTICS --}}
 
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div class="grid grid-cols-2 gap-3">
                     <div class="rounded-2xl bg-white p-5 dark:bg-gray-700">
                         <div class="flex items-center justify-between gap-4">
                             <div>
@@ -160,11 +159,137 @@
                     </div>
                 </div>
 
+                {{-- VEHICLES --}}
+
+                <div class="rounded-2xl bg-white dark:bg-gray-700">
+                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                                <h2 class="text-base font-semibold text-gray-800 dark:text-white">Kendaraan</h2>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Daftar kendaraan yang ditempatkan
+                                    pada pickup location ini.</p>
+                            </div>
+                            <span
+                                class="w-fit rounded-full bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200">{{ $pickupLocation->vehicles->count() }}
+                                kendaraan</span>
+                        </div>
+                    </div>
+                    <div class="divide-y divide-gray-100 dark:divide-gray-600">
+                        @forelse ($pickupLocation->vehicles as $vehicle)
+                            <div class="flex items-center gap-4 p-4 sm:p-5">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.6" stroke="currentColor" class="h-5 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 1 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 1 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
+                                    </svg>
+                                </div>
+
+                                <div class="min-w-0 flex-1">
+                                    <h3 class="truncate text-sm font-semibold text-gray-800 dark:text-white">
+                                        {{ $vehicle->brand }} {{ $vehicle->model }}
+                                    </h3>
+
+                                    <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
+                                        {{ $vehicle->plate_number }} · {{ $vehicle->year }} ·
+                                        {{ $vehicle->transmission ?? '-' }}
+                                    </p>
+
+                                    <p class="mt-1 truncate text-xs text-gray-400 dark:text-gray-500">
+                                        Pemilik: {{ $vehicle->owner->name ?? '-' }}
+                                    </p>
+                                </div>
+
+                                <span
+                                    class="hidden shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200 sm:block">
+                                    {{ $vehicle->type->name ?? '-' }}
+                                </span>
+
+                                <a href="{{ route('vehicle.show', $vehicle->id) }}"
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-gray-600 transition hover:bg-gray-100 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <span class="hidden sm:inline">Detail</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+                                    </svg>
+                                </a>
+                            </div>
+                        @empty
+                            <div class="p-8 text-center">
+                                <div
+                                    class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 text-gray-400 dark:bg-gray-600 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 1 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
+                                    </svg>
+                                </div>
+                                <p class="mt-3 text-sm font-medium text-gray-700 dark:text-gray-300">Belum ada kendaraan
+                                </p>
+                                <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Tambahkan kendaraan untuk
+                                    menyediakan kendaraan di lokasi ini.</p>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+
             </div>
 
             {{-- RIGHT SIDEBAR --}}
 
             <div class="space-y-6">
+
+                {{-- INFO PEMILIK --}}
+
+                <div class="rounded-2xl bg-white dark:bg-gray-700 md:hidden">
+                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">Info Pemilik</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi pemilik pickup location.</p>
+                    </div>
+
+                    <div class="p-5">
+                        <div class="flex items-center gap-4">
+                            <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-600">
+                                <img src="{{ $pickupLocation->owner->profile ? asset('storage/' . $pickupLocation->owner->profile) : asset('images/default-profile.png') }}"
+                                    alt="{{ $pickupLocation->owner->name }}" class="h-full w-full object-cover">
+                            </div>
+
+                            <div class="min-w-0">
+                                <h3 class="truncate text-sm font-semibold text-gray-800 dark:text-white">
+                                    {{ $pickupLocation->owner->name }}
+                                </h3>
+                                <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $pickupLocation->owner->email }}
+                                </p>
+                            </div>
+        
+                        </div>
+
+                        <div class="mt-5 divide-y divide-gray-100 dark:divide-gray-600">
+                            <div class="flex items-center justify-between gap-4 py-3 first:pt-0">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">No. Telepon</span>
+                                <span class="text-right text-sm font-medium text-gray-700 dark:text-gray-200">
+                                    {{ $pickupLocation->owner->telp ?? '-' }}
+                                </span>
+                            </div>
+
+                            <div class="flex items-center justify-between gap-4 py-3 last:pb-0">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">Status Mitra</span>
+                                <span
+                                    class="rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600 dark:text-gray-200">
+                                    {{ $pickupLocation->owner->mitra_status }}
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-end gap-4 py-3 last:pb-0">
+                                <a  href="{{ route('profile.show', $pickupLocation->owner->id) }}"
+                                    class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-800 px-4 py-3 text-sm font-semibold text-gray-800 transition hover:border-gray-700 dark:border-white dark:text-white dark:hover:border-gray-200">
+                                    Lihat Profil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {{-- LOCATION STATUS --}}
 
@@ -214,6 +339,56 @@
                                 </button>
                             </form>
                         @endif
+                    </div>
+                </div>
+
+                {{-- INFO PEMILIK --}}
+
+                <div class="rounded-2xl hidden bg-white dark:bg-gray-700 md:block">
+                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">Info Pemilik</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi pemilik pickup location.</p>
+                    </div>
+
+                    <div class="p-5">
+                        <div class="flex items-center gap-4">
+                            <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-600">
+                                <img src="{{ $pickupLocation->owner->profile ? asset('storage/' . $pickupLocation->owner->profile) : asset('images/default-profile.png') }}"
+                                    alt="{{ $pickupLocation->owner->name }}" class="h-full w-full object-cover">
+                            </div>
+
+                            <div class="min-w-0">
+                                <h3 class="truncate text-sm font-semibold text-gray-800 dark:text-white">
+                                    {{ $pickupLocation->owner->name }}
+                                </h3>
+                                <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $pickupLocation->owner->email }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 divide-y divide-gray-100 dark:divide-gray-600">
+                            <div class="flex items-center justify-between gap-4 py-3 first:pt-0">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">No. Telepon</span>
+                                <span class="text-right text-sm font-medium text-gray-700 dark:text-gray-200">
+                                    {{ $pickupLocation->owner->telp ?? '-' }}
+                                </span>
+                            </div>
+
+                            <div class="flex items-center justify-between gap-4 py-3 last:pb-0">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">Status Mitra</span>
+                                <span
+                                    class="rounded-lg bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600 dark:text-gray-200">
+                                    {{ $pickupLocation->owner->mitra_status }}
+                                </span>
+                            </div>
+                            <div class="flex items-center mb-1 border-gray-200 dark:border-gray-500 justify-end gap-4 py-3 last:pb-0">
+                                <a  href="{{ route('profile.show', $pickupLocation->owner->id) }}"
+                                    class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-800 px-4 py-3 text-sm font-semibold text-gray-800 transition hover:border-gray-700 dark:border-white dark:text-white dark:hover:border-gray-200">
+                                    Lihat Profil
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -315,84 +490,27 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
-
-        </div>
-
-        {{-- VEHICLES --}}
-
-        <div class="rounded-2xl mt-6 bg-white dark:bg-gray-700">
-            <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">Kendaraan</h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Daftar kendaraan yang ditempatkan
-                            pada pickup location ini.</p>
-                    </div>
-                    <span
-                        class="w-fit rounded-full bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200">{{ $pickupLocation->vehicles->count() }}
-                        kendaraan</span>
-                </div>
-            </div>
-            <div class="divide-y divide-gray-100 dark:divide-gray-600">
-                @forelse ($pickupLocation->vehicles as $vehicle)
-                    <div class="flex items-center gap-4 p-4 sm:p-5">
-                        <div
-                            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.6" stroke="currentColor" class="h-5 w-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 1 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
-                            </svg>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <h3 class="truncate text-sm font-semibold text-gray-800 dark:text-white">
-                                {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
-                            <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
-                                {{ $vehicle->plate_number }} · {{ $vehicle->year }} ·
-                                {{ $vehicle->transmission ?? '-' }}</p>
-                        </div>
-                        <span
-                            class="hidden shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200 sm:block">{{ $vehicle->type->name ?? '-' }}</span>
-                    </div>
-                @empty
-                    <div class="p-8 text-center">
-                        <div
-                            class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 text-gray-400 dark:bg-gray-600 dark:text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 1 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
-                            </svg>
-                        </div>
-                        <p class="mt-3 text-sm font-medium text-gray-700 dark:text-gray-300">Belum ada kendaraan
-                        </p>
-                        <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Tambahkan kendaraan untuk
-                            menyediakan kendaraan di lokasi ini.</p>
-                    </div>
-                @endforelse
             </div>
         </div>
 
         {{-- SYSTEM INFORMATION --}}
 
-            <div class="rounded-2xl bg-gray-100 p-5 dark:bg-gray-800 md:hidden mt-6">
-                <div class="flex gap-3"> 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-400 dark:text-gray-400">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M11.25 11.25h1.5v4.5h-1.5v-4.5Zm0-3h1.5v1.5h-1.5v-1.5Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
-                    </svg>
-                    <div>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300">Informasi sistem</p>
-                        <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">Pickup location yang
-                            dinonaktifkan tidak dapat digunakan sebagai lokasi kendaraan yang tersedia untuk disewa.</p>
-                    </div>
+        <div class="rounded-2xl bg-gray-100 p-5 dark:bg-gray-800 md:hidden mt-6">
+            <div class="flex gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                    stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-400 dark:text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M11.25 11.25h1.5v4.5h-1.5v-4.5Zm0-3h1.5v1.5h-1.5v-1.5Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
+                </svg>
+                <div>
+                    <p class="text-xs font-medium text-gray-600 dark:text-gray-300">Informasi sistem</p>
+                    <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">Pickup location yang
+                        dinonaktifkan tidak dapat digunakan sebagai lokasi kendaraan yang tersedia untuk disewa.</p>
                 </div>
             </div>
-        
+        </div>
+
 
         {{-- ACTION --}}
         {{-- <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
