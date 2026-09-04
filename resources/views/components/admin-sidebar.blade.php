@@ -54,16 +54,16 @@
                     <span>Kelola Users</span>
                 </a>
 
-                {{-- MITRA --}}
+                {{-- REGION FILTER --}}
 
-                <a href="#"
-                    class="{{ request()->routeIs('user.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                <a href="{{ route('region-filter.index') }}"
+                    class="{{ request()->routeIs('region-filter.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3.75 21h16.5M5.25 21V8.25l6.75-4.5 6.75 4.5V21M9 21v-6h6v6M8.25 9.75h.008v.008H8.25V9.75ZM12 9.75h.008v.008H12V9.75ZM15.75 9.75h.008v.008h-.008V9.75Z" />
                     </svg>
-                    <span>Kelola Mitra</span>
+                    <span>Filter Region</span>
                 </a>
 
                 {{-- VEHICLES --}}

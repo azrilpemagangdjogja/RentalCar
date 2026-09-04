@@ -77,10 +77,12 @@ class VehicleController extends Controller
 
         if ($request->hasFile('profile')) {
             $data['profile'] = $request->file('profile')->store('vehicle_profiles', 'public');
+        } else {
+            unset($data['profile']);
         }
 
         $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
-        $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->where("owner_id", $owner)->count();
+        $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
 
         if ($data['pickup_location_id']) {
             if ($vehicleCount >= $pickuLocation?->max_vehicle) {
@@ -147,7 +149,7 @@ class VehicleController extends Controller
             "transmission" => "required",
             "engine_capacity" => "required",
             "seats" => "required",
-            "plate_number" => "required",
+            "plate_number" => "required|unique:vehicles,plate_number",
             "deposit_amount" => "nullable",
             "description" => "nullable",
             "status" => "nullable",
@@ -165,7 +167,7 @@ class VehicleController extends Controller
         }
 
         $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
-        $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->where("owner_id", $owner)->count();
+        $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
 
         if ($data['pickup_location_id']) {
             if ($vehicleCount >= $pickuLocation?->max_vehicle) {
@@ -174,7 +176,6 @@ class VehicleController extends Controller
         }
 
         $vehicle->update($data);
-
         return redirect()->route("vehicle.index");
     }
 

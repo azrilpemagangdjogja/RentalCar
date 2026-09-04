@@ -14,21 +14,24 @@ return new class extends Migration
         Schema::create('history_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('transaction_id')
+                ->nullable()
                 ->constrained('transactions')
                 ->nullOnDelete()
                 ->nullOnUpdate();
 
-            $table->foreignId('costumer_id')
+            $table->foreignId('customer_id')
+                ->nullable()
                 ->constrained('users')
                 ->nullOnDelete()
                 ->nullOnUpdate();
 
-            $table->string('costumer_name');
-            $table->string('costumer_email');
-            $table->string('costumer_phone');
-            $table->string('costumer_profile');
+            $table->string('customer_name');
+            $table->string('customer_email');
+            $table->string('customer_phone');
+            $table->string('customer_profile');
 
             $table->foreignId('mitra_id')
+                ->nullable()
                 ->constrained('users')
                 ->nullOnDelete()
                 ->nullOnUpdate();
@@ -39,6 +42,7 @@ return new class extends Migration
             $table->string('mitra_profile');
 
             $table->foreignId('vehicle_id')
+                ->nullable()
                 ->constrained('vehicles')
                 ->nullOnDelete()
                 ->nullOnUpdate();
@@ -47,9 +51,20 @@ return new class extends Migration
             $table->string('transmission');
             $table->string('type');
             $table->string('plate_number');
+            $table->string('fuel_type');
+            $table->string('engine_capacity');
+            $table->string('seats');
             $table->string('brand');
             $table->string('model');
-            $table->string('model');
+            $table->string('profile');
+            $table->string('deposit_amount');
+            $table->string('year');
+
+            $table->foreignId('type_id')
+                ->nullable()
+                ->constrained('vehicle_types')
+                ->nullOnUpdate()
+                ->nullOnDelete();
 
             $table->string('cancelled_reason');
             $table->string('description');

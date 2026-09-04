@@ -84,7 +84,7 @@ class VehicleTypeController extends Controller
 
         $vehicleType = VehicleType::findOrFail($id);
         $data = $request->validate([
-            "name" => "required|unique:vehicle_types,name," . $vehicleType->id,
+            "name" => "required|unique:vehicle_types,name,",
             "description" => "nullable",
             "status" => "required|in:Active,Inactive"
         ]);

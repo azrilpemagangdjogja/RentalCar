@@ -140,24 +140,21 @@ class PickupLocationController extends Controller
             abort(404);
         }
 
-        $pickupLocation = PickupLocation::where("owner_id", $user->id)->findOrFail($pickupLocation);
+        $pickupLocations = PickupLocation::where("owner_id", $user->id)->findOrFail($pickupLocation);
         $vehicle = Vehicle::where("owner_id", $user->id)->findOrFail($vehicle);
+        $vehicleCount = Vehicle::where("pickup_location_id", $pickupLocations->id)->count();
 
-        $vehicle->update([
-            "pickup_location_id" => $pickupLocation->id,
-        ]);
-
-        $vehicleCount = Vehicle::where("pickup_location_id", $pickupLocation->id)->count();
-
-        if ($pickupLocation->max_vehicle < $vehicleCount) {
-
-            $vehicle->update([
-                "pickup_location_id" => "null",
-            ]);
-            return back()->with("error", "Kapasitas telah penuh");
+        if ($pickupLocation) {
+            if ($vehicleCount >= $pickupLocations?->max_vehicle) {
+                return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
+            }
         }
 
-        return redirect()->route("pickup-location.veh", $pickupLocation->id);
+        $vehicle->update([
+            "pickup_location_id" => $pickupLocations->id,
+        ]);
+
+        return redirect()->route("pickup-location.veh", $pickupLocations->id);
     }
 
     public function unveh($pickupLocation, $vehicle){

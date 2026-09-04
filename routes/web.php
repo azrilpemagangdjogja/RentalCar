@@ -11,6 +11,7 @@ use App\Http\Controllers\PickupLocationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegionFilterController;
 
 
 
@@ -60,4 +61,5 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::get('/admin-dashboard', [LayoutsController::class, 'index'])->name('admin.dashboard');
     Route::resource('user', UserController::class);
     Route::resource('vehicle-type', VehicleTypeController::class);
+    Route::resource('region-filter', RegionFilterController::class);
 });

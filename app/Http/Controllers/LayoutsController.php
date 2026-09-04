@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\RegionFilter;
 
 class LayoutsController extends Controller
 {
@@ -24,7 +25,7 @@ class LayoutsController extends Controller
             ->get();
         $otherVehicles = Vehicle::inRandomOrder()->where('status', 'Active')->take(6)->get();
         $vehicles = Vehicle::inRandomOrder()->where('status', 'Active')->get();
-        $areas = Vehicle::inRandomOrder()->where('status', 'Active')->get();
+        $areas = RegionFilter::orderBy('name')->pluck('name');
         return view("pages.customer.dashboard.index", compact(['recommendedVehicles', 'otherVehicles', 'vehicles', 'areas']));
     }
 }
