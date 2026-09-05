@@ -344,16 +344,16 @@
 
             <div class="space-y-1">
 
-                {{-- LANDING CONTENT --}}
+                {{-- LANDING HERO --}}
 
-                <a href="#"
-                    class="{{ request()->routeIs('user.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                <a href="{{ route('landing.hero') }}"
+                    class="{{ request()->routeIs('landing.hero') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M4.5 5.25h15v13.5h-15V5.25ZM8.25 9h7.5M8.25 12h7.5M8.25 15h4.5" />
                     </svg>
-                    <span>Konten Landing Page</span>
+                    <span>Hero Section</span>
                 </a>
 
                 {{-- LANDING BANNER --}}
@@ -442,7 +442,7 @@
 
                 {{-- LOGOUT --}}
 
-                <a href="#"
+                <a href="{{ route('logout', auth()->id()) }}"
                     class="{{ request()->routeIs('user.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">

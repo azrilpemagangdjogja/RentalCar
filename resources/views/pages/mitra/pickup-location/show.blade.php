@@ -310,7 +310,8 @@
                         </div>
 
                         @if ($pickupLocation->status === 'Active')
-                            <form action="{{ route('pickup-location.status', $pickupLocation->id) }}" method="POST">
+                            <form action="{{ route('pickup-location.status', $pickupLocation->id) }}" method="POST"
+                                onsubmit="return confirm('Nonaktifkan lokasi {{ $pickupLocation->name }}?')">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="status" value="Inactive">
@@ -325,7 +326,8 @@
                                 </button>
                             </form>
                         @else
-                            <form action="{{ route('pickup-location.status', $pickupLocation->id) }}" method="POST">
+                            <form action="{{ route('pickup-location.status', $pickupLocation->id) }}" method="POST"
+                                onsubmit="return confirm('Aktifkan lokasi {{ $pickupLocation->name }}?')">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="status" value="Active">

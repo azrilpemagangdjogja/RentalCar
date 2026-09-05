@@ -25,25 +25,6 @@
             </a>
         </div>
 
-        {{-- VALIDATION ERROR --}}
-
-        @if ($errors->any())
-            <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 p-4 dark:border-red-900/50 dark:bg-red-950/30">
-                <div class="flex gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 shrink-0 text-red-500">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m0 3.75h.007v.008H12v-.008ZM10.5 3.75h3L21 18.75H3L10.5 3.75Z" />
-                    </svg>
-                    <div class="space-y-1">
-                        @foreach ($errors->all() as $error)
-                            <p class="text-sm text-red-600 dark:text-red-400">{{ $error }}</p>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        @endif
-
         {{-- LOCATION OVERVIEW --}}
 
         <div class="mb-6 rounded-2xl bg-white p-5 dark:bg-gray-700 sm:p-6">
@@ -124,6 +105,7 @@
                             </a>
 
                             <form action="{{ route('pickup-location.addveh', [$pickupLocation->id, $vehicle->id]) }}"
+                                onsubmit="return confirm('tempatkan {{ $vehicle->brand }} {{ $vehicle->model }} pada lokasi ini?')"
                                 method="POST">
                                 @csrf
                                 <button type="submit"
@@ -172,8 +154,8 @@
                             class="flex flex-col gap-4 p-4 transition hover:bg-gray-50 dark:hover:bg-gray-600 sm:flex-row sm:items-center sm:p-5">
                             <div
                                 class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.6" stroke="currentColor" class="h-5 w-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6"
+                                    stroke="currentColor" class="h-5 w-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
                                 </svg>
@@ -206,6 +188,7 @@
                                 </a>
 
                                 <form action="{{ route('pickup-location.unveh', [$pickupLocation->id, $vehicle->id]) }}"
+                                    onsubmit="return confirm('Keluarkan {{ $vehicle->brand }} {{ $vehicle->model }} dari lokasi ini?')"
                                     method="POST">
                                     @csrf
                                     @method('PATCH')

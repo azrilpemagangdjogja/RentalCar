@@ -42,7 +42,7 @@
     <main>
         <section id="beranda" class="relative min-h-screen overflow-hidden bg-gray-100 dark:bg-gray-700">
             <div class="absolute inset-0">
-                <img src="{{ asset('images/login-background.png') }}" alt="RentalCar" class="h-full w-full object-cover">
+                <img src="{{ $hero->background_image ? asset('storage/' . $hero->background_image) : asset('images/login-background.png') }}" alt="RentalCar" class="h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-r from-gray-800/90 via-gray-800/70 to-gray-800/20 dark:from-gray-800/95 dark:via-gray-800/80 dark:to-gray-800/30"></div>
             </div>
 
@@ -50,26 +50,26 @@
                 <div class="max-w-2xl text-white">
                     <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
                         <span class="h-2 w-2 rounded-full bg-white"></span>
-                        <span class="text-sm font-medium text-gray-100">Rental kendaraan lebih mudah</span>
+                        <span class="text-sm font-medium text-gray-100">{{ $hero->badge ?? ''}}</span>
                     </div>
 
                     <h1 class="text-5xl font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
-                        Temukan kendaraan untuk perjalananmu.
+                        {{ $hero->title ?? ''}}
                     </h1>
 
                     <p class="mt-6 max-w-xl text-base leading-7 text-gray-300 sm:text-lg">
-                        Pilih kendaraan yang sesuai dengan kebutuhanmu, tentukan waktu rental, dan nikmati perjalanan tanpa harus repot.
+                        {{ $hero->description ?? ''}}
                     </p>
 
                     <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-                        <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-gray-800 transition hover:bg-gray-200">
-                            Mulai Rental
+                        <a href="{{ route($hero->primary_button_url) }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-gray-800 transition hover:bg-gray-200">
+                            {{ $hero->primary_button_text }}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                             </svg>
                         </a>
-                        <a href="#kendaraan" class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
-                            Lihat Kendaraan
+                        <a href="{{ route($hero->secondary_button_url) }}" class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
+                            {{ $hero->secondary_button_text }}
                         </a>
                     </div>
 

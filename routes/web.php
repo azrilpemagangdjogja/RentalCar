@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LayoutsController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
+use App\Models\LandingHero;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehiclesController;
@@ -12,14 +14,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionFilterController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AdminLandingPageController;
 
 
 
 //Landing Page
 
-Route::get('/', function () {
-    return view('landing-page');
-});
+Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 
 
 
@@ -39,6 +41,7 @@ Route::middleware(['auth', 'role:User'])->group(function () {
     Route::get('/customer-dashboard', [LayoutsController::class,'indexcustomer'])->name('customer.dashboard');
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('transaction', TransactionController::class);
+    Route::get('search', [SearchController::class,'customer'])->name('search.customer');
 });
 
 // Fitur khusus User yg memiliki status_mitra = 'Verified' 
@@ -62,4 +65,15 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('vehicle-type', VehicleTypeController::class);
     Route::resource('region-filter', RegionFilterController::class);
+
+// Landing Page
+    Route::get('hero', [AdminLandingPageController::class, 'hero'])->name('landing.hero');
+    Route::get('hero-edit', [AdminLandingPageController::class, 'heroedit'])->name('landing.hero.edit');
+    Route::put('hero/{id}/update', [AdminLandingPageController::class, 'heroupdate'])->name('landing.hero.update');
+    Route::post('hero-create', [AdminLandingPageController::class, 'herocreate'])->name('landing.hero.create');
+
+    Route::get('about', [AdminLandingPageController::class, 'about'])->name('landing.about');
+    Route::get('about-edit', [AdminLandingPageController::class, 'aboutedit'])->name('landing.about.edit');
+    Route::put('about/{id}/update', [AdminLandingPageController::class, 'aboutupdate'])->name('landing.about.update');
+    Route::post('about-create', [AdminLandingPageController::class, 'aboutcreate'])->name('landing.about.create');
 });

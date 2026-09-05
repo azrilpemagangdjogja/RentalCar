@@ -9,7 +9,7 @@
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Temukan kendaraan yang sesuai dengan kebutuhan
                 perjalananmu.</p>
         </div>
-        <form action="{{ route('vehicles.index') }}" method="GET">
+        <form action="{{ route('search.customer') }}" method="GET">
             <div class="relative">
                 <div
                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 dark:text-gray-500">
@@ -133,8 +133,11 @@
                             class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicle->type->name }}</span>
                     </div>
                     <div class="p-4">
-                        <h3 class="truncate text-sm font-bold text-gray-800 dark:text-white">{{ $vehicle->brand }}
-                            {{ $vehicle->model }}</h3>
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
+                                {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
+                            <span class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicle->seats }} kursi</span>
+                        </div>
                         <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
                             {{ $vehicle->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
                         <div class="mt-3 flex items-center justify-between gap-2">
@@ -195,14 +198,17 @@
                             class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicle->type->name }}</span>
                     </div>
                     <div class="p-3 sm:p-4">
-                        <h3 class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
-                            {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
+                        <div class="flex items-start justify-between gap-2">
+                            <h3 class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
+                                {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
+                            <span class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicle->seats }} Kursi</span>
+                        </div>
                         <p class="mt-1 truncate text-[10px] text-gray-500 dark:text-gray-400 sm:text-xs">
                             {{ $vehicle->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
                         <div class="mt-2 flex items-center justify-between gap-2">
                             <span
-                                class="truncate text-xs font-semibold text-gray-800 dark:text-white">{{ $vehicle->year }}</span>
-                            <span class="text-[10px] text-gray-400">{{ $vehicle->color ?? '-' }}</span>
+                                class="text-sm font-semibold text-gray-800 dark:text-white">{{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}</span>
+                            <span class="text-[10px] text-gray-400">{{ $vehicle->year }}</span>
                         </div>
                     </div>
                 </a>
@@ -234,20 +240,21 @@
                         <img src="{{ asset('storage/' . $vehicle->profile) }}"
                             alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
                             class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                        <span
+                            class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicle->type->name }}</span>
                     </div>
                     <div class="p-3 sm:p-4">
                         <div class="flex items-start justify-between gap-2">
                             <h3 class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
                                 {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
-                            <span class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicle->type->name }}</span>
+                            <span class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicle->seats }} Kursi</span>
                         </div>
                         <p class="mt-1 truncate text-[10px] text-gray-500 dark:text-gray-400 sm:text-xs">
                             {{ $vehicle->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
-                        <div class="mt-3 flex items-center justify-between">
+                        <div class="mt-2 flex items-center justify-between gap-2">
                             <span
-                                class="text-xs font-semibold text-gray-700 dark:text-gray-200">{{ $vehicle->year }}</span>
-                            <span
-                                class="rounded-full bg-gray-100 px-2 py-1 text-[9px] font-medium text-gray-500 dark:bg-gray-600 dark:text-gray-300">{{ $vehicle->status }}</span>
+                                class="text-sm font-semibold text-gray-800 dark:text-white">{{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}</span>
+                            <span class="text-[10px] text-gray-400">{{ $vehicle->year }}</span>
                         </div>
                     </div>
                 </a>

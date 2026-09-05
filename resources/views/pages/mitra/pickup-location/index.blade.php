@@ -60,97 +60,63 @@
 
                 @foreach ($dataTop as $items)
                     <a href="{{ route('pickup-location.show', $items->id) }}"
-                        class="group flex items-center gap-4 rounded-2xl dark:border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 md:block md:p-5">
-                        <div
-                            class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300 md:h-28 md:w-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="h-8 w-8 md:h-10 md:w-10">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M19.5 10.5c0 7.142-7.5 10.5-7.5 10.5s-7.5-3.358-7.5-10.5a7.5 7.5 0 1 1 15 0Z" />
-                            </svg>
-                        </div>
-                        <div class="min-w-0 flex-1 md:mt-4">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="min-w-0">
-                                    <h3 class="truncate text-base font-bold text-gray-800 dark:text-white">
-                                        {{ $items->name }}</h3>
-                                    <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">{{ $items->address }}
-                                    </p>
+                        class="group overflow-hidden rounded-2xl border border-gray-200 bg-white transition duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 md:p-0">
+
+                        {{-- MAP --}}
+                        <div class="relative h-32 w-full overflow-hidden bg-gray-100 dark:bg-gray-600 md:h-44">
+
+                            {{-- Google Maps sebagai background --}}
+                            <iframe
+                                src="https://www.google.com/maps?q={{ $items->latitude }},{{ $items->longitude }}&output=embed"
+                                class="pointer-events-none absolute inset-0 h-full w-full border-0" loading="lazy">
+                            </iframe>
+
+                            {{-- Overlay --}}
+                            {{-- <div class="absolute inset-0 flex items-center justify-center">
+                                <div
+                                    class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-800/80 text-white shadow-lg backdrop-blur-sm transition duration-200 group-hover:scale-110 dark:bg-white/80 dark:text-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="h-7 w-7">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19.5 10.5c0 7.142-7.5 10.5-7.5 10.5s-7.5-3.358-7.5-10.5a7.5 7.5 0 1 1 15 0Z" />
+                                    </svg>
                                 </div>
-                                <span
-                                    class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">{{ $items->status }}</span>
+                            </div> --}}
+
+                            {{-- Status --}}
+                            <span
+                                class="absolute right-3 top-3 rounded-full bg-gray-800/90 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-sm dark:bg-gray-50/90 dark:text-gray-800">
+                                {{ $items->status }}
+                            </span>
+                        </div>
+
+                        {{-- INFO --}}
+                        <div class="p-4 md:p-5">
+                            <div class="min-w-0">
+                                <h3 class="truncate text-base font-bold text-gray-800 dark:text-white">
+                                    {{ $items->name }}
+                                </h3>
+
+                                <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $items->address }}
+                                </p>
                             </div>
-                            <div class="mt-3 flex items-center justify-between">
-                                <span class="text-xs text-gray-400 dark:text-gray-400">Kapasitas</span>
-                                <span
-                                    class="text-sm font-bold text-gray-800 dark:text-white">{{ $items->vehicles->count() }}
-                                    / {{ $items->max_vehicle }} kendaraan</span>
+
+                            <div
+                                class="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 dark:border-gray-600">
+                                <span class="text-xs text-gray-400 dark:text-gray-400">
+                                    Kapasitas
+                                </span>
+
+                                <span class="text-sm font-bold text-gray-800 dark:text-white">
+                                    {{ $items->vehicles->count() }} / {{ $items->max_vehicle }} kendaraan
+                                </span>
                             </div>
                         </div>
                     </a>
                 @endforeach
-
-                {{-- FEATURED 2 --}}
-                {{-- <a href="#"
-                    class="group flex items-center gap-4 rounded-2xl dark:border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 md:block md:p-5">
-                    <div
-                        class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300 md:h-28 md:w-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="h-8 w-8 md:h-10 md:w-10">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19.5 10.5c0 7.142-7.5 10.5-7.5 10.5s-7.5-3.358-7.5-10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                    </div>
-                    <div class="min-w-0 flex-1 md:mt-4">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="min-w-0">
-                                <h3 class="truncate text-base font-bold text-gray-800 dark:text-white">RentalCar Malioboro
-                                </h3>
-                                <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">Jl. Malioboro, Yogyakarta
-                                </p>
-                            </div>
-                            <span
-                                class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">Active</span>
-                        </div>
-                        <div class="mt-3 flex items-center justify-between">
-                            <span class="text-xs text-gray-400 dark:text-gray-400">Kapasitas</span>
-                            <span class="text-sm font-bold text-gray-800 dark:text-white">18 kendaraan</span>
-                        </div>
-                    </div>
-                </a> --}}
-
-                {{-- FEATURED 3 --}}
-                {{-- <a href="#"
-                    class="group flex items-center gap-4 rounded-2xl dark:border border-gray-200 bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 md:block md:p-5">
-                    <div
-                        class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300 md:h-28 md:w-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="h-8 w-8 md:h-10 md:w-10">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19.5 10.5c0 7.142-7.5 10.5-7.5 10.5s-7.5-3.358-7.5-10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                    </div>
-                    <div class="min-w-0 flex-1 md:mt-4">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="min-w-0">
-                                <h3 class="truncate text-base font-bold text-gray-800 dark:text-white">Basecamp Sleman</h3>
-                                <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">Jl. Magelang, Sleman</p>
-                            </div>
-                            <span
-                                class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">Active</span>
-                        </div>
-                        <div class="mt-3 flex items-center justify-between">
-                            <span class="text-xs text-gray-400 dark:text-gray-400">Kapasitas</span>
-                            <span class="text-sm font-bold text-gray-800 dark:text-white">14 kendaraan</span>
-                        </div>
-                    </div>
-                </a> --}}
             </div>
         </div>
 
@@ -164,7 +130,8 @@
                 <span class="hidden text-xs text-gray-400 dark:text-gray-400 sm:block">12 lokasi</span>
             </div>
 
-            <div class="overflow-hidden rounded-2xl dark:border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
+            <div
+                class="overflow-hidden rounded-2xl dark:border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
 
                 {{-- ROW --}}
                 <a href="#"

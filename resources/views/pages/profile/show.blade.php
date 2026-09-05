@@ -24,7 +24,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('user.index') }}"
+            <a href="{{ url()->previous() }}"
                 class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
                 Kembali
             </a>

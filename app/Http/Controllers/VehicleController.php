@@ -149,7 +149,7 @@ class VehicleController extends Controller
             "transmission" => "required",
             "engine_capacity" => "required",
             "seats" => "required",
-            "plate_number" => "required|unique:vehicles,plate_number",
+            "plate_number" => "required|unique:vehicles,plate_number," . $id,
             "deposit_amount" => "nullable",
             "description" => "nullable",
             "status" => "nullable",
