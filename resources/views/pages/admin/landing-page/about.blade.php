@@ -36,7 +36,7 @@
                 </div>
                 <span
                     class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                    {{ $about->status }}
+                    {{ $about->status ?? '' }}
                 </span>
             </div>
 
@@ -51,14 +51,14 @@
 
                             <div class="relative">
                                 <div class="overflow-hidden rounded-3xl">
-                                    <img src="{{ $about->image ? asset('storage/' . $about->image) : asset('images/login-background.png') }}"
+                                    <img src="{{ $about?->image ? asset('storage/' . $about->image) : asset('images/login-background.png') }}"
                                         alt="Tentang RentalCar" class="h-[380px] w-full object-cover sm:h-[480px]">
                                 </div>
                                 <div
                                     class="absolute -bottom-5 -right-3 rounded-2xl bg-white p-4 shadow-xl dark:bg-gray-800 sm:-bottom-6 sm:right-6 sm:p-5">
-                                    <p class="text-xl font-bold text-gray-800 dark:text-white">{{ $about->card_title }}</p>
+                                    <p class="text-xl font-bold text-gray-800 dark:text-white">{{ $about->card_title ?? '' }}</p>
                                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-300 sm:text-sm">
-                                        {{ $about->card_description }}</p>
+                                        {{ $about->card_description ?? '' }}</p>
                                 </div>
                             </div>
 
@@ -66,29 +66,29 @@
 
                             <div>
                                 <span
-                                    class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{ $about->subtitle }}</span>
+                                    class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{ $about->subtitle ?? '' }}</span>
                                 <h2
                                     class="mt-3 text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white">
-                                    {{ $about->title }}</h2>
+                                    {{ $about->title ?? '' }}</h2>
                                 <p class="mt-5 text-base leading-7 text-gray-500 dark:text-gray-300">
-                                    {{ $about->description_1 }}</p>
+                                    {{ $about->description_1 ?? '' }}</p>
                                 <p class="mt-4 text-base leading-7 text-gray-500 dark:text-gray-300">
-                                    {{ $about->description_2 }}</p>
+                                    {{ $about->description_2 ?? '' }}</p>
 
                                 {{-- FEATURES --}}
 
                                 <div class="mt-8 grid grid-cols-2 gap-6">
                                     <div>
                                         <p class="text-3xl font-bold text-gray-800 dark:text-white">
-                                            {{ $about->feature_1_title }}</p>
+                                            {{ $about->feature_1_title ?? '' }}</p>
                                         <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">
-                                            {{ $about->feature_1_description }}</p>
+                                            {{ $about->feature_1_description ?? '' }}</p>
                                     </div>
                                     <div>
                                         <p class="text-3xl font-bold text-gray-800 dark:text-white">
-                                            {{ $about->feature_2_title }}</p>
+                                            {{ $about->feature_2_title ?? '' }}</p>
                                         <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">
-                                            {{ $about->feature_2_description }}</p>
+                                            {{ $about->feature_2_description ?? '' }}</p>
                                     </div>
                                 </div>
 

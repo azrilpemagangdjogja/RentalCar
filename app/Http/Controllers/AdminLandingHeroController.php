@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LandingHero;
 use Illuminate\Http\Request;
 
-class AdminLandingPageController extends Controller
+class AdminLandingHeroController extends Controller
 {
     public function hero(){
         $hero = LandingHero::first();
@@ -78,7 +78,7 @@ class AdminLandingPageController extends Controller
             "status" => "required",
         ]);
 
-        if ($request->hasFile($data['background_image'])){
+        if ($request->hasFile('background_image')){
             $data['background_image'] = $request->file('background_image')->store('landing_page_hero_background', 'public');
         } else {
             unset($data['background_image']);

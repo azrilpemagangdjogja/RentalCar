@@ -42,7 +42,7 @@
     <main>
         <section id="beranda" class="relative min-h-screen overflow-hidden bg-gray-100 dark:bg-gray-700">
             <div class="absolute inset-0">
-                <img src="{{ $hero->background_image ? asset('storage/' . $hero->background_image) : asset('images/login-background.png') }}" alt="RentalCar" class="h-full w-full object-cover">
+                <img src="{{ $hero?->background_image ? asset('storage/' . $hero?->background_image) : asset('images/login-background.png') }}" alt="RentalCar" class="h-full w-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-r from-gray-800/90 via-gray-800/70 to-gray-800/20 dark:from-gray-800/95 dark:via-gray-800/80 dark:to-gray-800/30"></div>
             </div>
 
@@ -50,43 +50,43 @@
                 <div class="max-w-2xl text-white">
                     <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
                         <span class="h-2 w-2 rounded-full bg-white"></span>
-                        <span class="text-sm font-medium text-gray-100">{{ $hero->badge ?? ''}}</span>
+                        <span class="text-sm font-medium text-gray-100">{{ $hero?->badge ?? ''}}</span>
                     </div>
 
                     <h1 class="text-5xl font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
-                        {{ $hero->title ?? ''}}
+                        {{ $hero?->title ?? ''}}
                     </h1>
 
                     <p class="mt-6 max-w-xl text-base leading-7 text-gray-300 sm:text-lg">
-                        {{ $hero->description ?? ''}}
+                        {{ $hero?->description ?? ''}}
                     </p>
 
                     <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-                        <a href="{{ route($hero->primary_button_url) }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-gray-800 transition hover:bg-gray-200">
-                            {{ $hero->primary_button_text }}
+                        <a href="{{ $hero?->secondary_button_url ? route($hero?->secondary_button_url) : route('register') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-gray-800 transition hover:bg-gray-200">
+                            {{ $hero?->primary_button_text }}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                             </svg>
                         </a>
-                        <a href="{{ route($hero->secondary_button_url) }}" class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
-                            {{ $hero->secondary_button_text }}
+                        <a href="{{ $hero?->secondary_button_url ? route($hero?->secondary_button_url) : route('login')}}" class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
+                            {{ $hero?->secondary_button_text }}
                         </a>
                     </div>
 
                     <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/20 pt-6">
                         <div>
-                            <p class="text-2xl font-bold">Mudah</p>
-                            <p class="mt-1 text-sm text-gray-400">Proses pemesanan</p>
+                            <p class="text-2xl font-bold">{{ $hero?->feature_1_title }}</p>
+                            <p class="mt-1 text-sm text-gray-400">{{ $hero?->feature_1_description }}</p>
                         </div>
                         <div class="h-10 w-px bg-white/20"></div>
                         <div>
-                            <p class="text-2xl font-bold">Aman</p>
-                            <p class="mt-1 text-sm text-gray-400">Transaksi terpercaya</p>
+                            <p class="text-2xl font-bold">{{ $hero?->feature_2_title }}</p>
+                            <p class="mt-1 text-sm text-gray-400">{{ $hero?->feature_2_description }}</p>
                         </div>
                         <div class="h-10 w-px bg-white/20"></div>
                         <div>
-                            <p class="text-2xl font-bold">Fleksibel</p>
-                            <p class="mt-1 text-sm text-gray-400">Pilihan kendaraan</p>
+                            <p class="text-2xl font-bold">{{ $hero?->feature_3_title }}</p>
+                            <p class="mt-1 text-sm text-gray-400">{{ $hero?->feature_3_description }}</p>
                         </div>
                     </div>
                 </div>
@@ -99,28 +99,28 @@
             <div class="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-8">
                 <div class="relative">
                     <div class="overflow-hidden rounded-3xl">
-                        <img src="{{ asset('images/login-background.png') }}" alt="Tentang RentalCar" class="h-[480px] w-full object-cover">
+                        <img src="{{ $about?->image ? asset('storage/'. $about->image) : asset('images/login-background.png') }}" alt="Tentang RentalCar" class="h-[480px] w-full object-cover">
                     </div>
                     <div class="absolute -bottom-6 -right-4 rounded-2xl bg-white p-5 shadow-xl dark:bg-gray-800 sm:right-6">
-                        <p class="text-2xl font-bold text-gray-800 dark:text-white">RentalCar</p>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Partner perjalananmu</p>
+                        <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $about?->card_title }}</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">{{ $about?->card_description }}</p>
                     </div>
                 </div>
 
                 <div>
-                    <span class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Tentang Kami</span>
-                    <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white">Lebih dari sekadar tempat menyewa kendaraan.</h2>
-                    <p class="mt-5 text-base leading-7 text-gray-500 dark:text-gray-300">RentalCar hadir untuk membuat proses penyewaan kendaraan menjadi lebih sederhana, transparan, dan nyaman bagi setiap pengguna.</p>
-                    <p class="mt-4 text-base leading-7 text-gray-500 dark:text-gray-300">Kami menghubungkan pengguna dengan kendaraan yang sesuai kebutuhan sehingga perjalanan dapat direncanakan dengan lebih mudah.</p>
+                    <span class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{ $about?->subtitle }}</span>
+                    <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white">{{ $about?->title }}</h2>
+                    <p class="mt-5 text-base leading-7 text-gray-500 dark:text-gray-300">{{ $about?->description_1 }}</p>
+                    <p class="mt-4 text-base leading-7 text-gray-500 dark:text-gray-300">{{ $about?->description_2 }}</p>
 
                     <div class="mt-8 grid grid-cols-2 gap-6">
                         <div>
-                            <p class="text-3xl font-bold text-gray-800 dark:text-white">Mudah</p>
-                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">Pemesanan sederhana</p>
+                            <p class="text-3xl font-bold text-gray-800 dark:text-white">{{ $about?->feature_1_title }}</p>
+                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">{{ $about?->feature_1_description }}</p>
                         </div>
                         <div>
-                            <p class="text-3xl font-bold text-gray-800 dark:text-white">Aman</p>
-                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">Data dan transaksi terjaga</p>
+                            <p class="text-3xl font-bold text-gray-800 dark:text-white">{{ $about?->feature_2_title }}</p>
+                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">{{ $about?->feature_2_description }}</p>
                         </div>
                     </div>
                 </div>
@@ -132,9 +132,9 @@
         <section id="cara-sewa" class="bg-gray-50 py-24 dark:bg-gray-800">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-2xl text-center">
-                    <span class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Cara Sewa</span>
-                    <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white">Sewa kendaraan dalam beberapa langkah.</h2>
-                    <p class="mt-4 text-base leading-7 text-gray-500 dark:text-gray-300">Tidak perlu proses yang rumit. Pilih kendaraan, tentukan waktu, lalu lakukan perjalananmu.</p>
+                    <span class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">{{ $howto?->subtitle }}</span>
+                    <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white">{{ $howto?->title }}</h2>
+                    <p class="mt-4 text-base leading-7 text-gray-500 dark:text-gray-300">{{ $howto?->description }}</p>
                 </div>
 
                 <div class="mt-14 grid gap-8 md:grid-cols-3">
@@ -143,24 +143,24 @@
 
                     <div class="relative rounded-2xl border border-gray-200 p-7 dark:border-gray-600">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-800 text-lg font-bold text-white dark:bg-gray-200 dark:text-gray-800">01</div>
-                        <h3 class="mt-6 text-xl font-bold text-gray-800 dark:text-white">Pilih kendaraan</h3>
-                        <p class="mt-3 text-sm leading-6 text-gray-500 dark:text-gray-300">Cari kendaraan yang sesuai dengan kebutuhan dan budget perjalananmu.</p>
+                        <h3 class="mt-6 text-xl font-bold text-gray-800 dark:text-white">{{ $howto?->step_1_title }}</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-500 dark:text-gray-300">{{ $howto?->step_1_description }}</p>
                     </div>
 
                     {{-- STEP 2 --}}
 
                     <div class="relative rounded-2xl border border-gray-200 p-7 dark:border-gray-600">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-800 text-lg font-bold text-white dark:bg-gray-200 dark:text-gray-800">02</div>
-                        <h3 class="mt-6 text-xl font-bold text-gray-800 dark:text-white">Tentukan waktu</h3>
-                        <p class="mt-3 text-sm leading-6 text-gray-500 dark:text-gray-300">Tentukan tanggal mulai dan selesai rental sesuai dengan rencana perjalananmu.</p>
+                        <h3 class="mt-6 text-xl font-bold text-gray-800 dark:text-white">{{ $howto?->step_2_title }}</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-500 dark:text-gray-300">{{ $howto?->step_2_description }}</p>
                     </div>
 
                     {{-- STEP 3 --}}
 
                     <div class="relative rounded-2xl border border-gray-200 p-7 dark:border-gray-600">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-800 text-lg font-bold text-white dark:bg-gray-200 dark:text-gray-800">03</div>
-                        <h3 class="mt-6 text-xl font-bold text-gray-800 dark:text-white">Mulai perjalanan</h3>
-                        <p class="mt-3 text-sm leading-6 text-gray-500 dark:text-gray-300">Selesaikan proses pemesanan dan gunakan kendaraan untuk perjalananmu.</p>
+                        <h3 class="mt-6 text-xl font-bold text-gray-800 dark:text-white">{{ $howto?->step_3_title }}</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-500 dark:text-gray-300">{{ $howto?->step_3_description }}</p>
                     </div>
                 </div>
             </div>

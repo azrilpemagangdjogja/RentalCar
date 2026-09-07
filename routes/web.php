@@ -15,7 +15,9 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionFilterController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\AdminLandingPageController;
+use App\Http\Controllers\AdminLandingHeroController;
+use App\Http\Controllers\AdminLandingAboutController;
+use App\Http\Controllers\AdminLandingHowtoController;
 
 
 
@@ -67,13 +69,21 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('region-filter', RegionFilterController::class);
 
 // Landing Page
-    Route::get('hero', [AdminLandingPageController::class, 'hero'])->name('landing.hero');
-    Route::get('hero-edit', [AdminLandingPageController::class, 'heroedit'])->name('landing.hero.edit');
-    Route::put('hero/{id}/update', [AdminLandingPageController::class, 'heroupdate'])->name('landing.hero.update');
-    Route::post('hero-create', [AdminLandingPageController::class, 'herocreate'])->name('landing.hero.create');
+    // Hero Section
+    Route::get('hero', [AdminLandingHeroController::class, 'hero'])->name('landing.hero');
+    Route::get('hero-edit', [AdminLandingHeroController::class, 'heroedit'])->name('landing.hero.edit');
+    Route::put('hero/{id}/update', [AdminLandingHeroController::class, 'heroupdate'])->name('landing.hero.update');
+    Route::post('hero-create', [AdminLandingHeroController::class, 'herocreate'])->name('landing.hero.create');
 
-    Route::get('about', [AdminLandingPageController::class, 'about'])->name('landing.about');
-    Route::get('about-edit', [AdminLandingPageController::class, 'aboutedit'])->name('landing.about.edit');
-    Route::put('about/{id}/update', [AdminLandingPageController::class, 'aboutupdate'])->name('landing.about.update');
-    Route::post('about-create', [AdminLandingPageController::class, 'aboutcreate'])->name('landing.about.create');
+    // About Section
+    Route::get('about', [AdminLandingAboutController::class, 'about'])->name('landing.about');
+    Route::get('about-edit', [AdminLandingAboutController::class, 'aboutedit'])->name('landing.about.edit');
+    Route::put('about/{id}/update', [AdminLandingAboutController::class, 'aboutupdate'])->name('landing.about.update');
+    Route::post('about-create', [AdminLandingAboutController::class, 'aboutcreate'])->name('landing.about.create');
+
+    // How To
+    Route::get('howto', [AdminLandingHowtoController::class, 'howto'])->name('landing.howto');
+    Route::get('howto-edit', [AdminLandingHowtoController::class, 'howtoedit'])->name('landing.howto.edit');
+    Route::put('howto/{id}/update', [AdminLandingHowtoController::class, 'howtoupdate'])->name('landing.howto.update');
+    Route::post('howto-create', [AdminLandingHowtoController::class, 'howtocreate'])->name('landing.howto.create');
 });

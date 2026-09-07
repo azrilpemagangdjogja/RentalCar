@@ -41,7 +41,7 @@
 
                 <span
                     class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                    {{ $hero->status }}
+                    {{ $hero?->status}}
                 </span>
             </div>
 
@@ -52,7 +52,7 @@
 
                     {{-- BACKGROUND --}}
                     <div class="absolute inset-0">
-                        <img src="{{ $hero->background_image ?  asset('storage/' . $hero->background_image) : asset('images/login-background.png') }}" alt="Hero Background"
+                        <img src="{{ $hero?->background_image ?  asset('storage/' . $hero?->background_image) : asset('images/login-background.png') }}" alt="Hero Background"
                             class="h-full w-full object-cover">
 
                         <div class="absolute inset-0 bg-gradient-to-r from-gray-800/90 via-gray-800/70 to-gray-800/20">
@@ -70,18 +70,18 @@
                                 <span class="h-2 w-2 rounded-full bg-white"></span>
 
                                 <span class="text-sm font-medium text-gray-100">
-                                    {{ $hero->badge }}
+                                    {{ $hero?->badge }}
                                 </span>
                             </div>
 
                             {{-- TITLE --}}
                             <h1 class="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
-                                {{ $hero->title }}
+                                {{ $hero?->title }}
                             </h1>
 
                             {{-- DESCRIPTION --}}
                             <p class="mt-5 max-w-xl text-sm leading-6 text-gray-300 sm:text-base">
-                                {{ $hero->description }}
+                                {{ $hero?->description }}
                             </p>
 
                             {{-- BUTTONS --}}
@@ -89,7 +89,7 @@
 
                                 <span
                                     class="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-gray-800">
-                                    {{ $hero->primary_button_text }}
+                                    {{ $hero?->primary_button_text }}
 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="2" stroke="currentColor" class="h-4 w-4">
@@ -100,7 +100,7 @@
 
                                 <span
                                     class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm">
-                                    {{ $hero->secondary_button_text }}
+                                    {{ $hero?->secondary_button_text }}
                                 </span>
 
                             </div>
@@ -109,27 +109,27 @@
                             <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-white/20 pt-5">
 
                                 <div>
-                                    <p class="text-xl font-bold">{{ $hero->feature_1_title }}</p>
+                                    <p class="text-xl font-bold">{{ $hero?->feature_1_title }}</p>
                                     <p class="mt-1 text-xs text-gray-400">
-                                        {{ $hero->feature_1_description }}
+                                        {{ $hero?->feature_1_description }}
                                     </p>
                                 </div>
 
                                 <div class="h-8 w-px bg-white/20"></div>
 
                                 <div>
-                                    <p class="text-xl font-bold">{{ $hero->feature_2_title }}</p>
+                                    <p class="text-xl font-bold">{{ $hero?->feature_2_title }}</p>
                                     <p class="mt-1 text-xs text-gray-400">
-                                        {{ $hero->feature_2_description }}
+                                        {{ $hero?->feature_2_description }}
                                     </p>
                                 </div>
 
                                 <div class="h-8 w-px bg-white/20"></div>
 
                                 <div>
-                                    <p class="text-xl font-bold">{{ $hero->feature_3_title }}</p>
+                                    <p class="text-xl font-bold">{{ $hero?->feature_3_title }}</p>
                                     <p class="mt-1 text-xs text-gray-400">
-                                        {{ $hero->feature_3_description }}
+                                        {{ $hero?->feature_3_description }}
                                     </p>
                                 </div>
 
