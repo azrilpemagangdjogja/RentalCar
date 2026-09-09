@@ -194,7 +194,7 @@
             {{-- USER LIST --}}
 
             <div
-                class="overflow-hidden rounded-2xl dark:border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 sm:rounded-t-none">
+                class="overflow-hidden rounded-2xl shadow-md dark:border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 sm:rounded-t-none">
 
                 {{-- USER ROW --}}
 

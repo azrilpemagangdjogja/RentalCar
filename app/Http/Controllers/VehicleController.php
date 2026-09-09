@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Models\PickupLocation;
+use App\Models\RentalTime;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -38,9 +39,10 @@ class VehicleController extends Controller
         if ($user->mitra_status !== "Verified") {
             abort(404);
         }
+        $days = RentalTime::all();
         $types = VehicleType::where('status', 'Active')->get();
         $pickupLocations = PickupLocation::where("owner_id", $owner)->get();
-        return view("pages.mitra.vehicle.create", compact("pickupLocations", "types"));
+        return view("pages.mitra.vehicle.create", compact("pickupLocations", "types", "days"));
     }
 
     /**
@@ -121,10 +123,11 @@ class VehicleController extends Controller
             abort(404);
         }
 
+        $days = RentalTime::all();
         $vehicle = Vehicle::where("owner_id", $owner)->with('pickupLocation')->findOrFail($id);
         $pickupLocations = PickupLocation::where("owner_id", $owner)->get();
         $types = VehicleType::where('status', 'Active')->get();
-        return view("pages.mitra.vehicle.edit", compact(["vehicle", "pickupLocations", "types"]));
+        return view("pages.mitra.vehicle.edit", compact(["vehicle", "pickupLocations", "types", "days"]));
     }
 
     /**

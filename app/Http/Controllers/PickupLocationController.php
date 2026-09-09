@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PickupLocation;
 use App\Models\Vehicle;
+use App\Models\RegionFilter;
 use Illuminate\Http\Request;
 
 class PickupLocationController extends Controller
@@ -15,16 +16,17 @@ class PickupLocationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        if ($user->mitra_status !== "Verified") {
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
 
-        $data = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(10);
-        // $topData = PickupLocation::with('vehicles')->where('status', 'Active')->get();
-        // $vehicleCount = Vehicle::where("pickup_location_id", $topData->id)->count();
+        $pickupLocations = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(10);
+        
 
-        $dataTop = PickupLocation::with('vehicles')->where('max_vehicle', '>=', '0')->limit(3)->get();
-        return view("pages.mitra.pickup-location.index", compact(["data", "dataTop"]));
+        $recommendedLocations = PickupLocation::with('vehicles')->where('max_vehicle', '>=', '0')->limit(3)->get();
+        $areas = RegionFilter::orderBy('name')->pluck('name');
+        $suggestedLocations = PickupLocation::with('vehicles')->orderBy('created_at', 'asc')->paginate(10);
+        return view("pages.mitra.pickup-location.index", compact(["pickupLocations", "recommendedLocations", "areas", "suggestedLocations"]));
     }
 
     /**
@@ -33,7 +35,7 @@ class PickupLocationController extends Controller
     public function create()
     {
         $user = auth()->user();
-        if ($user->mitra_status !== "Verified") {
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
         return view("pages.mitra.pickup-location.create");
@@ -45,7 +47,7 @@ class PickupLocationController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== "Verified") {
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
         $data = $request->validate([
@@ -69,7 +71,7 @@ class PickupLocationController extends Controller
     public function show(string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== "Verified") {
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
 
@@ -84,7 +86,7 @@ class PickupLocationController extends Controller
     public function edit(string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== "Verified") {
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
 
@@ -99,7 +101,7 @@ class PickupLocationController extends Controller
     public function update(Request $request, string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== "Verified") {
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
 

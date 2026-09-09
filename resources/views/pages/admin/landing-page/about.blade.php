@@ -24,7 +24,7 @@
 
         {{-- ABOUT PREVIEW --}}
 
-        <div class="overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-gray-700">
+        <div class="overflow-hidden rounded-2xl bg-white dark:bg-gray-700">
 
             {{-- CARD HEADER --}}
 

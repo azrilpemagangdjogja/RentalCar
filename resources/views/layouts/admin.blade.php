@@ -27,7 +27,7 @@
                 <x-customer-sidebar/>
 
             @endif
-            <main class="min-h-0 w-full flex-1 overflow-y-auto bg-slate-100 px-6 py-4 dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+            <main class="min-h-0 w-full flex-1 overflow-y-auto bg-gray-100 px-6 py-4 dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
                 @yield('content')
                 <x-mitra-footer/>
             </main>     

@@ -317,7 +317,7 @@
                         </div>
 
                         <div class="mb-4 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-600">
-                            <img src="{{ asset($hero->background_image ?? 'images/login-background.png') }}"
+                            <img src="{{ $hero?->background_image ? asset('storage/' . $hero->background_image) : 'images/mitra-default.png' }}"
                                 alt="Background Hero" class="h-40 w-full object-cover">
                         </div>
 

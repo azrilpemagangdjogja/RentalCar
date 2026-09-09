@@ -149,8 +149,8 @@
 
                         <div>
                             <label for="type"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tipe Kendaraan <span
-                                    class="text-red-500">*</span></label>
+                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tipe Kendaraan
+                                <span class="text-red-500">*</span></label>
                             <select name="type_id" id="type" required
                                 class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
                                 <option value="">Pilih tipe</option>
@@ -340,6 +340,64 @@
                             <option value="Active" @selected(old('status') === 'Active')>Aktif</option>
                         </select>
                     </div>
+                </section>
+
+                {{-- CREATE RENTAL DAYS --}}
+
+                <section
+                    class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+                    <div class="mb-6 flex items-start gap-4">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h2 class="font-bold text-gray-800 dark:text-white">Pilih Lama Rental</h2>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                Pilih lama hari yang bisa dipilih oleh customer.
+                            </p>
+                        </div>
+                    </div>
+
+                    @if ($days->count())
+                        <div class="grid grid-cols-2 gap-3">
+                            @foreach ($days as $day)
+                                <label
+                                    class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-400 dark:hover:bg-gray-700">
+                                    <input type="checkbox" name="days[]" value="{{ $day->id }}"
+                                        class="h-4 w-4 rounded border-gray-300 text-gray-800 focus:ring-gray-800 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-gray-300">
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                                        {{ $day->day }} Hari
+                                    </span>
+                                </label>
+                            @endforeach
+                        </div>
+                    @else
+                        <div
+                            class="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-6 text-center dark:border-gray-600 dark:bg-gray-800">
+                            <div
+                                class="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                </svg>
+                            </div>
+                            <p class="mt-3 text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                Belum ada pilihan hari
+                            </p>
+                            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
+                                Data lama rental belum tersedia.
+                            </p>
+                        </div>
+                    @endif
+
+                    @error('days')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
                 </section>
 
                 {{-- ACTION --}}

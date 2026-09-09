@@ -3,23 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\LandingAbout;
 
 class AdminLandingAboutController extends Controller
 {
-    public function about(){
+    public function about()
+    {
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
+
         $about = LandingAbout::first();
         return view('pages.admin.landing-page.about', compact('about'));
     }
-    public function aboutedit(){
+    public function aboutedit()
+    {
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
+
         $about = LandingAbout::first();
         return view('pages.admin.landing-page.aboutedit', compact('about'));
     }
-    public function aboutupdate(Request $request, string $id){
-        $user =  auth()->user();
+    public function aboutupdate(Request $request, string $id)
+    {
+        $user = auth()->user();
 
-        if ($user->role != "Admin" && $user->role != "Superadmin"){
+        if ($user->role != "Admin" && $user->role != "Superadmin") {
             abort(404);
         }
 
@@ -36,25 +50,34 @@ class AdminLandingAboutController extends Controller
             "feature_2_description" => "required",
             "card_title" => "required",
             "card_description" => "required",
-            
+
         ]);
 
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('landing_page_about_image', 'public');
         } else {
             unset($data['image']);
         }
 
         $landingAbout = LandingAbout::findOrFail($id);
-        $landingAbout->update($data);
+        $landingAbout->fill($data);
+
+        if ($landingAbout->isDirty()) {
+            $landingAbout->save();
+            UserHistory::record(
+                "Landing Page",
+                $user->name . " Mengubah data untuk landing page section About"
+            );
+        }
 
         return redirect()->route('landing.about');
     }
 
-    public function aboutcreate(Request $request){
-        $user =  auth()->user();
+    public function aboutcreate(Request $request)
+    {
+        $user = auth()->user();
 
-        if ($user->role != "Admin" && $user->role != "Superadmin"){
+        if ($user->role != "Admin" && $user->role != "Superadmin") {
             abort(404);
         }
 
@@ -73,13 +96,18 @@ class AdminLandingAboutController extends Controller
             "card_description" => "required",
         ]);
 
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('landing_page_about_image', 'public');
         } else {
             unset($data['image']);
         }
 
         LandingAbout::create($data);
+
+        UserHistory::record(
+            "Landing Page",
+            $user->name . " Membuat data untuk landing page section About"
+        );
 
         return redirect()->route('landing.about');
     }

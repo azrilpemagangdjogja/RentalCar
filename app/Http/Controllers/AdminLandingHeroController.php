@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\LandingHero;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 
 class AdminLandingHeroController extends Controller
 {
     public function hero(){
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin"){
+            abort(404);
+        }
+        
         $hero = LandingHero::first();
         return view('pages.admin.landing-page.hero', compact('hero'));
     }
     public function heroedit(){
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin"){
+            abort(404);
+        }
+        
         $hero = LandingHero::first();
         return view('pages.admin.landing-page.heroedit', compact('hero'));
     }
@@ -48,7 +59,17 @@ class AdminLandingHeroController extends Controller
         }
 
         $landingHero = LandingHero::findOrFail($id);
-        $landingHero->update($data);
+
+        $landingHero->fill($data);
+
+        if ($landingHero->isDirty()){
+            $landingHero->save();
+
+            UserHistory::record(
+                "Landing Page",
+                "Mengubah data untuk landing page section hero",
+            );
+        }
 
         return redirect()->route('landing.hero');
     }
@@ -85,6 +106,11 @@ class AdminLandingHeroController extends Controller
         }
 
         LandingHero::create($data);
+
+        UserHistory::record(
+            "Landing Page",
+            "Menambah data untuk landing page section hero",
+        );
 
         return redirect()->route('landing.hero');
     }

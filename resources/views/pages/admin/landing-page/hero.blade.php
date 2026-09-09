@@ -26,7 +26,7 @@
         </div>
 
         {{-- HERO PREVIEW --}}
-        <div class="overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-gray-700">
+        <div class="overflow-hidden rounded-2xl bg-white dark:bg-gray-700">
 
             {{-- CARD HEADER --}}
             <div class="flex items-center justify-between border-b border-gray-100 px-5 py-4 dark:border-gray-600 sm:px-6">

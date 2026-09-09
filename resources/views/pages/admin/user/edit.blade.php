@@ -58,7 +58,7 @@
                         <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 
                             <div class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600">
-                                <img src="{{ asset('storage/' . $user->profile ?? 'images/default-profile.png') }}"
+                                <img src="{{ $user->profile ? asset('storage/' . $user->profile) : asset('images/default-profile.png')}}"
                                     alt="{{ $user->name }}" class="h-full w-full object-cover">
                             </div>
 

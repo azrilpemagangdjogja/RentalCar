@@ -37,4 +37,8 @@ class Vehicle extends Model
     public function type(){
         return $this->belongsTo(VehicleType::class);
     }
+
+    public function vehicleTime(){
+        return $this->belongsToMany(RentalTime::class, 'vehicle_times', 'vehicle_id', 'time_id');
+    }
 }
