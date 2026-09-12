@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -25,6 +26,11 @@ class AuthController extends Controller
 
             $user->last_login_at = now();
             $user->save();
+
+            UserHistory::record(
+                "Login",
+                $user->name . " telah Login pada " . $user->last_login_at
+            );
 
             if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Superadmin') {
                 return redirect('admin-dashboard');
@@ -54,10 +60,20 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        UserHistory::record(
+            "Register",
+            "Akun baru " . $request->name . " telah dibuat"
+        );
+
         return redirect('login');
     }
 
     public function logout(Request $request){
+        $user = auth()->user();
+        UserHistory::record(
+            "Logout",
+            $user->name . " telah Logout pada " . now()
+        );
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

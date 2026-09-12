@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\User;
 use illuminate\Support\Facades\Storage;
@@ -14,6 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
         $users = User::all();
         $totalUsers = $users->count();
         $totalRoleUsers = $users->where('role', 'User')->count();
@@ -27,6 +33,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
         return view("pages.admin.user.create");
     }
 
@@ -35,9 +46,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
+
         $data = $request->validate([
-            'name'=> 'required',
-            'email'=> 'required',
+            'name' => 'required',
+            'email' => 'required',
             'profile' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'telp' => 'required',
             'role' => 'required',
@@ -50,10 +67,13 @@ class UserController extends Controller
         if ($request->hasFile('profile')) {
             $data['profile'] = $request->file('profile')->store('profiles', 'public');
         }
-    
+
         User::create($data);
 
-        
+        UserHistory::record(
+            "User",
+            $user->name . " Menambahkan user " . $data->name
+        );
 
         return redirect('user');
     }
@@ -63,6 +83,12 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $users = auth()->user();
+
+        if ($users->role !== "Admin" && $users->role !== "Superadmin") {
+            abort(404);
+        }
+
         $user = User::findOrFail($id);
         return view('pages.admin.user.show', compact('user'));
     }
@@ -73,6 +99,12 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        $users = auth()->user();
+
+        if ($users->role !== "Admin" && $users->role !== "Superadmin") {
+            abort(404);
+        }
+
         $user = User::findOrFail($id);
         return view('pages.admin.user.edit', compact('user'));
     }
@@ -82,9 +114,15 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $users = auth()->user();
+
+        if ($users->role !== "Admin" && $users->role !== "Superadmin") {
+            abort(404);
+        }
+
         $data = $request->validate([
-            'name'=> 'required',
-            'email'=> 'required',
+            'name' => 'required',
+            'email' => 'required',
             'profile' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'telp' => 'required',
             'role' => 'required',
@@ -103,7 +141,15 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $user->update($data);
+        $user->fill($data);
+        if ($user->isDirty()) {
+
+            $user->save();
+            UserHistory::record(
+                "User",
+                $users->name . " Mengubah user " . $user->name
+            );
+        }
 
         return redirect('user');
     }

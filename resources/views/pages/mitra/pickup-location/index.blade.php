@@ -14,17 +14,8 @@
                 </div>
                 <h1 class="text-2xl mt-2 font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Lokasi
                     Pengambilan</h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola lokasi pengambilan kendaraan yang kamu
-                    miliki.</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Cari lokasi pengambilan yang cocok untuk anda.</p>
             </div>
-            <a href="{{ route('pickup-location.create') }}"
-                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-gray-50 dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                    stroke="currentColor" class="h-5 w-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 5.25v13.5M5.25 12h13.5" />
-                </svg>
-                Tambah Lokasi
-            </a>
         </div>
 
     {{-- RECOMMENDED --}}
@@ -32,11 +23,11 @@
         <div class="mb-5 flex items-end justify-between">
             <div>
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
-                    Pickup Location Pilihan
+                    Rekomendasi
                 </h2>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                {{-- <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     Lokasi yang direkomendasikan berdasarkan kapasitas dan ketersediaan.
-                </p>
+                </p> --}}
             </div>
             <a href="#semua-pickup"
                 class="hidden text-sm font-medium text-gray-600 transition hover:text-gray-800 dark:text-gray-300 dark:hover:text-white sm:block">
@@ -46,7 +37,7 @@
 
         <div class="flex snap-x gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-3 sm:overflow-visible">
             @forelse ($recommendedLocations as $location)
-                <a href="{{ route('pickup-location.show', $location->id) }}"
+                <a href="{{ route('join-pickup-location.show', $location->id) }}"
                     class="group min-w-[280px] snap-start overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 sm:min-w-0">
 
                     {{-- MAP --}}
@@ -131,7 +122,7 @@
         </div>
 
         <div class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
-            <form action="{{ route('pickup-location.index') }}" method="GET">
+            <form action="{{ route('join-pickup-location.index') }}" method="GET">
                 <div class="grid gap-4 sm:grid-cols-[1fr_auto]">
                     <div class="relative">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -173,7 +164,7 @@
 
                 <div class="mt-5 flex flex-wrap gap-2">
                     @foreach ($areas->take(8) as $area)
-                        <a href="{{ route('pickup-location.index', ['area' => $area]) }}"
+                        <a href="{{ route('join-pickup-location.index', ['area' => $area]) }}"
                             class="rounded-full border px-4 py-2 text-xs font-medium transition
                             {{ request('area') == $area
                                 ? 'border-gray-800 bg-gray-800 text-white dark:border-gray-200 dark:bg-gray-200 dark:text-gray-800'
@@ -201,7 +192,7 @@
 
         <div class="flex snap-x gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-3 lg:grid-cols-4 sm:overflow-visible">
             @forelse ($suggestedLocations as $location)
-                <a href="{{ route('pickup-location.show', $location->id) }}"
+                <a href="{{ route('join-pickup-location.show', $location->id) }}"
                     class="group min-w-[250px] snap-start overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-600 dark:bg-gray-700 sm:min-w-0">
 
                     <div class="relative h-36 overflow-hidden bg-gray-200 dark:bg-gray-600">
@@ -255,7 +246,7 @@
 
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             @forelse ($pickupLocations as $location)
-                <a href="{{ route('pickup-location.show', $location->id) }}"
+                <a href="{{ route('join-pickup-location.show', $location->id) }}"
                     class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-600 dark:bg-gray-700">
 
                     <div class="flex gap-4">

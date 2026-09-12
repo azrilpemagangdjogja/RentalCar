@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PickupLocation;
 use App\Models\Vehicle;
+use App\Models\UserHistory;
 use App\Models\RegionFilter;
 use Illuminate\Http\Request;
 
@@ -20,13 +21,13 @@ class PickupLocationController extends Controller
             abort(404);
         }
 
-        $pickupLocations = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(10);
+        $pickupLocations = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(1);
         
 
         $recommendedLocations = PickupLocation::with('vehicles')->where('max_vehicle', '>=', '0')->limit(3)->get();
         $areas = RegionFilter::orderBy('name')->pluck('name');
         $suggestedLocations = PickupLocation::with('vehicles')->orderBy('created_at', 'asc')->paginate(10);
-        return view("pages.mitra.pickup-location.index", compact(["pickupLocations", "recommendedLocations", "areas", "suggestedLocations"]));
+        return view("pages.admin.pickup-location.index", compact(["pickupLocations", "recommendedLocations", "areas", "suggestedLocations"]));
     }
 
     /**
@@ -38,7 +39,7 @@ class PickupLocationController extends Controller
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
-        return view("pages.mitra.pickup-location.create");
+        return view("pages.admin.pickup-location.create");
     }
 
     /**
@@ -62,6 +63,11 @@ class PickupLocationController extends Controller
 
         PickupLocation::create($data);
 
+        UserHistory::record(
+            "Pickup Location",
+            $user->name . " menambahkan pickup location " . $data['name']
+        );
+
         return redirect()->route("pickup-location.index");
     }
 
@@ -77,7 +83,7 @@ class PickupLocationController extends Controller
 
         $pickupLocation = PickupLocation::findOrFail($id);
         $vehicle = $pickupLocation->vehicles->where('status', 'Active')->count();
-        return view("pages.mitra.pickup-location.show", compact(["pickupLocation", "vehicle"]));
+        return view("pages.admin.pickup-location.show", compact(["pickupLocation", "vehicle"]));
     }
 
     /**
@@ -92,7 +98,7 @@ class PickupLocationController extends Controller
 
         $vehicles = Vehicle::where("owner_id", $user->id)->get();
         $pickupLocation = PickupLocation::findOrFail($id);
-        return view("pages.mitra.pickup-location.edit", compact(["pickupLocation", "vehicles"]));
+        return view("pages.admin.pickup-location.edit", compact(["pickupLocation", "vehicles"]));
     }
 
     /**
@@ -111,7 +117,14 @@ class PickupLocationController extends Controller
 
         $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
         $pickupLocation = Vehicle::where('owner_id', $user->id)->findOrFail($id);
-        $pickupLocation->update($data);
+        $pickupLocation->fill($data);
+        if ($pickupLocation->isDirty()){
+            $pickupLocation->save();
+            UserHistory::record(
+                "Lokasi Pengambilan",
+                $user->name . "mengubah pickup location " . $pickupLocation->name
+            );
+        }
     }
 
     /**
@@ -125,20 +138,20 @@ class PickupLocationController extends Controller
     public function veh(string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
 
         $vehicles = Vehicle::where("owner_id", $user->id)->where('pickup_location_id', null)->get();
         $pickupLocation = PickupLocation::findOrFail($id);
         $usedVehicles = Vehicle::where("owner_id", $user->id)->where('pickup_location_id', $pickupLocation->id)->get();
-        return view("pages.mitra.pickup-location.addveh", compact(["pickupLocation", "vehicles", "usedVehicles"]));
+        return view("pages.admin.pickup-location.addveh", compact(["pickupLocation", "vehicles", "usedVehicles"]));
     }
 
     public function addveh($pickupLocation, $vehicle)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
 
@@ -161,7 +174,7 @@ class PickupLocationController extends Controller
 
     public function unveh($pickupLocation, $vehicle){
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
         $vehicle = Vehicle::where('pickup_location_id', $pickupLocation)->where('id', $vehicle)->firstOrFail();
@@ -174,18 +187,18 @@ class PickupLocationController extends Controller
     public function manage(string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
 
         $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
-        return view("pages.mitra.pickup-location.manage", compact(["pickupLocation"]));
+        return view("pages.admin.pickup-location.manage", compact(["pickupLocation"]));
     }
 
     public function addmanage(Request $request, string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
 
@@ -203,25 +216,32 @@ class PickupLocationController extends Controller
             return back()->with("error", "Kapasitas telah penuh");
         }
 
-        $pickupLocation->update($data);
+        $pickupLocation->fill($data);
+        if ($pickupLocation->isDirty()){
+            $pickupLocation->save();
+            UserHistory::record(
+                "Lokasi Pengambilan",
+                $user->name . " mengubah manajemen lokasi pengambilan " . $pickupLocation->name
+            );
+        }
         return redirect()->route("pickup-location.show", $id);
     }
 
     public function profile(string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
 
         $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
-        return view("pages.mitra.pickup-location.edit", compact(["pickupLocation"]));
+        return view("pages.admin.pickup-location.edit", compact(["pickupLocation"]));
     }
 
     public function addprofile(Request $request, string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
 
@@ -238,7 +258,7 @@ class PickupLocationController extends Controller
     public function status(Request $request, string $id)
     {
         $user = auth()->user();
-        if ($user->mitra_status !== 'Verified') {
+        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
             abort(404);
         }
         $data = $request->validate([
@@ -247,9 +267,14 @@ class PickupLocationController extends Controller
 
         $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
 
-        $pickupLocation->update([
-            'status' => $data['status'],
-        ]);
+        $pickupLocation->fill($data);
+        if ($pickupLocation->isDirty()){
+            UserHistory::record(
+                "Lokasi Pengambilan",
+                $user->name . " mengubah status lokasi pengambilan " . $pickupLocation->name
+            );
+            $pickupLocation->save();
+        }
 
         return back();
 

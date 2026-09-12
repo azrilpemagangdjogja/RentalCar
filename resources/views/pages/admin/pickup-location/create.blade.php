@@ -106,6 +106,31 @@
 
                 </div>
 
+                {{-- SEARCH LATITUDE LONGITUDE --}}
+
+                <div class="flex flex-col gap-3 mt-6 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <label for="latitude" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            Cari Latitude dan Longitude anda
+                        </label>
+                        <p class="text-xs text-gray-400 dark:text-gray-400">
+                            Gunakan lokasi perangkat anda untuk mengisi koordinat secara otomatis.
+                        </p>
+                    </div>
+
+                    <button type="button" onclick="getLocation()"
+                        class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-gray-50 dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                            stroke="currentColor" class="h-4 w-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 10.5-7.5 10.5s-7.5-3.358-7.5-10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        Cari Lokasi
+                    </button>
+                </div>
+
                 <div class="mt-5 flex gap-3 rounded-xl bg-gray-50 p-4 dark:bg-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-500 dark:text-gray-400">
@@ -152,3 +177,11 @@
         </form>
     </section>
 @endsection
+<script>
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById('latitude').value = position.coords.latitude.toFixed(7);
+            document.getElementById('longitude').value = position.coords.longitude.toFixed(7);
+        });
+    }
+</script>

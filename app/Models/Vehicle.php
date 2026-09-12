@@ -41,4 +41,8 @@ class Vehicle extends Model
     public function vehicleTime(){
         return $this->belongsToMany(RentalTime::class, 'vehicle_times', 'vehicle_id', 'time_id');
     }
+
+    public function approvalJoin(){
+        return $this->hasOne(ApprovalJoinVehicle::class, 'vehicle_id');
+    }
 }

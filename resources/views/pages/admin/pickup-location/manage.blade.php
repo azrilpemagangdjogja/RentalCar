@@ -213,8 +213,8 @@
 <script>
     function getLocation() {
         navigator.geolocation.getCurrentPosition(function (position) {
-            document.getElementById('latitude').value = position.coords.latitude;
-            document.getElementById('longitude').value = position.coords.longitude;
+            document.getElementById('latitude').value = position.coords.latitude.toFixed(7);
+            document.getElementById('longitude').value = position.coords.longitude.toFixed(7);
         });
     }
 </script>

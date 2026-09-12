@@ -20,7 +20,7 @@
             </div>
 
             <a href="{{ route('user.create') }}"
-                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-gray-50 sm:w-auto">
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                     stroke="currentColor" class="h-5 w-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14" />
@@ -36,7 +36,7 @@
 
             {{-- TOTAL USERS --}}
 
-            <div class="rounded-2xl dark:border border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Users</p>
@@ -55,7 +55,7 @@
 
             {{-- USERS --}}
 
-            <div class="rounded-2xl dark:border border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">User</p>
@@ -74,7 +74,7 @@
 
             {{-- ADMIN --}}
 
-            <div class="rounded-2xl dark:border border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Admin</p>
@@ -93,7 +93,7 @@
 
             {{-- MITRA PENDING --}}
 
-            <div class="rounded-2xl dark:border border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Superadmin</p>
@@ -141,11 +141,11 @@
                         </svg>
                     </div>
                     <input type="search" placeholder="Cari nama, email, atau nomor telepon..."
-                        class="w-full rounded-xl dark:border border-gray-200 bg-gray-50 py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:bg-gray-50 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
+                        class="w-full rounded-xl dark:border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
                 </div>
 
                 <select
-                    class="rounded-xl dark:border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+                    class="rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
                     <option>Semua Role</option>
                     <option>User</option>
                     <option>Admin</option>
@@ -153,7 +153,7 @@
                 </select>
 
                 <select
-                    class="rounded-xl dark:border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+                    class="rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
                     <option>Semua Status</option>
                     <option>Unverified</option>
                     <option>Pending</option>
@@ -166,7 +166,7 @@
             {{-- TABLE HEADER --}}
 
             {{-- <div
-                class="hidden rounded-t-2xl dark:border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-600 dark:bg-gray-800 sm:flex sm:items-center sm:gap-5">
+                class="hidden rounded-t-2xl dark:border border-gray-200 bg-white px-4 py-3 dark:border-gray-600 dark:bg-gray-800 sm:flex sm:items-center sm:gap-5">
 
                 <div class="w-72 text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                     User
@@ -194,13 +194,13 @@
             {{-- USER LIST --}}
 
             <div
-                class="overflow-hidden rounded-2xl shadow-md dark:border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 sm:rounded-t-none">
+                class="overflow-hidden rounded-2xl dark:border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700 sm:rounded-t-none">
 
                 {{-- USER ROW --}}
 
                 @forelse ($users as $items)
                     <div
-                        class="group border-b border-gray-100 p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-600 sm:flex sm:items-center sm:gap-5">
+                        class="group border-b border-gray-100 p-4 transition hover:bg-white dark:border-gray-600 dark:hover:bg-gray-600 sm:flex sm:items-center sm:gap-5">
 
                         {{-- PROFILE + ACTION --}}
 
@@ -246,7 +246,7 @@
                                 </p>
                                 @if ($items->role == 'Superadmin' || $items->role == 'Admin')
                                     <span
-                                        class="mt-0.5 inline-flex rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">
+                                        class="mt-0.5 inline-flex rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-white dark:text-gray-800">
                                         {{ $items->role }}
                                     </span>
                                 @else
@@ -265,7 +265,7 @@
                                 </p>
                                 @if ($items->mitra_status == 'Verified')
                                     <span
-                                        class="mt-0.5 inline-flex rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">
+                                        class="mt-0.5 inline-flex rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-white dark:text-gray-800">
                                         Mitra
                                     </span>
                                 @else

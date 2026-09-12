@@ -157,7 +157,7 @@
 
                     <div class="divide-y divide-gray-100 dark:divide-gray-600">
 
-                        <div class="flex items-center justify-end gap-4 p-6">
+                        <div class="flex items-center gap-4 p-6">
                             <div>
                                 <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Email</p>
                                 <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">

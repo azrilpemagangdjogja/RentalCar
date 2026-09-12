@@ -14,8 +14,11 @@ class UserHistoryController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $histories = UserHistory::where('user_id', $user->id)->paginate(20);
-
+        if ($user->role == "Admin" || $user->role == "Superadmin"){
+            $histories = UserHistory::orderByDesc('created_at')->paginate(10);
+        } else {
+            $histories = UserHistory::where('user_id', $user->id)->orderByDesc('created_at')->paginate(20);
+        }
         return view('pages.user-history.index', compact('histories'));
     }
 

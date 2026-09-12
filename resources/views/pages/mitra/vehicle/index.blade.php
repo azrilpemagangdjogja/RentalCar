@@ -29,7 +29,7 @@
     </section>
 
     {{-- SUMMARY --}}
-    <section class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
+    <section class="grid-cols-2 hidden md:grid gap-3 sm:grid-cols-4 sm:gap-5">
         <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
             <div class="flex items-center justify-between gap-2">
                 <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Total</span>

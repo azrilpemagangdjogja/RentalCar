@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Models\PickupLocation;
 use App\Models\RentalTime;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -94,6 +95,11 @@ class VehicleController extends Controller
 
         Vehicle::create($data);
 
+        UserHistory::record(
+            "Kendaraan",
+            $user->name . " Menambahkan kendaraan " . $data['brand'] . ' ' . $data['model']
+        );
+
         return redirect()->route("vehicle.index");
     }
 
@@ -178,7 +184,14 @@ class VehicleController extends Controller
             }
         }
 
-        $vehicle->update($data);
+        $vehicle->fill($data);
+        if ($vehicle->isDirty()) {
+            $vehicle->save();
+            UserHistory::record(
+                "User",
+                $user->name . " Mengubah kendaraan " . $vehicle->brand . ' ' . $vehicle->model
+            );
+        }
         return redirect()->route("vehicle.index");
     }
 

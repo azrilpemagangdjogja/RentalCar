@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mitra_members', function (Blueprint $table) {
+        Schema::create('mitra_identities', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('user_id')
+            $table->foreignId('mitra_id')
                 ->constrained('users')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-                
-            $table->enum('status', ['Active','Inactive'])->default('Inactive');
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->string('nik', 16)->unique();
+            $table->string('full_name');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mitra_members');
+        Schema::dropIfExists('mitra_identities');
     }
 };

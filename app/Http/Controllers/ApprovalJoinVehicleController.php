@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\ApprovalJoinVehicle;
 
-class ProfileController extends Controller
+class ApprovalJoinVehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $approvement = ApprovalJoinVehicle::all();
+        return view('pages.admin.approval.pickup-location.index', compact('approvement'));
     }
 
     /**
@@ -37,8 +38,13 @@ class ProfileController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::where("id", $id)->first();
-        return view("pages.profile.customer.index", compact("user"));
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin"){
+            abort(404);
+        }
+
+        $approvement = ApprovalJoinVehicle::findOrFail($id);
+        return view('pages.admin.approval.pickup-location.show', compact('approvement'));
     }
 
     /**

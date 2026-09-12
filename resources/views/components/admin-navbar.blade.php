@@ -1,6 +1,6 @@
 <!-- Simplicity is the essence of happiness. - Cedric Bledsoe -->
 <div
-    class="flex h-16 w-full items-center justify-between border-b-2 border-gray-100 bg-gray-50 px-6 text-gray-800 dark:border-gray-800 dark:bg-gray-700 dark:text-gray-50">
+    class="flex h-16 w-full items-center justify-between border-b-2 border-gray-100 bg-none px-2 md:px-6 text-gray-800 dark:border-gray-800 dark:text-gray-50">
 
     {{-- PAGE TITLE --}}
 
@@ -46,11 +46,11 @@
 
         {{-- PROFILE --}}
 
-        <button type="button"
+        <a href="{{ route('profile.show', auth()->id()) }}"
             class="flex items-center gap-3 rounded-xl px-2 py-1.5 transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600">
 
             <div
-                class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gray-800 text-sm font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
+                class="flex h-9 w-9 items-center border-1 border-gray-700 justify-center overflow-hidden rounded-full bg-gray-800 text-sm font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
                 <img src="{{ auth()->user()->profile ? asset('storage/' . auth()->user()->profile) : 'images/default-profile.png' }}"
                     alt="">
             </div>
@@ -60,7 +60,7 @@
                 <p class="text-xs text-gray-400 dark:text-gray-300">{{ auth()->user()->email }}</p>
             </div>
 
-        </button>
+        </a>
 
     </div>
 

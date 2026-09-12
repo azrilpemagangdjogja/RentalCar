@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApprovalJoinVehicleController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LayoutsController;
 use App\Http\Controllers\UserHistoryController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\AdminLandingHeroController;
 use App\Http\Controllers\AdminLandingAboutController;
 use App\Http\Controllers\AdminLandingHowtoController;
 use App\Http\Controllers\RentalTimeController;
+use App\Http\Controllers\JoinPickupLocationController;
 
 
 
@@ -46,12 +48,16 @@ Route::middleware(['auth', 'role:User'])->group(function () {
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('transaction', TransactionController::class);
     Route::get('search', [SearchController::class,'customer'])->name('search.customer');
+    Route::get('search', [SearchController::class,'customer'])->name('search.customer');
 });
 
 // Fitur khusus User yg memiliki status_mitra = 'Verified' 
 Route::middleware(['auth','mitra.verified'])->group(function () {
     Route::get('/mitra-dashboard', [LayoutsController::class,'indexmitra'])->name('mitra.dashboard');
     Route::resource('vehicle', VehicleController::class);
+    Route::get('/join-pickup-location/{id}/veh', [JoinPickupLocationController::class,'veh'])->name('join-pickup-location.veh');
+    Route::post('/join-pickup-location/{pickupLocation}/addveh/{vehicle}', [JoinPickupLocationController::class,'addveh'])->name('join-pickup-location.addveh');
+    Route::resource('join-pickup-location', JoinPickupLocationController::class);
 });
 
 // Fitur Khusus Admin & Superadmin
@@ -61,6 +67,7 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('vehicle-type', VehicleTypeController::class);
     Route::resource('region-filter', RegionFilterController::class);
     Route::resource('rental-time', RentalTimeController::class);
+    Route::resource('approval-join-vehicle', ApprovalJoinVehicleController::class);
 
     Route::patch('/pickup-location/{id}/status', [PickupLocationController::class,'status'])->name('pickup-location.status');
     Route::get('/pickup-location/{id}/veh', [PickupLocationController::class,'veh'])->name('pickup-location.veh');
