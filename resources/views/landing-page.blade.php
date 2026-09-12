@@ -12,15 +12,15 @@
 
     {{-- NAVBAR --}}
 
-    <header class="fixed bg-black/60 backdrop-blur-sm dark:bg-black/10 left-0 right-0 top-0 z-50">
+    <header class="fixed bg-white/10 backdrop-blur-sm dark:bg-black/10 left-0 right-0 top-0 z-50">
         <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
             <a href="{{ url('/') }}" class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-gray-700">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-gray-50 dark:bg-white dark:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18M6 15.75h.01M18 15.75h.01" />
                     </svg>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-white">RentalCar</span>
+                <span class="text-xl font-bold tracking-tight text-gray-800 dark:text-white">RentalCar</span>
             </a>
 
             <div class="hidden items-center gap-8 md:flex">
@@ -43,7 +43,7 @@
         <section id="beranda" class="relative min-h-screen overflow-hidden bg-gray-100 dark:bg-gray-700">
             <div class="absolute inset-0">
                 <img src="{{ $hero?->background_image ? asset('storage/' . $hero?->background_image) : asset('images/login-background.png') }}" alt="RentalCar" class="h-full w-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-r from-gray-800/90 via-gray-800/70 to-gray-800/20 dark:from-gray-800/95 dark:via-gray-800/80 dark:to-gray-800/30"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-gray-700/90 via-gray-600/70 to-gray-100/20 dark:from-gray-800/95 dark:via-gray-800/80 dark:to-gray-800/30"></div>
             </div>
 
             <div class="relative mx-auto flex min-h-screen max-w-7xl items-center px-6 pb-16 pt-32 lg:px-8">

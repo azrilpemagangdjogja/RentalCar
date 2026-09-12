@@ -6,7 +6,7 @@
     <section class="mb-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="md:flex hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">

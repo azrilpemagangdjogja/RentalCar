@@ -60,7 +60,8 @@ class JoinPickupLocationController extends Controller
             abort(404);
         }
         $pickupLocation = PickupLocation::findOrFail($id);
-        return view("pages.mitra.pickup-location.show", compact('pickupLocation'));
+        $vehicles = Vehicle::where('pickup_location_id', $pickupLocation->id)->get();
+        return view("pages.mitra.pickup-location.show", compact(['pickupLocation', 'vehicles']));
     }
 
     /**
@@ -139,6 +140,7 @@ class JoinPickupLocationController extends Controller
 
         $vehicleCount = Vehicle::where('pickup_location_id', $pickupLocation)->count();
         $pickupLocation = PickupLocation::find($pickupLocation);
+        $owner = PickupLocation::with('owner')->find($pickupLocation);
         if ($pickupLocation->max_vehicle <= $vehicleCount) {
             return back()->withErrors('maks kendaraan sudah tercapai');
         } else {
@@ -161,6 +163,17 @@ class JoinPickupLocationController extends Controller
                 "vehicle_profile" => $vehicle->profile,
                 "vehicle_plate_number" => $vehicle->plate_number,
                 "vehicle_description" => $vehicle->description,
+                "location_id" => $pickupLocation->id,
+                "location_name" => $pickupLocation->name,
+                "location_address" => $pickupLocation->address,
+                "location_latitude" => $pickupLocation->latitude,
+                "location_longitude" => $pickupLocation->longitude,
+                "location_description" => $pickupLocation->description,
+                "owner_id" => $pickupLocation->owner->id,
+                "owner_name" => $pickupLocation->owner->name,
+                "owner_email" => $pickupLocation->owner->email,
+                "owner_telp" => $pickupLocation->owner->telp,
+                "owner_profile" => $pickupLocation->owner->profile,
             ]);
 
             UserHistory::record(

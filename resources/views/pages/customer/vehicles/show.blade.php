@@ -1,33 +1,31 @@
 @extends('layouts.admin')
+
 @section('content')
     {{-- HEADER --}}
+
 
     <section class="mb-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                {{-- <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
-                    <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Dashboard</a>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-4 w-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                    </svg>
-                    <span>Kendaraan</span>
-                </div> --}}
-                <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Detail Kendaraan</h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Detail informasi kendaraan {{ $vehicle->brand }} {{ $vehicle->model }}.</p>
+                <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Detail Kendaraan</h1>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Detail informasi kendaraan {{ $vehicle->brand }}
+                    {{ $vehicle->model }}.</p>
             </div>
-
             <a href="{{ route('customer.dashboard') }}"
-                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                    stroke="currentColor" class="h-4 w-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.5 7.5 12l7.5-7.5" />
+                </svg>
                 Kembali
             </a>
         </div>
     </section>
 
-    {{-- PRODUCT DETAIL --}}
+    {{-- VEHICLE DETAIL --}}
 
-    <section class="rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-        <div class="grid gap-6 p-4 sm:p-6 lg:grid-cols-5">
+    <section class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
+        <div class="grid gap-5 p-4 sm:gap-6 sm:p-6 lg:grid-cols-5">
 
             {{-- IMAGE --}}
 
@@ -38,20 +36,21 @@
                 </div>
             </div>
 
-            {{-- PRODUCT INFORMATION --}}
+            {{-- INFORMATION --}}
 
-            <div class="flex flex-col lg:col-span-3">
-                <div class="flex items-start justify-between gap-4">
+            <div class="min-w-0 lg:col-span-3">
+
+                {{-- TITLE --}}
+
+                <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
                         <span
                             class="inline-flex rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                             {{ $vehicle->type->name }}
                         </span>
-
-                        <h1 class="mt-3 text-xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-2xl">
+                        <h2 class="mt-2 text-xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-2xl">
                             {{ $vehicle->brand }} {{ $vehicle->model }}
-                        </h1>
-
+                        </h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             {{ $vehicle->year }} · {{ $vehicle->color ?? 'Warna tidak tersedia' }}
                         </p>
@@ -65,7 +64,7 @@
                         </span>
                     @elseif ($vehicle->status === 'Not Available')
                         <span
-                            class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                            class="inline-flex shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-300">
                             Tidak tersedia
                         </span>
                     @else
@@ -78,24 +77,21 @@
 
                 {{-- QUICK SPECIFICATION --}}
 
-                <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div class="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
                     <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-800">
                         <p class="text-[10px] font-medium text-gray-400 dark:text-gray-500">Tahun</p>
                         <p class="mt-1 text-sm font-semibold text-gray-800 dark:text-white">{{ $vehicle->year }}</p>
                     </div>
-
                     <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-800">
                         <p class="text-[10px] font-medium text-gray-400 dark:text-gray-500">Warna</p>
                         <p class="mt-1 truncate text-sm font-semibold text-gray-800 dark:text-white">
                             {{ $vehicle->color ?? '-' }}</p>
                     </div>
-
                     <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-800">
                         <p class="text-[10px] font-medium text-gray-400 dark:text-gray-500">Transmisi</p>
                         <p class="mt-1 truncate text-sm font-semibold text-gray-800 dark:text-white">
                             {{ $vehicle->transmission ?? '-' }}</p>
                     </div>
-
                     <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-800">
                         <p class="text-[10px] font-medium text-gray-400 dark:text-gray-500">Kursi</p>
                         <p class="mt-1 text-sm font-semibold text-gray-800 dark:text-white">{{ $vehicle->seats ?? '-' }}
@@ -111,33 +107,54 @@
                     </p>
                 </div>
 
-                {{-- RENTAL --}}
+                {{-- PLATE & PICKUP --}}
 
-                <div
-                    class="mt-5 flex items-center justify-between gap-4 border-t border-gray-100 pt-5 dark:border-gray-600">
-                    <div>
-                        <p class="text-xs text-gray-400 dark:text-gray-500">Deposit</p>
-                        <p class="mt-1 text-lg font-bold text-gray-800 dark:text-white">
-                            {{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tidak ada' }}
-                        </p>
+                <div class="mt-5 grid gap-3 sm:grid-cols-2">
+                    <div class="rounded-xl border border-gray-100 p-3.5 dark:border-gray-600">
+                        <p class="text-[10px] font-medium text-gray-400 dark:text-gray-500">Nomor Kendaraan</p>
+                        <p class="mt-1 text-sm font-semibold uppercase text-gray-800 dark:text-white">
+                            {{ $vehicle->plate_number }}</p>
                     </div>
 
-                    @if ($vehicle->status === 'Active')
-                        <a href="#"
-                            class="flex items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">
-                            Pesan Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                                stroke="currentColor" class="h-4 w-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m13.5 4.5 7.5 7.5-7.5 7.5M21 12H3" />
-                            </svg>
-                        </a>
-                    @else
-                        <button type="button" disabled
-                            class="rounded-xl bg-gray-100 px-5 py-3 text-sm font-semibold text-gray-400 dark:bg-gray-600 dark:text-gray-400">
-                            Tidak Tersedia
-                        </button>
-                    @endif
+                    <div class="rounded-xl border border-gray-100 p-3.5 dark:border-gray-600">
+                        <p class="text-[10px] font-medium text-gray-400 dark:text-gray-500">Pickup Location</p>
+                        @if ($vehicle->pickupLocation)
+                            <p class="mt-1 truncate text-sm font-semibold text-gray-800 dark:text-white">
+                                {{ $vehicle->pickupLocation->name }}</p>
+                        @else
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Belum tersedia</p>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- RENTAL ACTION --}}
+
+                <div class="mt-5 border-t border-gray-100 pt-5 dark:border-gray-600">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="min-w-0">
+                            <p class="text-xs text-gray-400 dark:text-gray-500">Deposit</p>
+                            <p class="mt-1 truncate text-lg font-bold text-gray-800 dark:text-white">
+                                {{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tidak ada' }}
+                            </p>
+                        </div>
+
+                        @if ($vehicle->status === 'Active')
+                            <a href="#"
+                                class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">
+                                Pesan Sekarang
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m13.5 4.5 7.5 7.5-7.5 7.5M21 12H3" />
+                                </svg>
+                            </a>
+                        @else
+                            <button type="button" disabled
+                                class="shrink-0 rounded-xl bg-gray-100 px-5 py-3 text-sm font-semibold text-gray-400 dark:bg-gray-600 dark:text-gray-400">
+                                Tidak Tersedia
+                            </button>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,7 +162,7 @@
 
     {{-- ADDITIONAL INFORMATION --}}
 
-    <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <div class="mt-5 grid gap-5 lg:grid-cols-3">
 
         {{-- SPECIFICATION --}}
 
@@ -155,7 +172,7 @@
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi teknis kendaraan.</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-x-8 gap-y-5 p-5 sm:grid-cols-3 sm:p-6">
+            <div class="grid grid-cols-2 gap-x-6 gap-y-5 p-5 sm:grid-cols-3 sm:p-6">
 
                 {{-- TYPE --}}
 
@@ -200,7 +217,6 @@
                     <p class="mt-1 text-sm font-medium text-gray-800 dark:text-white">
                         {{ $vehicle->engine_capacity ?? '-' }}</p>
                 </div>
-
             </div>
         </section>
 
@@ -237,6 +253,37 @@
                 @endif
             </div>
         </section>
+    </div>
 
+    {{-- MOBILE BOTTOM ACTION --}}
+
+    <div class="h-20 sm:hidden"></div>
+
+    <div
+        class="fixed inset-x-0 bottom-0 z-40 border-t border-gray-100 bg-white/95 px-4 py-3 backdrop-blur dark:border-gray-600 dark:bg-gray-700/95 sm:hidden">
+        <div class="mx-auto flex max-w-lg items-center justify-between gap-3">
+            <div class="min-w-0">
+                <p class="text-[10px] text-gray-400 dark:text-gray-500">Deposit</p>
+                <p class="truncate text-base font-bold text-gray-800 dark:text-white">
+                    {{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tidak ada' }}
+                </p>
+            </div>
+
+            @if ($vehicle->status === 'Active')
+                <a href="#"
+                    class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gray-800 px-4 py-3 text-xs font-semibold text-white transition active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800">
+                    Pesan Sekarang
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-4 w-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m13.5 4.5 7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
+            @else
+                <button type="button" disabled
+                    class="shrink-0 rounded-xl bg-gray-100 px-4 py-3 text-xs font-semibold text-gray-400 dark:bg-gray-600 dark:text-gray-400">
+                    Tidak Tersedia
+                </button>
+            @endif
+        </div>
     </div>
 @endsection

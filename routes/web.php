@@ -67,6 +67,9 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('vehicle-type', VehicleTypeController::class);
     Route::resource('region-filter', RegionFilterController::class);
     Route::resource('rental-time', RentalTimeController::class);
+    Route::patch('/approval-join-vehicle/{id}/approve', [ApprovalJoinVehicleController::class, 'approve'])->name('approval-join-vehicle.approve');
+    Route::get('/approval-join-vehicle/{id}/rejection', [ApprovalJoinVehicleController::class, 'rejection'])->name('approval-join-vehicle.rejection');
+    Route::patch('/approval-join-vehicle/{id}/reject', [ApprovalJoinVehicleController::class, 'reject'])->name('approval-join-vehicle.reject');
     Route::resource('approval-join-vehicle', ApprovalJoinVehicleController::class);
 
     Route::patch('/pickup-location/{id}/status', [PickupLocationController::class,'status'])->name('pickup-location.status');

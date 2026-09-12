@@ -4,7 +4,7 @@
 
         {{-- HEADER --}}
 
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="md:flex hidden flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
                 <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('join-pickup-location.index') }}"
@@ -39,7 +39,7 @@
 
         {{-- LOCATION IDENTITY --}}
 
-        <div class="mt-8 rounded-2xl bg-white p-5 dark:bg-gray-700 sm:p-6">
+        <div class="md:mt-8 rounded-2xl bg-white p-5 dark:bg-gray-700 sm:p-6">
             <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
                 <div
                     class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
@@ -191,108 +191,50 @@
 
         {{-- AVAILABLE VEHICLES --}}
 
-        <div class="mt-6 rounded-2xl bg-white dark:bg-gray-700">
-            <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">
-                            Kendaraan di Pickup Location
-                        </h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Kendaraan yang ditempatkan dan terdaftar pada lokasi ini.
-                        </p>
-                    </div>
-
-                    <span
-                        class="w-fit rounded-full bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200">
-                        {{ $pickupLocation->vehicles->count() }} kendaraan
-                    </span>
+        <section class="mb-4 mt-4">
+            <div class="mb-4 flex items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-bold text-gray-800 dark:text-white sm:text-xl">Kendaraan di Lokasi ini</h2>
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">Daftar kendaraan yang tersedia di lokasi ini</p>
                 </div>
+                <a href="{{ route('vehicles.index') }}"
+                    class="shrink-0 text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">Lihat
+                    semua</a>
             </div>
-
-            <div class="p-5 sm:p-6">
-                @if ($pickupLocation->vehicles->count())
-                    <div
-                        class="grid auto-cols-[calc(50%-6px)] grid-flow-col grid-rows-2 gap-3 overflow-x-auto pb-2 sm:auto-cols-[calc(33.333%-8px)] lg:grid-flow-row lg:grid-cols-4 lg:grid-rows-none lg:overflow-visible">
-
-                        @foreach ($pickupLocation->vehicles as $vehicle)
-                            <a href="{{ route('vehicle.show', $vehicle->id) }}"
-                                class="group min-w-0 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 transition hover:border-gray-200 hover:bg-white dark:border-gray-600 dark:bg-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-
-                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-500">
-                                    <img src="{{ $vehicle->profile ? asset('storage/' . $vehicle->profile) : asset('images/default-vehicle.png') }}"
-                                        alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
-                                        class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
-
-                                    <span
-                                        class="absolute right-2 top-2 rounded-full bg-gray-800/90 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-white/90 dark:text-gray-800">
-                                        {{ $vehicle->status }}
-                                    </span>
-                                </div>
-
-                                <div class="p-4">
-                                    <div class="flex items-start justify-between gap-2">
-                                        <div class="min-w-0">
-                                            <h3 class="truncate text-sm font-bold text-gray-800 dark:text-white">
-                                                {{ $vehicle->brand }} {{ $vehicle->model }}
-                                            </h3>
-
-                                            <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-300">
-                                                {{ $vehicle->plate_number }}
-                                            </p>
-                                        </div>
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.8" stroke="currentColor"
-                                            class="h-4 w-4 shrink-0 text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-white">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
-                                        </svg>
-                                    </div>
-
-                                    <div class="mt-3 flex flex-wrap gap-1.5">
-                                        <span
-                                            class="rounded-full bg-white px-2 py-1 text-[10px] font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-300">
-                                            {{ $vehicle->type->name ?? '-' }}
-                                        </span>
-
-                                        <span
-                                            class="rounded-full bg-white px-2 py-1 text-[10px] font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-300">
-                                            {{ $vehicle->year }}
-                                        </span>
-                                    </div>
-
-                                    <div class="mt-3 border-t border-gray-200 pt-3 dark:border-gray-500">
-                                        <p class="truncate text-[11px] text-gray-400 dark:text-gray-300">
-                                            Pemilik: {{ $vehicle->owner->name ?? '-' }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        @endforeach
-
-                    </div>
-                @else
-                    <div class="rounded-2xl bg-gray-50 p-8 text-center dark:bg-gray-600">
-                        <div
-                            class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 text-gray-400 dark:bg-gray-500 dark:text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
-                            </svg>
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+                @forelse ($vehicles as $vehicle)
+                    <a href="{{ route('vehicles.show', $vehicle->id) }}"
+                        class="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
+                            <img src="{{ asset('storage/' . $vehicle->profile) }}"
+                                alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
+                                class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                            <span
+                                class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicle->type->name }}</span>
                         </div>
-
-                        <p class="mt-3 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Belum ada kendaraan
-                        </p>
-
-                        <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                            Belum ada kendaraan yang ditempatkan pada pickup location ini.
-                        </p>
+                        <div class="p-3 sm:p-4">
+                            <div class="flex items-start justify-between gap-2">
+                                <h3 class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
+                                    {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
+                                <span class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicle->seats }}
+                                    Kursi</span>
+                            </div>
+                            <p class="mt-1 truncate text-[10px] text-gray-500 dark:text-gray-400 sm:text-xs">
+                                {{ $vehicle->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
+                            <div class="mt-2 flex items-center justify-between gap-2">
+                                <span
+                                    class="text-sm font-semibold text-gray-800 dark:text-white">{{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}</span>
+                                <span class="text-[10px] text-gray-400">{{ $vehicle->year }}</span>
+                            </div>
+                        </div>
+                    </a>
+                @empty
+                    <div class="col-span-full rounded-2xl bg-gray-50 p-8 text-center dark:bg-gray-800">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Belum ada kendaraan lainnya.</p>
                     </div>
-                @endif
+                @endforelse
             </div>
-        </div>
+        </section>
 
         {{-- LOCATION INFORMATION --}}
 
@@ -421,11 +363,6 @@
                             Pengguna yang menitipkan kendaraan pada pickup location ini.
                         </p>
                     </div>
-
-                    <span
-                        class="w-fit rounded-full bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200">
-                        Pemilik kendaraan
-                    </span>
                 </div>
             </div>
 
@@ -533,7 +470,7 @@
 
                         {{-- AJUKAN KENDARAAN --}}
 
-                        <a href="{{ route('join-pickup-location.veh', $pickupLocation->id, ) }}"
+                        <a href="{{ route('join-pickup-location.veh', $pickupLocation->id) }}"
                             class="flex items-center gap-3 rounded-xl bg-gray-800 px-4 py-4 text-sm font-semibold text-white transition hover:bg-gray-700 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.8" stroke="currentColor" class="h-5 w-5 shrink-0">

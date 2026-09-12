@@ -6,7 +6,7 @@
 
         {{-- HEADER --}}
 
-        <section class="mb-6">
+        <section class="md:mb-6 hidden md:block">
             <div>
                 <p class="text-sm font-medium text-gray-400 dark:text-gray-400">
                     Akun Saya

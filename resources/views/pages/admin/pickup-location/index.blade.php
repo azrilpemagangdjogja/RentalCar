@@ -8,7 +8,7 @@
 
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="md:flex hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
@@ -36,7 +36,7 @@
 
         {{-- STATISTICS --}}
 
-        <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-3">
+        <div class="mt-8 hidden md:grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-3">
 
             {{-- TOTAL --}}
 
@@ -124,7 +124,7 @@
 
             {{-- LIST HEADER --}}
 
-            <div class="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="mb-4 md:flex hidden flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-gray-800 dark:text-white">Daftar Pickup Locations</h2>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">

@@ -21,7 +21,7 @@ class PickupLocationController extends Controller
             abort(404);
         }
 
-        $pickupLocations = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(1);
+        $pickupLocations = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(10);
         
 
         $recommendedLocations = PickupLocation::with('vehicles')->where('max_vehicle', '>=', '0')->limit(3)->get();

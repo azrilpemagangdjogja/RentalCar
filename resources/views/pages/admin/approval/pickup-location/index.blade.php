@@ -7,7 +7,7 @@
         <section class="mb-6">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                    <div class="md:flex hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                         <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                             stroke="currentColor" class="h-4 w-4">
@@ -288,19 +288,25 @@
 
                                             @if ($item->status == 'Pending')
                                                 {{-- APPROVE --}}
-                                                <button type="button"
-                                                    class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    title="Approve">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
-                                                        class="h-5 w-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="m5 12.75 4 3.75L19 7.5" />
-                                                    </svg>
-                                                </button>
+
+                                                <form action="{{ route('approval-join-vehicle.approve', $item->id) }}" method="POST" onsubmit="return confirm('Terima {{ $item->vehicle_brand }} {{ $item->vehicle_model }} milik {{ $item->applicant_name }} di lokasi {{ $item->location_name }}?')">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit"
+                                                        class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        title="Approve">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
+                                                            class="h-5 w-5">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m5 12.75 4 3.75L19 7.5" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+
 
                                                 {{-- REJECT --}}
-                                                <button type="button"
+                                                <a href="{{ route('approval-join-vehicle.rejection', $item->id) }}"
                                                     class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                                     title="Reject">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -309,7 +315,7 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="m7.5 7.5 9 9m0-9-9 9" />
                                                     </svg>
-                                                </button>
+                                                </a>
                                             @endif
 
                                         </div>
@@ -463,16 +469,21 @@
                         {{-- ACTION --}}
                         <div class="mt-4 flex gap-2 border-t border-gray-200 pt-3 dark:border-gray-600">
 
-                            <a href="#"
+                            <a href="{{ route('approval-join-vehicle.show', $item->id) }}"
                                 class="flex flex-1 items-center justify-center rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 dark:bg-gray-600 dark:text-gray-200">
                                 Lihat
                             </a>
 
                             @if ($item->status == 'Pending')
-                                <button type="button"
-                                    class="flex flex-1 items-center justify-center rounded-lg bg-gray-800 py-2.5 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
-                                    Approve
-                                </button>
+                                <form action="{{ route('approval-join-vehicle.approve', $item->id) }}" method="POST"
+                                    class="flex flex-1 items-center justify-center">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit"
+                                        class="flex flex-1 items-center justify-center rounded-lg bg-gray-800 py-2.5 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
+                                        Approve
+                                    </button>
+                                </form>
 
                                 <button type="button"
                                     class="flex flex-1 items-center justify-center rounded-lg border border-gray-200 py-2.5 text-xs font-semibold text-gray-700 dark:border-gray-600 dark:text-gray-200">
