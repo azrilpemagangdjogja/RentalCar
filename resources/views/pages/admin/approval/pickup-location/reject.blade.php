@@ -32,7 +32,7 @@
             </a>
         </div>
 
-        <form action="{{ route('approval-join-vehicle.reject', $approvement->id) }}" method="POST">
+        <form action="{{ route('approval-join-vehicle.reject', $approvement->id) }}" method="POST" class="mb-6">
             @csrf
             @method('PATCH')
 
@@ -71,12 +71,12 @@
 
             <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                 <a href="{{ url()->previous() }}"
-                    class="inline-flex w-full items-center justify-center rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 sm:w-auto">
+                    class="inline-flex w-full items-center justify-center rounded-xl border border-gray-800 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 sm:w-auto">
                     Batal
                 </a>
                 <button type="submit"
                     class="inline-flex w-full items-center justify-center rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-gray-50 dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
-                    Tambah Waktu
+                    Tolak
                 </button>
             </div>
         </form>

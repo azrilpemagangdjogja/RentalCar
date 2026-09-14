@@ -15,7 +15,7 @@ class ApprovalJoinVehicleController extends Controller
      */
     public function index()
     {
-        $approvement = ApprovalJoinVehicle::all();
+        $approvement = ApprovalJoinVehicle::where('status', 'Pending')->get();
         return view('pages.admin.approval.pickup-location.index', compact('approvement'));
     }
 
@@ -119,6 +119,10 @@ class ApprovalJoinVehicleController extends Controller
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
+
+        $request->validate([
+            "reason" => "required"
+        ]);
 
         $approvement = ApprovalJoinVehicle::findOrFail($id);
         $approvement->update([

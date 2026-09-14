@@ -103,6 +103,7 @@ class JoinPickupLocationController extends Controller
         if ($user->mitra_status !== "Verified") {
             abort(404);
         }
+
     }
 
     public function veh($pickupLocation)
@@ -120,7 +121,7 @@ class JoinPickupLocationController extends Controller
         })->get();
 
         $deployedVehicles = Vehicle::whereHas('approvalJoin', function ($query) {
-            $query->whereIn('status', ['Pending', 'Approved']);
+            $query->whereIn('status', ['Pending']);
         })->get();
 
         return view('pages.mitra.pickup-location.veh', compact(['vehicles', 'pickupLocation', 'deployedVehicles']));
@@ -139,9 +140,9 @@ class JoinPickupLocationController extends Controller
         $vehicle = Vehicle::where('owner_id', $user->id)->find($vehicle);
 
         $vehicleCount = Vehicle::where('pickup_location_id', $pickupLocation)->count();
-        $pickupLocation = PickupLocation::find($pickupLocation);
+        $pickupLocations = PickupLocation::find($pickupLocation);
         $owner = PickupLocation::with('owner')->find($pickupLocation);
-        if ($pickupLocation->max_vehicle <= $vehicleCount) {
+        if ($pickupLocations->max_vehicle <= $vehicleCount) {
             return back()->withErrors('maks kendaraan sudah tercapai');
         } else {
             ApprovalJoinVehicle::create([
@@ -163,25 +164,125 @@ class JoinPickupLocationController extends Controller
                 "vehicle_profile" => $vehicle->profile,
                 "vehicle_plate_number" => $vehicle->plate_number,
                 "vehicle_description" => $vehicle->description,
-                "location_id" => $pickupLocation->id,
-                "location_name" => $pickupLocation->name,
-                "location_address" => $pickupLocation->address,
-                "location_latitude" => $pickupLocation->latitude,
-                "location_longitude" => $pickupLocation->longitude,
-                "location_description" => $pickupLocation->description,
-                "owner_id" => $pickupLocation->owner->id,
-                "owner_name" => $pickupLocation->owner->name,
-                "owner_email" => $pickupLocation->owner->email,
-                "owner_telp" => $pickupLocation->owner->telp,
-                "owner_profile" => $pickupLocation->owner->profile,
+                "location_id" => $pickupLocations->id,
+                "location_name" => $pickupLocations->name,
+                "location_address" => $pickupLocations->address,
+                "location_latitude" => $pickupLocations->latitude,
+                "location_longitude" => $pickupLocations->longitude,
+                "location_description" => $pickupLocations->description,
+                "owner_id" => $pickupLocations->owner->id,
+                "owner_name" => $pickupLocations->owner->name,
+                "owner_email" => $pickupLocations->owner->email,
+                "owner_telp" => $pickupLocations->owner->telp,
+                "owner_profile" => $pickupLocations->owner->profile,
             ]);
 
             UserHistory::record(
                 "Lokasi Pengambilan",
-                $user->name . " mengajukan kendaraannya " . $vehicle->brand . " " . $vehicle->model . " ke lokasi " . $pickupLocation->name
+                $user->name . " mengajukan kendaraannya " . $vehicle->brand . " " . $vehicle->model . " ke lokasi " . $pickupLocations->name
             );
         }
 
-        return redirect()->route('join-pickup-location.show', $pickupLocation->id);
+        return redirect()->route('join-pickup-location.veh', $pickupLocation);
+    }
+    public function vehun($pickupLocation)
+    {
+        $user = auth()->user();
+
+        if ($user->mitra_status !== "Verified") {
+            abort(404);
+        }
+
+        $pickupLocations = PickupLocation::find($pickupLocation);
+
+        $vehicles = Vehicle::where('pickup_location_id', $pickupLocation)->where('owner_id', $user->id)->get();
+
+        return view('pages.mitra.pickup-location.unveh', compact(['vehicles', 'pickupLocations']));
+    }
+
+
+    public function unveh($pickupLocation, $vehicle)
+    {
+        $user = auth()->user();
+
+        if ($user->mitra_status !== "Verified") {
+            abort(404);
+        }
+
+
+        $vehicle = Vehicle::where('owner_id', $user->id)->find($vehicle);
+
+        $vehicleCount = Vehicle::where('pickup_location_id', $pickupLocation)->count();
+        $pickupLocations = PickupLocation::find($pickupLocation);
+        $owner = PickupLocation::with('owner')->find($pickupLocation);
+        if ($pickupLocations->max_vehicle <= $vehicleCount) {
+            return back()->withErrors('maks kendaraan sudah tercapai');
+        } else {
+            ApprovalJoinVehicle::create([
+                "applicant_id" => $user->id,
+                "applicant_name" => $user->name,
+                "applicant_email" => $user->email,
+                "applicant_profile" => $user->profile,
+                "applicant_telp" => $user->telp,
+                "vehicle_id" => $vehicle->id,
+                "vehicle_brand" => $vehicle->brand,
+                "vehicle_model" => $vehicle->model,
+                "vehicle_transmission" => $vehicle->transmission,
+                "vehicle_fuel_type" => $vehicle->fuel_type,
+                "vehicle_type" => $vehicle->type_id,
+                "vehicle_seats" => $vehicle->seats,
+                "vehicle_engine_capacity" => $vehicle->engine_capacity,
+                "vehicle_color" => $vehicle->color,
+                "vehicle_year" => $vehicle->year,
+                "vehicle_profile" => $vehicle->profile,
+                "vehicle_plate_number" => $vehicle->plate_number,
+                "vehicle_description" => $vehicle->description,
+                "location_id" => $pickupLocations->id,
+                "location_name" => $pickupLocations->name,
+                "location_address" => $pickupLocations->address,
+                "location_latitude" => $pickupLocations->latitude,
+                "location_longitude" => $pickupLocations->longitude,
+                "location_description" => $pickupLocations->description,
+                "owner_id" => $pickupLocations->owner->id,
+                "owner_name" => $pickupLocations->owner->name,
+                "owner_email" => $pickupLocations->owner->email,
+                "owner_telp" => $pickupLocations->owner->telp,
+                "owner_profile" => $pickupLocations->owner->profile,
+            ]);
+
+            UserHistory::record(
+                "Lokasi Pengambilan",
+                $user->name . " mengajukan kendaraannya " . $vehicle->brand . " " . $vehicle->model . " ke lokasi " . $pickupLocations->name
+            );
+        }
+
+        return redirect()->route('join-pickup-location.veh', $pickupLocation);
+    }
+
+
+
+
+    public function cancelveh($pickupLocation, $vehicle)
+    {
+        $user = auth()->user();
+
+        if ($user->mitra_status !== "Verified") {
+            abort(404);
+        }
+
+        $vehicles = Vehicle::where('owner_id', $user->id)->where('pickup_location_id', null)->findOrFail($pickupLocation);
+
+        $approvement = ApprovalJoinVehicle::where('viewer_id', null)->where('status', 'Pending')->where('applicant_id', $user->id)->where('vehicle_id', $vehicles->id)->first();
+
+        $approvement->update([
+            "status" => "Cancelled"
+        ]);
+
+        UserHistory::record(
+            "Lokasi Pengambilan",
+            $user->name . " membatalkan penitipan kendaraan " . $approvement->vehicle_brand . " " . $approvement->vehicle->model . " miliknya dari lokasi " . $approvement->location_name
+        );
+
+        return redirect()->route('join-pickup-location.veh', $pickupLocation);
     }
 }

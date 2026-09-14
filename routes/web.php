@@ -56,7 +56,9 @@ Route::middleware(['auth','mitra.verified'])->group(function () {
     Route::get('/mitra-dashboard', [LayoutsController::class,'indexmitra'])->name('mitra.dashboard');
     Route::resource('vehicle', VehicleController::class);
     Route::get('/join-pickup-location/{id}/veh', [JoinPickupLocationController::class,'veh'])->name('join-pickup-location.veh');
+    Route::get('/join-pickup-location/{pickupLocation}/vehun', [JoinPickupLocationController::class,'vehun'])->name('join-pickup-location.vehun');
     Route::post('/join-pickup-location/{pickupLocation}/addveh/{vehicle}', [JoinPickupLocationController::class,'addveh'])->name('join-pickup-location.addveh');
+    Route::patch('/join-pickup-location/{pickupLocation}/cancelveh/{vehicle}', [JoinPickupLocationController::class,'cancelveh'])->name('join-pickup-location.cancelveh');
     Route::resource('join-pickup-location', JoinPickupLocationController::class);
 });
 

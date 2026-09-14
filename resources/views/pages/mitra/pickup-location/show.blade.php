@@ -482,7 +482,7 @@
 
                         {{-- LIHAT KENDARAAN --}}
 
-                        <a href=""
+                        <a href="{{ route('join-pickup-location.vehun', $pickupLocation->id) }}"
                             class="flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-4 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.8" stroke="currentColor"

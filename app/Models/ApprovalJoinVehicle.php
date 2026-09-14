@@ -47,6 +47,7 @@ class ApprovalJoinVehicle extends Model
         'owner_telp',
         'owner_profile',
         'status',
+        'category',
         'rejected_reason',
     ];
 

@@ -87,6 +87,7 @@ return new class extends Migration
             $table->string('owner_profile')->nullable();
 
             $table->enum('status', ['Pending', 'Approved', 'Rejected', 'Cancelled'])->default('Pending');
+            $table->enum('category', ['In', 'Out'])->default('In');
             $table->string('rejected_reason')->nullable();
 
             $table->timestamps();
