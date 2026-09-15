@@ -76,7 +76,7 @@
 
         {{-- STATISTICS --}}
 
-        <div class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div class="mt-6 hidden md:grid grid-cols-2 gap-3 lg:grid-cols-4">
 
             {{-- TOTAL VEHICLES --}}
 
@@ -194,14 +194,16 @@
         <section class="mb-4 mt-4">
             <div class="mb-4 flex items-end justify-between gap-4">
                 <div>
-                    <h2 class="text-lg font-bold text-gray-800 dark:text-white sm:text-xl">Kendaraan di Lokasi ini</h2>
-                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">Daftar kendaraan yang tersedia di lokasi ini</p>
+                    <h2 class="text-lg font-bold text-gray-800 dark:text-white sm:text-xl">Kendaraan di Lokasi Ini</h2>
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">Daftar kendaraan yang tersedia di
+                        lokasi ini</p>
                 </div>
                 <a href="{{ route('vehicles.index') }}"
-                    class="shrink-0 text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">Lihat
-                    semua</a>
+                    class="shrink-0 text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                    Lihat semua
+                </a>
             </div>
-            <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
                 @forelse ($vehicles as $vehicle)
                     <a href="{{ route('vehicles.show', $vehicle->id) }}"
                         class="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
@@ -210,21 +212,35 @@
                                 alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
                                 class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
                             <span
-                                class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicle->type->name }}</span>
+                                class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">
+                                {{ $vehicle->type->name }}
+                            </span>
                         </div>
                         <div class="p-3 sm:p-4">
                             <div class="flex items-start justify-between gap-2">
                                 <h3 class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
-                                    {{ $vehicle->brand }} {{ $vehicle->model }}</h3>
-                                <span class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicle->seats }}
-                                    Kursi</span>
+                                    {{ $vehicle->brand }} {{ $vehicle->model }}
+                                </h3>
+                                <span class="shrink-0 text-[9px] font-medium text-gray-400">
+                                    {{ $vehicle->seats }} Kursi
+                                </span>
                             </div>
-                            <p class="mt-1 truncate text-[10px] text-gray-500 dark:text-gray-400 sm:text-xs">
-                                {{ $vehicle->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
-                            <div class="mt-2 flex items-center justify-between gap-2">
-                                <span
-                                    class="text-sm font-semibold text-gray-800 dark:text-white">{{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}</span>
-                                <span class="text-[10px] text-gray-400">{{ $vehicle->year }}</span>
+                            <div class="mt-3 flex items-center gap-2">
+                                <div class="h-7 w-7 shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-500">
+                                    <img src="{{ $vehicle->owner->profile ? asset('storage/' . $vehicle->owner->profile) : asset('images/default-profile.png') }}"
+                                        alt="{{ $vehicle->owner->name }}" class="h-full w-full object-cover">
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] text-gray-400">Pemilik</p>
+                                    <p class="truncate text-xs font-medium text-gray-700 dark:text-gray-200">
+                                        {{ $vehicle->owner->name }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-3 border-t border-gray-100 pt-2.5 dark:border-gray-600">
+                                <span class="text-sm font-semibold text-gray-800 dark:text-white">
+                                    {{ $vehicle->deposit_amount ? 'Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}
+                                </span>
                             </div>
                         </div>
                     </a>
@@ -369,32 +385,31 @@
             <div class="p-5 sm:p-6">
                 <div class="flex flex-wrap gap-3">
 
-                    @forelse ($pickupLocation->vehicles as $vehicle)
-                        @if ($vehicle->owner)
-                            <div
-                                class="flex w-full items-center gap-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 sm:w-[calc(50%-6px)] dark:border-gray-600 dark:bg-gray-600">
+                    @forelse ($owner as $item)
+                        <div
+                            class="flex w-full items-center gap-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 sm:w-[calc(50%-6px)] dark:border-gray-600 dark:bg-gray-600">
 
-                                <div class="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-500">
-                                    <img src="{{ $vehicle->owner->profile ? asset('storage/' . $vehicle->owner->profile) : asset('images/default-profile.png') }}"
-                                        alt="{{ $vehicle->owner->name }}" class="h-full w-full object-cover">
-                                </div>
-
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-sm font-semibold text-gray-800 dark:text-white">
-                                        {{ $vehicle->owner->name }}
-                                    </p>
-
-                                    <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-300">
-                                        {{ $vehicle->owner->email }}
-                                    </p>
-
-                                    <p class="mt-1 text-[11px] text-gray-400 dark:text-gray-400">
-                                        Kendaraan ditempatkan di lokasi ini
-                                    </p>
-                                </div>
-
+                            <div class="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-500">
+                                <img src="{{ $item->profile ? asset('storage/' . $item->profile) : asset('images/default-profile.png') }}"
+                                    alt="{{ $item->name }}" class="h-full w-full object-cover">
                             </div>
-                        @endif
+
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate text-sm font-semibold text-gray-800 dark:text-white">
+                                    {{ $item->name }}
+                                </p>
+
+                                <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-300">
+                                    {{ $item->email }}
+                                </p>
+
+                                <p class="mt-1 text-[11px] text-gray-400 dark:text-gray-400">
+                                    {{ $item->vehicles->where('pickup_location_id', $pickupLocation->id)->where('owner_id', $item->id)->count() }}
+                                    Kendaraan ditempatkan di lokasi ini
+                                </p>
+                            </div>
+
+                        </div>
                     @empty
                         <div class="w-full py-6 text-center">
                             <p class="text-sm text-gray-500 dark:text-gray-400">

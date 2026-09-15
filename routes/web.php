@@ -57,6 +57,7 @@ Route::middleware(['auth','mitra.verified'])->group(function () {
     Route::resource('vehicle', VehicleController::class);
     Route::get('/join-pickup-location/{id}/veh', [JoinPickupLocationController::class,'veh'])->name('join-pickup-location.veh');
     Route::get('/join-pickup-location/{pickupLocation}/vehun', [JoinPickupLocationController::class,'vehun'])->name('join-pickup-location.vehun');
+    Route::patch('/join-pickup-location/{pickupLocation}/unveh/{vehicle}', [JoinPickupLocationController::class,'unveh'])->name('join-pickup-location.unveh');
     Route::post('/join-pickup-location/{pickupLocation}/addveh/{vehicle}', [JoinPickupLocationController::class,'addveh'])->name('join-pickup-location.addveh');
     Route::patch('/join-pickup-location/{pickupLocation}/cancelveh/{vehicle}', [JoinPickupLocationController::class,'cancelveh'])->name('join-pickup-location.cancelveh');
     Route::resource('join-pickup-location', JoinPickupLocationController::class);
@@ -72,6 +73,7 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::patch('/approval-join-vehicle/{id}/approve', [ApprovalJoinVehicleController::class, 'approve'])->name('approval-join-vehicle.approve');
     Route::get('/approval-join-vehicle/{id}/rejection', [ApprovalJoinVehicleController::class, 'rejection'])->name('approval-join-vehicle.rejection');
     Route::patch('/approval-join-vehicle/{id}/reject', [ApprovalJoinVehicleController::class, 'reject'])->name('approval-join-vehicle.reject');
+    Route::patch('/approval-join-vehicle/{id}/outing', [ApprovalJoinVehicleController::class, 'outing'])->name('approval-join-vehicle.outing');
     Route::resource('approval-join-vehicle', ApprovalJoinVehicleController::class);
 
     Route::patch('/pickup-location/{id}/status', [PickupLocationController::class,'status'])->name('pickup-location.status');

@@ -15,8 +15,9 @@ class ApprovalJoinVehicleController extends Controller
      */
     public function index()
     {
-        $approvement = ApprovalJoinVehicle::where('status', 'Pending')->get();
-        return view('pages.admin.approval.pickup-location.index', compact('approvement'));
+        $approvement = ApprovalJoinVehicle::where('status', 'Pending')->where('category', 'In')->get();
+        $approvementOuting = ApprovalJoinVehicle::where('status', 'Pending')->where('category', 'Out')->get();
+        return view('pages.admin.approval.pickup-location.index', compact('approvement', 'approvementOuting'));
     }
 
     /**
@@ -98,6 +99,32 @@ class ApprovalJoinVehicleController extends Controller
         UserHistory::record(
             "Persetujuan",
             $user->name . " menyetujui kendaraan " . $approvement->vehicle_brand . ' ' . $approvement->vehicle_model . ' milik ' . $approvement->applicant_name . ' dititipkan ke lokasi pengambilan ' . $approvement->location_name
+        );
+
+        return redirect()->back();
+    }
+
+
+
+
+    public function outing(string $id){
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
+
+        $approvement = ApprovalJoinVehicle::findOrFail($id);
+        $vehicle = Vehicle::where('owner_id', $approvement->applicant_id)->where('id', $approvement->vehicle_id);
+        $approvement->update([
+            "status" => "Approved",
+        ]);
+        $vehicle->update([
+            "pickup_location_id" => null
+        ]);
+
+        UserHistory::record(
+            "Persetujuan",
+            $user->name . " menyetujui kendaraan " . $approvement->vehicle_brand . ' ' . $approvement->vehicle_model . ' milik ' . $approvement->applicant_name . ' dikeluarkan dari lokasi pengambilan ' . $approvement->location_name
         );
 
         return redirect()->back();

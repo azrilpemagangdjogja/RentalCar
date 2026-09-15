@@ -305,7 +305,7 @@
                                             </div>
                                         </td>
                                         <td class="px-5 py-4 text-right">
-                                            <form action="{{ route('join-pickup-location.cancelveh', [$pickupLocation, $item->id]) }}"
+                                            <form action="{{ route('join-pickup-location.cancelveh', [$pickupLocation->id, $item->id]) }}"
                                                 method="POST"
                                                 onsubmit="return confirm('Yakin ingin membatalkan penitipan {{ $item->brand }} {{ $item->model }} ke lokasi {{ $pickupLocation->name }}?')">
                                                 @csrf

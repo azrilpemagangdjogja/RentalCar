@@ -1,6 +1,6 @@
 <!-- Simplicity is the essence of happiness. - Cedric Bledsoe -->
 <div
-    class="flex h-16 w-full items-center justify-between border-b-2 border-gray-100 bg-none px-2 md:px-6 text-gray-800 dark:border-gray-800 dark:text-gray-50">
+    class="flex h-16 w-full bg-white dark:bg-gray-700 items-center justify-between border-b-2 border-gray-100 bg-none px-2 md:px-6 text-gray-800 dark:border-gray-800 dark:text-gray-50">
 
     {{-- PAGE TITLE --}}
 

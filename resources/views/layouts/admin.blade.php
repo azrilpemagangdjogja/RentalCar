@@ -27,7 +27,7 @@
                 <x-customer-sidebar/>
 
             @endif
-            <main class="min-h-0 w-full flex-1 overflow-y-auto bg-slate-100 px-4 py-4 dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+            <main class="min-h-0 w-full flex-1 overflow-y-auto bg-slate-100 md:px-6 px-4 py-4 dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
                 @yield('content')
                 @if (auth()->user()->role == "Admin" || auth()->user()->role == "Superadmin")
                     <x-mitra-footer/>

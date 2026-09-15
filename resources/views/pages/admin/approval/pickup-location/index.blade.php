@@ -562,7 +562,7 @@
 
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-600">
 
-                            @forelse($approvement as $item)
+                            @forelse($approvementOuting as $item)
                                 <tr class="transition hover:bg-gray-100/70 dark:hover:bg-gray-600/50">
 
                                     {{-- VEHICLE --}}
@@ -698,7 +698,7 @@
                                             @if ($item->status == 'Pending')
                                                 {{-- APPROVE --}}
 
-                                                <form action="{{ route('approval-join-vehicle.approve', $item->id) }}" method="POST" onsubmit="return confirm('Terima {{ $item->vehicle_brand }} {{ $item->vehicle_model }} milik {{ $item->applicant_name }} di lokasi {{ $item->location_name }}?')">
+                                                <form action="{{ route('approval-join-vehicle.outing', $item->id) }}" method="POST" onsubmit="return confirm('Terima {{ $item->vehicle_brand }} {{ $item->vehicle_model }} milik {{ $item->applicant_name }} di lokasi {{ $item->location_name }}?')">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit"
@@ -765,7 +765,7 @@
             {{-- MOBILE CARDS --}}
             <div class="space-y-3 md:hidden">
 
-                @forelse($approvement as $item)
+                @forelse($approvementOuting as $item)
                     <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
 
                         {{-- VEHICLE HEADER --}}

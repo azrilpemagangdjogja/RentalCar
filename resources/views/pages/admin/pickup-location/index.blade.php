@@ -237,7 +237,7 @@
                         <div class="mt-3 sm:mt-0">
                             <p class="mb-1 text-[10px] font-medium text-gray-400 dark:text-gray-500 sm:hidden">Kendaraan
                             </p>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">{{ $location->vehicles_count ?? 0 }}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">{{ $location->vehicles->count() ?? 0 }}</p>
                         </div>
 
                         {{-- CAPACITY --}}
