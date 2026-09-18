@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApprovalJoinVehicleController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LayoutsController;
+use App\Http\Controllers\MitraIdentityController;
 use App\Http\Controllers\UserHistoryController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
@@ -22,6 +23,8 @@ use App\Http\Controllers\AdminLandingAboutController;
 use App\Http\Controllers\AdminLandingHowtoController;
 use App\Http\Controllers\RentalTimeController;
 use App\Http\Controllers\JoinPickupLocationController;
+use App\Http\Controllers\ApprovalMitraIdentityController;
+use App\Http\Controllers\MessageController;
 
 
 
@@ -39,6 +42,11 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::resource('profile', ProfileController::class);
 Route::resource('user-history', UserHistoryController::class);
+Route::get('/message/{id}/create', [MessageController::class, 'create'])->name('message.create');
+Route::post('/message/{id}/new', [MessageController::class, 'new'])->name('message.new');
+Route::post('/message/{id}/send', [MessageController::class, 'send'])->name('message.send');
+Route::resource('message', MessageController::class);
+
 
 
 
@@ -47,6 +55,7 @@ Route::middleware(['auth', 'role:User'])->group(function () {
     Route::get('/customer-dashboard', [LayoutsController::class,'indexcustomer'])->name('customer.dashboard');
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('transaction', TransactionController::class);
+    Route::resource('mitra-identity', MitraIdentityController::class);
     Route::get('search', [SearchController::class,'customer'])->name('search.customer');
     Route::get('search', [SearchController::class,'customer'])->name('search.customer');
 });
@@ -70,6 +79,9 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('vehicle-type', VehicleTypeController::class);
     Route::resource('region-filter', RegionFilterController::class);
     Route::resource('rental-time', RentalTimeController::class);
+    Route::resource('approval-mitra-identity', ApprovalMitraIdentityController::class);
+    Route::patch('/approval-mitra-identity/{id}/approve', [ApprovalMitraIdentityController::class, 'approve'])->name('approval-mitra-identity.approve');
+
     Route::patch('/approval-join-vehicle/{id}/approve', [ApprovalJoinVehicleController::class, 'approve'])->name('approval-join-vehicle.approve');
     Route::get('/approval-join-vehicle/{id}/rejection', [ApprovalJoinVehicleController::class, 'rejection'])->name('approval-join-vehicle.rejection');
     Route::patch('/approval-join-vehicle/{id}/reject', [ApprovalJoinVehicleController::class, 'reject'])->name('approval-join-vehicle.reject');

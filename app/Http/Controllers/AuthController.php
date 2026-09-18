@@ -7,6 +7,7 @@ use App\Models\UserHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Message;
 
 class AuthController extends Controller
 {
@@ -31,6 +32,8 @@ class AuthController extends Controller
                 "Login",
                 $user->name . " telah Login pada " . $user->last_login_at
             );
+
+            Message::message( $user->id, "Selamat datang " . $user->name . " di Rental Car", "Announcement", "Login");
 
             if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Superadmin') {
                 return redirect('admin-dashboard');

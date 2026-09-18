@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('model');
 
-            $table->enum('status', ['Active','Inactive','Not Available'])->default('Inactive');
+            $table->enum('status', ['Active','Inactive','Not Available'])->default('Active');
             $table->text('description')->nullable();
 
             $table->integer('deposit_amount')->nullable();

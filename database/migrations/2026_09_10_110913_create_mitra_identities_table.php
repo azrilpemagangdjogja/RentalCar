@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('mitra_identities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mitra_id')
+            $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
             $table->string('nik', 16)->unique();
             $table->string('full_name');
+            $table->string('email')->unique();
+            $table->string('telp')->unique();
+            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->timestamps();
         });
     }

@@ -75,7 +75,7 @@
 
 
 <div
-    class="hidden h-full w-58 shrink-0 bg-gray-50 pl-2 text-gray-800 dark:bg-gray-700 dark:text-gray-50 md:flex md:flex-col">
+    class="hidden h-full w-58 shrink-0 pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
 
     {{-- SIDEBAR MENU --}}
 

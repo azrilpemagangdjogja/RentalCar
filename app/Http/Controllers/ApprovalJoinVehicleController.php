@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\PickupLocation;
 use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\ApprovalJoinVehicle;
@@ -83,6 +84,12 @@ class ApprovalJoinVehicleController extends Controller
         }
 
         $approvement = ApprovalJoinVehicle::findOrFail($id);
+        $vehicleCount = Vehicle::where('pickup_location_id', $approvement->location_id)->count();
+        $pickupLocationCount = PickupLocation::where('id', $approvement->location_id)->first();
+        if ($vehicleCount >= $pickupLocationCount->max_vehicle) {
+            return redirect()->back()->with('error', 'Kapasitas lokasi pengambilan sudah penuh. Tidak dapat menyetujui kendaraan.');
+        }
+
         $vehicle = Vehicle::where('owner_id', $approvement->applicant_id)->where('id', $approvement->vehicle_id);
         $approvement->update([
             "viewer_id" => $user->id,

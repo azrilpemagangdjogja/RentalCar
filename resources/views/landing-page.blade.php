@@ -555,104 +555,47 @@
                     </a>
                 </div>
 
-                {{-- <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"> --}}
+                {{-- VEHICLE CARD --}}
 
-                    {{-- VEHICLE CARD 1 --}}
-
-                    {{-- <div
-                        class="group overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-600 dark:bg-gray-700">
-                        <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-600">
-                            <img src="{{ asset('images/car-1.jpg') }}" alt="Kendaraan RentalCar"
-                                class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                            <span
-                                class="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">Tersedia</span>
-                        </div>
-                        <div class="p-5">
-                            <div class="flex items-start justify-between gap-4">
-                                <div>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Toyota Avanza</h3>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">MPV · 7 Penumpang</p>
-                                </div>
-                                <span class="text-lg font-bold text-gray-800 dark:text-white">Rp250rb</span>
-                            </div>
+                <section class="mt-12">
+                    <div
+                        class="flex snap-x gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-4 xl:grid-cols-5">
+                        @forelse ($vehicle as $vehicles)
                             <div
-                                class="mt-5 flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-600">
-                                <span class="text-xs text-gray-500 dark:text-gray-300">per hari</span>
-                                <a href="{{ route('register') }}"
-                                    class="rounded-lg bg-gray-800 px-4 py-2 text-xs font-semibold text-white transition hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">Sewa</a>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- VEHICLE CARD 2 --}}
-
-                    {{-- <div
-                        class="group overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-600 dark:bg-gray-700">
-                        <div class="relative h-56 overflow-hidden bg-gray-100 dark:bg-gray-600">
-                            <img src="{{ asset('images/car-2.jpg') }}" alt="Kendaraan RentalCar"
-                                class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                            <span
-                                class="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">Tersedia</span>
-                        </div>
-                        <div class="p-5">
-                            <div class="flex items-start justify-between gap-4">
-                                <div>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Honda Brio</h3>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">City Car · 5 Penumpang</p>
+                                class="group w-[78%] shrink-0 snap-start overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:w-auto">
+                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
+                                    <img src="{{ asset('storage/' . $vehicles->profile) }}"
+                                        alt="{{ $vehicles->brand }} {{ $vehicles->model }}"
+                                        class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                                    <span
+                                        class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicles->type->name }}</span>
                                 </div>
-                                <span class="text-lg font-bold text-gray-800 dark:text-white">Rp200rb</span>
-                            </div>
-                            <div
-                                class="mt-5 flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-600">
-                                <span class="text-xs text-gray-500 dark:text-gray-300">per hari</span>
-                                <a href="{{ route('register') }}"
-                                    class="rounded-lg bg-gray-800 px-4 py-2 text-xs font-semibold text-white transition hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">Sewa</a>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- VEHICLE CARD 3 --}}
-
-                    <section class="mt-12">
-                        <div
-                            class="flex snap-x gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible lg:grid-cols-4 xl:grid-cols-5">
-                            @forelse ($vehicle as $vehicles)
-                                <div
-                                    class="group w-[78%] shrink-0 snap-start overflow-hidden rounded-2xl border border-gray-200 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:w-auto">
-                                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
-                                        <img src="{{ asset('storage/' . $vehicles->profile) }}"
-                                            alt="{{ $vehicles->brand }} {{ $vehicles->model }}"
-                                            class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                                <div class="p-4">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h3
+                                            class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
+                                            {{ $vehicles->brand }} {{ $vehicles->model }}</h3>
                                         <span
-                                            class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">{{ $vehicles->type->name }}</span>
+                                            class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicles->seats }}
+                                            kursi</span>
                                     </div>
-                                    <div class="p-4">
-                                        <div class="flex items-start justify-between gap-2">
-                                            <h3
-                                                class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
-                                                {{ $vehicles->brand }} {{ $vehicles->model }}</h3>
-                                            <span
-                                                class="shrink-0 text-[9px] font-medium text-gray-400">{{ $vehicles->seats }}
-                                                kursi</span>
-                                        </div>
-                                        <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
-                                            {{ $vehicles->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
-                                        <div class="mt-3 flex items-center justify-between gap-2">
-                                            <span
-                                                class="text-sm font-bold text-gray-800 dark:text-white">{{ $vehicles->deposit_amount ? 'Rp ' . number_format($vehicles->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}</span>
-                                            <span class="text-[10px] text-gray-400">{{ $vehicles->year }}</span>
-                                        </div>
+                                    <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
+                                        {{ $vehicles->pickupLocation?->name ?? 'Lokasi belum tersedia' }}</p>
+                                    <div class="mt-3 flex items-center justify-between gap-2">
+                                        <span
+                                            class="text-sm font-bold text-gray-800 dark:text-white">{{ $vehicles->deposit_amount ? 'Rp ' . number_format($vehicles->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}</span>
+                                        <span class="text-[10px] text-gray-400">{{ $vehicles->year }}</span>
                                     </div>
                                 </div>
-                            @empty
-                                <div class="col-span-full rounded-2xl bg-gray-50 p-8 text-center dark:bg-gray-800">
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Belum ada kendaraan yang
-                                        direkomendasikan.</p>
-                                </div>
-                            @endforelse
-                        </div>
-                    </section>
-                {{-- </div> --}}
+                            </div>
+                        @empty
+                            <div class="col-span-full rounded-2xl bg-gray-50 p-8 text-center dark:bg-gray-800">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Belum ada kendaraan yang
+                                    direkomendasikan.</p>
+                            </div>
+                        @endforelse
+                    </div>
+                </section>
             </div>
         </section>
 

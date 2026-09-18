@@ -11,23 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pickup_locations', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_id')
-                ->nullable()
+            $table->foreignId('participant_one_id')
                 ->constrained('users')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->string('name');
-            $table->text('address');
-            $table->decimal('latitude', 10,7);
-            $table->decimal('longitude', 10,7);
-            $table->text('description');
-
-            $table->integer('max_vehicle')->default(0);
-
-            $table->enum('status', ['Inactive','Active'])->default('Active');
+            $table->foreignId('participant_two_id')
+                ->constrained('users')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            
             $table->timestamps();
         });
     }
@@ -37,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pickup_locations');
+        Schema::dropIfExists('conversations');
     }
 };

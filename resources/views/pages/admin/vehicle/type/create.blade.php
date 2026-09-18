@@ -89,8 +89,8 @@
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                             <select name="status" id="status"
                                 class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
-                                <option value="Inactive" @selected(old('status', 'Inactive') === 'Inactive')>Tidak Aktif</option>
                                 <option value="Active" @selected(old('status') === 'Active')>Aktif</option>
+                                <option value="Inactive" @selected(old('status') === 'Inactive')>Tidak Aktif</option>
                             </select>
                         </div>
                     </section>

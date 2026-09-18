@@ -513,7 +513,13 @@
                             Edit informasi user
                         </a>
 
-                        <button type="button"
+                        @if ($conversation)
+                            <a href="{{ route('message.show', $user->id) }}"
+                        
+                        @else
+                            <a href="{{ route('message.create', $user->id) }}"
+                                
+                        @endif
                             class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.8" stroke="currentColor" class="h-5 w-5 text-gray-500">
@@ -521,7 +527,7 @@
                                     d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75M5.25 10.5h13.5l-1.5 10.5h-10.5l-1.5-10.5Z" />
                             </svg>
                             Reset password
-                        </button>
+                        </a>
 
                         <button type="button"
                             class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10">

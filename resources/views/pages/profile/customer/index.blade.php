@@ -166,7 +166,7 @@
                         </p>
                     </a>
                 @else
-                    <a href="#"
+                    <a href="{{ route('mitra-identity.create') }}"
                         class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
                         <div
                             class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">

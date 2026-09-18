@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Conversation;
 use illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -89,8 +90,16 @@ class UserController extends Controller
             abort(404);
         }
 
+        $conversation = Conversation::where(function ($query) use ($users) {
+            $query->where('participant_one_id', $users->id)
+                ->orWhere('participant_two_id', $users->id);
+        })->where(function ($query) use ($id) {
+            $query->where('participant_one_id', $id)
+                ->Orwhere('participant_two_id', $id);
+        })->first();
+
         $user = User::findOrFail($id);
-        return view('pages.admin.user.show', compact('user'));
+        return view('pages.admin.user.show', compact(['user', 'conversation']));
     }
 
 

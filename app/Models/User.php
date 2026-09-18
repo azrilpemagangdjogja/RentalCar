@@ -49,5 +49,16 @@ class User extends Authenticatable
         return $this->hasMany(PickupLocation::class, 'owner_id');
     }
 
+    public function mitraIdentity()
+    {
+        return $this->hasOne(MitraIdentity::class, 'user_id');
+    }
 
+    public function messageSender(){
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function messageReceiver(){
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }

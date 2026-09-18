@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('feature_2_description')->nullable();
             $table->string('card_title')->nullable();
             $table->string('card_description')->nullable();
-            $table->enum('status', ['Active', 'Inactive']);
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
         });
     }

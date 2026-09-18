@@ -965,3 +965,8 @@
 
     </section>
 @endsection
+@if (session('error'))
+    <script>
+        alert(@js(session('error')));
+    </script>
+@endif

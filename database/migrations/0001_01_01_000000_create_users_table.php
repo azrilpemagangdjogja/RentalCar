@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('telp')->unique()->nullable();
             $table->string('profile')->nullable();
             $table->enum('role', ['Superadmin','Admin','User'])->default('User');
-            $table->enum('mitra_status', ['Unverified','Verified','Pending','Rejected'])->default('Unverified');
+            $table->enum('mitra_status', ['Unverified','Verified'])->default('Unverified');
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->string('password');

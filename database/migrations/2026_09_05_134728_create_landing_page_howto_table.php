@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('landing_page_howto', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['Active', 'Inactive'])->default('Inactive');
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->string('subtitle')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
