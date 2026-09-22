@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use _PHPStan_33c983f26\Symfony\Contracts\Service\Attribute\Required;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
@@ -25,8 +26,8 @@ class VehicleController extends Controller
         }
 
         $vehicles = Vehicle::where('owner_id', $owner)->with(["PickupLocation", "type"])->paginate(10);
-        $vehiclesActive = Vehicle::where('status', 'Active')->where('owner_id', $owner)->get();
-        $vehiclesInActive = Vehicle::where('status', 'Inactive')->where('owner_id', $owner)->get();
+        $vehiclesActive = Vehicle::where('status', 'Active')->where('owner_id', $owner)->count();
+        $vehiclesInActive = Vehicle::where('status', 'Inactive')->where('owner_id', $owner)->count();
         return view("pages.mitra.vehicle.index", compact(['vehicles', 'vehiclesActive', 'vehiclesInActive']));
     }
 
@@ -40,7 +41,7 @@ class VehicleController extends Controller
         if ($user->mitra_status !== "Verified") {
             abort(404);
         }
-        $days = RentalTime::all();
+        $days = RentalTime::where('status', 'Active')->get();
         $types = VehicleType::where('status', 'Active')->get();
         $pickupLocations = PickupLocation::where("owner_id", $owner)->get();
         return view("pages.mitra.vehicle.create", compact("pickupLocations", "types", "days"));
@@ -76,6 +77,11 @@ class VehicleController extends Controller
             "type_id" => "nullable",
         ]);
 
+        $time = $request->validate([
+            "days" => 'Required|array',
+            'days.*' => 'exists:rental_times,id',
+        ]);
+
         $data["owner_id"] = $owner;
 
         if ($request->hasFile('profile')) {
@@ -93,7 +99,8 @@ class VehicleController extends Controller
             }
         }
 
-        Vehicle::create($data);
+        $vehicle = Vehicle::create($data);
+        $vehicle->vehicleTime()->sync($time['days']);
 
         UserHistory::record(
             "Kendaraan",
@@ -129,8 +136,8 @@ class VehicleController extends Controller
             abort(404);
         }
 
-        $days = RentalTime::all();
-        $vehicle = Vehicle::where("owner_id", $owner)->with('pickupLocation')->findOrFail($id);
+        $days = RentalTime::where('status', 'Active')->get();
+        $vehicle = Vehicle::where("owner_id", $owner)->with('pickupLocation')->with('vehicleTime')->findOrFail($id);
         $pickupLocations = PickupLocation::where("owner_id", $owner)->get();
         $types = VehicleType::where('status', 'Active')->get();
         return view("pages.mitra.vehicle.edit", compact(["vehicle", "pickupLocations", "types", "days"]));
@@ -183,6 +190,13 @@ class VehicleController extends Controller
                 return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
             }
         }
+
+        $time = $request->validate([
+            "days" => 'Required|array',
+            'days.*' => 'exists:rental_times,id',
+        ]);
+
+        $vehicle->vehicleTime()->sync($time['days']);
 
         $vehicle->fill($data);
         if ($vehicle->isDirty()) {

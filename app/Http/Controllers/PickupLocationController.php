@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PickupLocation;
 use App\Models\Vehicle;
+use App\Models\Message;
 use App\Models\UserHistory;
 use App\Models\RegionFilter;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class PickupLocationController extends Controller
             abort(404);
         }
 
-        $pickupLocations = PickupLocation::with('vehicles')->where('owner_id', $user->id)->orderBy("created_at", "desc")->paginate(10);
+        $pickupLocations = PickupLocation::with('vehicles')->orderBy("created_at", "desc")->paginate(10);
         
 
         $recommendedLocations = PickupLocation::with('vehicles')->where('max_vehicle', '>=', '0')->limit(3)->get();
@@ -132,7 +133,25 @@ class PickupLocationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user !== "Superadmin"){
+            abort(404);
+        }
+
+        $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
+
+        UserHistory::record(
+            "Lokasi Pengambilan",
+            $user->name . " telah menghapus lokasi pengambilan " . $pickupLocation->name,
+        );
+
+        // Message::message(
+            
+        // );
+
+        $pickupLocation->delete();
+
+        return redirect()->route('pickup-location.index');
     }
 
     public function veh(string $id)

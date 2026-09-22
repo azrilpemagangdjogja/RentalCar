@@ -40,12 +40,12 @@ Route::post('/authorized', [AuthController::class, 'authorized'])->name('authori
 Route::post('/registration', [AuthController::class, 'registration'])->name('registration');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::resource('profile', ProfileController::class);
 Route::resource('user-history', UserHistoryController::class);
 Route::get('/message/{id}/create', [MessageController::class, 'create'])->name('message.create');
 Route::post('/message/{id}/new', [MessageController::class, 'new'])->name('message.new');
 Route::post('/message/{id}/send', [MessageController::class, 'send'])->name('message.send');
 Route::resource('message', MessageController::class);
+Route::resource('profile', ProfileController::class);
 
 
 
@@ -56,7 +56,6 @@ Route::middleware(['auth', 'role:User'])->group(function () {
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('transaction', TransactionController::class);
     Route::resource('mitra-identity', MitraIdentityController::class);
-    Route::get('search', [SearchController::class,'customer'])->name('search.customer');
     Route::get('search', [SearchController::class,'customer'])->name('search.customer');
 });
 

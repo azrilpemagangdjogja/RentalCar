@@ -23,6 +23,7 @@ class RoleMiddleware
             abort(403);
         }
 
+        
         return $next($request);
     }
 }

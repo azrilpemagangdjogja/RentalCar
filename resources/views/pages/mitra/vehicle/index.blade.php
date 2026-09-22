@@ -4,17 +4,18 @@
     <section class="mb-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                {{-- <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
                     </svg>
                     <span>Kendaraan</span>
-                </div>
+                </div> --}}
                 <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Kelola
                     Kendaraan</h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola kendaraan yang tersedia pada mitramu.</p>
+                <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Kelola kendaraan yang kamu miliki.
+                </p>
             </div>
 
             <a href="{{ route('vehicle.create') }}"
@@ -29,12 +30,19 @@
     </section>
 
     {{-- SUMMARY --}}
-    <section class="grid-cols-2 hidden md:grid gap-3 sm:grid-cols-4 sm:gap-5">
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Total</span>
+
+    <div class="mt-8 hidden sm:grid grid-cols-2 gap-3 sm:grid-cols-4">
+
+        {{-- TOTAL vehicle --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Kendaraan</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehicles->count() }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -42,45 +50,55 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehicles->count() }}</p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Kendaraan</p>
         </div>
 
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Aktif</span>
+        {{-- ACTIVE VEHICLE --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Kendaraan Aktif</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehiclesActive }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 4.5 4.5 10.5-10.5" />
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehiclesActive->count() }}</p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Siap disewakan</p>
         </div>
 
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Tidak Aktif</span>
+        {{-- INACTIVE VEHICLE --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Kendaraan Tidak Aktif</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehiclesInActive }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehiclesInActive->count() }}</p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Tidak tersedia</p>
         </div>
 
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Lokasi</span>
+        {{-- IN LOCATION --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Dititipkan ke Lokasi</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">
+                        {{ $vehicles->where('pickup_location_id', '!=', null)->count() }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -89,43 +107,45 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">5</p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Pickup locations</p>
         </div>
-    </section>
 
-    {{-- FILTER --}}
-    <section class="mt-6 rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div class="relative w-full lg:max-w-md">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 text-gray-400">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m21 21-4.5-4.5m2.25-5.25a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
-                    </svg>
-                </div>
-                <input type="search" placeholder="Cari kendaraan, plat nomor, atau merek..."
-                    class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
-            </div>
+    </div>
 
-            <div class="grid grid-cols-2 gap-3 sm:flex">
-                <select
-                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 outline-none focus:border-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                    <option value="">Semua Tipe</option>
-                    <option value="Bicycle">Bicycle</option>
-                    <option value="Bike">Bike</option>
-                    <option value="Car">Car</option>
-                </select>
-                <select
-                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 outline-none focus:border-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                    <option value="">Semua Status</option>
-                    <option value="Active">Aktif</option>
-                    <option value="Inactive">Tidak Aktif</option>
-                </select>
+    {{-- SEARCH & FILTER --}}
+
+    <form action="{{ route('user.index') }}" class="mb-4 mt-8 flex flex-col gap-3 sm:flex-row">
+
+        <div class="relative flex-1">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                    stroke="currentColor" class="h-5 w-5 text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-4.35-4.35m1.35-5.4a6.75 6.75 0 1 1-13.5 0 6.75 6.75 0 0 1 13.5 0Z" />
+                </svg>
             </div>
+            <input type="search" name="search" value="{{ request('search') }}"
+                placeholder="Cari nama, email, atau nomor telepon..."
+                class="w-full rounded-xl dark:border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
         </div>
-    </section>
+
+        <select
+            class="hidden sm:block rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+            <option>Semua Role</option>
+            <option>User</option>
+            <option>Admin</option>
+            <option>Superadmin</option>
+        </select>
+
+        <select
+            class="hidden sm:block rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+            <option>Semua Status</option>
+            <option>Unverified</option>
+            <option>Pending</option>
+            <option>Verified</option>
+            <option>Rejected</option>
+        </select>
+
+    </form>
 
     {{-- VEHICLE LIST --}}
     <section class="mt-6">
@@ -136,7 +156,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full min-w-[950px] text-left text-sm">
                     <thead
-                        class="border-b border-gray-200 bg-white text-xs uppercase text-gray-500 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                        class="border-b border-gray-200 bg-white text-xs uppercase text-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                         <tr>
                             <th class="px-6 py-4 font-semibold">Kendaraan</th>
                             <th class="px-6 py-4 font-semibold">Plat Nomor</th>
@@ -211,11 +231,13 @@
                                     <div class="flex items-center gap-4">
                                         <div
                                             class="flex h-12 w-16 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            <img src="{{ asset('storage/' . $item->profile) }}" alt="{{ $item->name }}"
+                                                class="h-full w-full object-cover rounded-xl">
+                                            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M5.25 17.25h13.5M6 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0ZM22.5 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0ZM5.25 17.25l1.5-7.5h7.5l3 7.5M14.25 9.75l1.5-3h2.25l2.25 3" />
-                                            </svg>
+                                            </svg> --}}
                                         </div>
                                         <div class="min-w-0">
                                             <p class="truncate font-semibold text-gray-800 dark:text-white">
@@ -229,7 +251,8 @@
                                 <td class="px-6 py-5 font-medium text-gray-700 dark:text-gray-200">
                                     {{ $item->plate_number }}</td>
                                 <td class="px-6 py-5 text-gray-500 dark:text-gray-300">{{ $item->type->name }}</td>
-                                <td class="px-6 py-5 text-gray-500 dark:text-gray-300">{{ $item->pickupLocation->address ?? 'belum ada' }}</td>
+                                <td class="px-6 py-5 text-gray-500 dark:text-gray-300">
+                                    {{ $item->pickupLocation->address ?? 'belum ada' }}</td>
                                 <td class="px-6 py-5">
                                     <span
                                         class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">{{ $item->status }}</span>
@@ -279,6 +302,7 @@
                 <div class="flex gap-4">
                     <div
                         class="flex h-16 w-20 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6"
                             stroke="currentColor" class="h-7 w-7">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -319,68 +343,54 @@
             </div>
 
             @forelse($vehicles as $item)
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
-                <div class="flex gap-4">
-                    <div
-                        class="flex h-16 w-20 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6"
-                            stroke="currentColor" class="h-7 w-7">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M5.25 17.25h13.5M6 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0ZM22.5 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1-4.5 0ZM5.25 17.25l1.5-7.5h7.5l3 7.5" />
-                        </svg>
+                <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
+                    <div class="flex gap-4">
+                        <div
+                            class="flex h-16 w-20 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                            <img src="{{ asset('storage/' . $item->profile) }}" alt="{{ $item->name }}"
+                                class="h-full w-full object-cover rounded-xl">
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.6" stroke="currentColor" class="h-7 w-7">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M5.25 17.25h13.5M6 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0ZM22.5 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1-4.5 0ZM5.25 17.25l1.5-7.5h7.5l3 7.5" />
+                            </svg> --}}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <h3 class="truncate font-semibold text-gray-800 dark:text-white">{{ $item->brand }}
+                                        {{ $item->model }}</h3>
+                                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">{{ $item->brand }} ·
+                                        {{ $item->year }} · {{ $item->color }}</p>
+                                </div>
+                                <span
+                                    class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">{{ $item->status }}</span>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <p class="text-gray-400">Plat Nomor</p>
+                                    <p class="mt-1 font-semibold text-gray-700 dark:text-gray-200">
+                                        {{ $item->plate_number }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Lokasi</p>
+                                    <p class="mt-1 truncate font-semibold text-gray-700 dark:text-gray-200">
+                                        {{ $item->pickupLocation->address ?? 'belum ada' }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="min-w-0">
-                                <h3 class="truncate font-semibold text-gray-800 dark:text-white">{{ $item->brand }} {{ $item->model }}</h3>
-                                <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">{{ $item->brand }} · {{ $item->year }} · {{ $item->color }}</p>
-                            </div>
-                            <span
-                                class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">{{ $item->status }}</span>
-                        </div>
-                        <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
-                            <div>
-                                <p class="text-gray-400">Plat Nomor</p>
-                                <p class="mt-1 font-semibold text-gray-700 dark:text-gray-200">{{ $item->plate_number }}</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400">Lokasi</p>
-                                <p class="mt-1 truncate font-semibold text-gray-700 dark:text-gray-200">{{ $item->pickupLocation->address ?? 'belum ada' }}</p>
-                            </div>
-                        </div>
+                    <div class="mt-4 flex gap-2 border-t border-gray-200 pt-3 dark:border-gray-600">
+                        <a href="{{ route('vehicle.show', $item->id) }}"
+                            class="flex flex-1 items-center justify-center rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 dark:bg-gray-600 dark:text-gray-200">Lihat</a>
+                        <a href="{{ route('vehicle.edit', $item->id) }}"
+                            class="flex flex-1 items-center justify-center rounded-lg bg-gray-800 py-2.5 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">Edit</a>
                     </div>
                 </div>
-                <div class="mt-4 flex gap-2 border-t border-gray-200 pt-3 dark:border-gray-600">
-                    <a href="#"
-                        class="flex flex-1 items-center justify-center rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 dark:bg-gray-600 dark:text-gray-200">Lihat</a>
-                    <a href="{{ route('vehicle.edit', $item->id) }}"
-                        class="flex flex-1 items-center justify-center rounded-lg bg-gray-800 py-2.5 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">Edit</a>
-                </div>
-            </div>
-        @empty
+            @empty
             @endforelse
 
         </div>
 
     </section>
-
-    {{-- PAGINATION --}}
-    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-xs text-gray-400 dark:text-gray-400">Menampilkan 1–10 dari 24 kendaraan</p>
-        <div class="flex items-center gap-2">
-            <button type="button"
-                class="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
-                disabled>
-                Sebelumnya
-            </button>
-            <button type="button"
-                class="rounded-lg bg-gray-800 px-3 py-2 text-sm font-semibold text-white dark:bg-gray-200 dark:text-gray-800">1</button>
-            <button type="button"
-                class="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">2</button>
-            <button type="button"
-                class="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">3</button>
-            <button type="button"
-                class="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">Berikutnya</button>
-        </div>
-    </div>
 @endsection

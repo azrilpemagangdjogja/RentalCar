@@ -4,16 +4,16 @@
     {{-- HEADER --}}
 
     <section class="mb-6">
-        <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+        {{-- <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
             <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Kendaraan</a>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
                 class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
             </svg>
             <span>Tambah Kendaraan</span>
-        </div>
+        </div> --}}
         <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Tambah Kendaraan</h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Tambahkan kendaraan baru ke dalam mitramu.</p>
+        <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Tambahkan kendaraan baru ke dalam mitramu.</p>
     </section>
 
     {{-- VALIDATION ERROR --}}
@@ -271,41 +271,6 @@
 
             <div class="space-y-6">
 
-                {{-- PICKUP LOCATION --}}
-
-                <section
-                    class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
-                    <div class="mb-6">
-                        <div
-                            class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M19.5 10.5c0 7.5-7.5 10.5-7.5 10.5S4.5 18 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                            </svg>
-                        </div>
-                        <h2 class="mt-4 font-bold text-gray-800 dark:text-white">Pickup Location</h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Tentukan lokasi kendaraan.</p>
-                    </div>
-
-                    <label for="pickup_location_id"
-                        class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Lokasi</label>
-                    <select name="pickup_location_id" id="pickup_location_id"
-                        class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
-                        <option value="">Pilih pickup location</option>
-                        @foreach ($pickupLocations as $location)
-                            <option value="{{ $location->id }}"
-                                {{ $vehicle?->pickupLocation?->id == $location->id ? 'selected' : '' }}>
-                                {{ $location->name }}</option>
-                        @endforeach
-                    </select>
-                    <p class="mt-3 text-xs leading-5 text-gray-400 dark:text-gray-400">Kendaraan hanya dapat
-                        ditempatkan
-                        pada pickup location yang tersedia di mitra.</p>
-                </section>
-
                 {{-- RENTAL SETTINGS --}}
 
                 <section
@@ -376,7 +341,7 @@
                                 <label
                                     class="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-400 dark:hover:bg-gray-700">
                                     <input type="checkbox" name="days[]" value="{{ $day->id }}"
-                                        @checked(in_array($day->id, old('days', $rental->days ?? [])))
+                                        @checked(in_array($day->id, old('days', $vehicle->vehicleTime->pluck('id')->toArray())))
                                         class="h-4 w-4 rounded border-gray-300 text-gray-800 focus:ring-gray-800 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-gray-300">
                                     <span class="text-sm font-medium text-gray-700 dark:text-gray-200">
                                         {{ $day->day }} Hari

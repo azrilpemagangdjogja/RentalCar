@@ -11,7 +11,7 @@
 
 <body>
     <div
-        class="flex h-screen w-full flex-col overflow-hidden bg-slate-100 text-gray-800 dark:bg-gray-800 dark:text-gray-50">
+        class="flex h-screen w-full flex-col overflow-hidden bg-gradient-to-b from-slate-100 to-slate-100/85 text-gray-800 dark:bg-gradient-to-b dark:from-slate-800/95 dark:via-slate-800 dark:to-gray-800 dark:text-gray-50">
         <x-admin-navbar />
         <div class="flex min-h-0 w-full flex-1">
             @if (auth()->user()->role == "Admin" || auth()->user()->role == "Superadmin")
@@ -27,7 +27,7 @@
                 <x-customer-sidebar/>
 
             @endif
-            <main class="min-h-0 w-full flex-1 overflow-y-auto bg-slate-100 md:px-6 px-4 py-4 dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+            <main class="min-h-0 w-full flex-1 overflow-y-auto md:px-6 px-4 py-4 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
                 @yield('content')
                 @if (auth()->user()->role == "Admin" || auth()->user()->role == "Superadmin")
                     <x-mitra-footer/>

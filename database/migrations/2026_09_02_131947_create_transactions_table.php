@@ -23,7 +23,11 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->enum('status', ['Pending', 'Confirmed', 'Completed', 'Cancelled', 'In Progress'])->default('Pending');
+            $table->foreignId('rental_time_id')
+                ->constrained('rental_times')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();

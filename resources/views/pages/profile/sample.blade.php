@@ -1,502 +1,323 @@
 @extends('layouts.admin')
 
-@section('content')
-    @php
-        $user = auth()->user();
-        $isVerifiedMitra = ($user->mitra_status ?? 'Unverified') === 'Verified';
+@section('content') <section class="w-full">
+        {{-- HEADER --}} <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="min-w-0">
+                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400"> <a
+                        href="{{ url()->previous() }}"
+                        class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">Kembali</a> <svg
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-4 w-4 shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+                    </svg> <span class="truncate">{{ $user->name }}</span> </div>
+                <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
+                    Profil </h1>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    Informasi singkat tentang pengguna. </p>
+            </div>
 
-        $userName = $user->name ?? 'Nama Pengguna';
-        $userEmail = $user->email ?? 'user@email.com';
-        $userProfile = $user->profile ?? null;
 
-        $recentTransactions = [
-            [
-                'vehicle' => 'Toyota Avanza',
-                'type' => 'Car',
-                'date' => '08 Sep 2026',
-                'duration' => '2 Hari',
-                'status' => 'Selesai',
-                'total' => 'Rp500.000',
-            ],
-            [
-                'vehicle' => 'Honda Beat',
-                'type' => 'Bike',
-                'date' => '02 Sep 2026',
-                'duration' => '1 Hari',
-                'status' => 'Selesai',
-                'total' => 'Rp100.000',
-            ],
-            [
-                'vehicle' => 'Polygon',
-                'type' => 'Bicycle',
-                'date' => '28 Agu 2026',
-                'duration' => '1 Hari',
-                'status' => 'Selesai',
-                'total' => 'Rp50.000',
-            ],
-        ];
-    @endphp
-
-    {{-- HEADER --}}
-
-    <section class="mb-6">
-        <div>
-            <p class="text-sm font-medium text-gray-400 dark:text-gray-400">
-                Akun Saya
-            </p>
-            <h1 class="mt-1 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
-                Menu Saya
-            </h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Kelola akun, rental, transaksi, dan pengaturan kamu.
-            </p>
+            <a href="{{ url()->previous() }}"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
+                Kembali
+            </a>
         </div>
-    </section>
 
-    {{-- PROFILE CARD --}}
-
-    <section class="mb-6">
-        <a href="#"
-            class="group block rounded-2xl border border-gray-100 bg-white p-5 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:p-6">
-            <div class="flex items-center gap-4 sm:gap-5">
-
-                @if ($userProfile)
-                    <img src="{{ asset($userProfile) }}" alt="{{ $userName }}"
-                        class="h-16 w-16 shrink-0 rounded-2xl object-cover sm:h-20 sm:w-20">
-                @else
-                    <div
-                        class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300 sm:h-20 sm:w-20">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7"
-                            stroke="currentColor" class="h-8 w-8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 21a7.5 7.5 0 0 1 15 0" />
-                        </svg>
-                    </div>
-                @endif
+        {{-- PROFILE OVERVIEW --}}
+        <div class="mt-6 rounded-2xl bg-white p-4 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center gap-4">
+                <div class="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600 sm:h-16 sm:w-16">
+                    <img src="{{ $user->profile ? asset('storage/' . $user->profile) : asset('images/default-profile.png') }}"
+                        alt="{{ $user->name }}" class="h-full w-full object-cover">
+                </div>
 
                 <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-2">
+                    <div class="flex flex-wrap items-center gap-2">
                         <h2 class="truncate text-lg font-bold text-gray-800 dark:text-white sm:text-xl">
-                            {{ $userName }}
+                            {{ $user->mitraIdentity?->full_name ?? $user->name }}
                         </h2>
 
-                        @if ($isVerifiedMitra)
+                        @if ($user->mitra_status === 'Verified')
                             <span
-                                class="hidden shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-200 dark:text-gray-800 sm:inline-flex">
-                                Mitra Terverifikasi
+                                class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-white dark:text-gray-800">
+                                Mitra
                             </span>
                         @endif
                     </div>
 
-                    <p class="mt-1 truncate text-sm text-gray-500 dark:text-gray-400">
-                        {{ $userEmail }}
-                    </p>
-
-                    <p class="mt-2 text-xs text-gray-400 dark:text-gray-400">
-                        Kelola informasi profil dan akun
+                    <p class="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+                        {{ $user->mitraIdentity?->email ?? $user->email }}
                     </p>
                 </div>
+            </div>
+        </div>
 
-                <div
-                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 transition group-hover:bg-gray-800 group-hover:text-white dark:bg-gray-600 dark:text-gray-300 dark:group-hover:bg-gray-200 dark:group-hover:text-gray-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                    </svg>
+        {{-- MAIN CONTENT --}}
+        <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {{-- LEFT CONTENT --}}
+            <div class="space-y-6 lg:col-span-2">
+
+                {{-- ABOUT USER --}}
+                <div class="rounded-2xl bg-white dark:bg-gray-700">
+                    <div class="border-b border-gray-100 p-4 dark:border-gray-600 sm:p-5">
+                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">Tentang Pengguna</h2>
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+                            Informasi yang dapat dilihat oleh pengguna lain.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 sm:p-5">
+                        <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-600/60">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                                    </svg>
+                                </span>
+                                <div class="min-w-0">
+                                    <p class="text-[10px] text-gray-400 dark:text-gray-400">Nama</p>
+                                    <p class="truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                        {{ $user->mitraIdentity?->full_name ?? $user->name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-600/60">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.75 6.75v10.5A2.25 2.25 0 0 1 19.5 19.5h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15A2.25 2.25 0 0 0 2.25 6.75m19.5 0-9.75 6-9.75-6" />
+                                    </svg>
+                                </span>
+                                <div class="min-w-0">
+                                    <p class="text-[10px] text-gray-400 dark:text-gray-400">Email</p>
+                                    <p class="truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                        {{ $user->mitraIdentity?->email ?? $user->email }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if ($user->mitra_status === 'Verified' && $user->mitraIdentity?->telp)
+                            <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-600/60">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.09l-4.423-.?..." />
+                                        </svg>
+                                    </span>
+                                    <div class="min-w-0">
+                                        <p class="text-[10px] text-gray-400 dark:text-gray-400">Telepon</p>
+                                        <p class="truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                            {{ $user->mitraIdentity->telp }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="rounded-xl bg-gray-50 p-3 dark:bg-gray-600/60">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 6.75h7.5M8.25 10.5h7.5m-7.5 3.75h4.5M6 3.75h12A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75Z" />
+                                    </svg>
+                                </span>
+                                <div class="min-w-0">
+                                    <p class="text-[10px] text-gray-400 dark:text-gray-400">Bergabung</p>
+                                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                        {{ $user->created_at->format('d M Y') }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-            </div>
-        </a>
-    </section>
+                {{-- MITRA VEHICLES --}}
+                @if ($user->mitra_status === 'Verified')
+                    <section>
+                        <div class="mb-4 flex items-end justify-between gap-4">
+                            <div>
+                                <h2 class="text-lg font-bold text-gray-800 dark:text-white sm:text-xl">
+                                    Kendaraan yang Dikelola
+                                </h2>
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+                                    Kendaraan yang disediakan oleh mitra ini.
+                                </p>
+                            </div>
 
-    {{-- QUICK ACTION --}}
-
-    <section class="mb-6">
-        <div class="mb-3">
-            <h2 class="font-bold text-gray-800 dark:text-white">
-                Akses Cepat
-            </h2>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                Akses menu yang sering kamu gunakan.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-
-            @if ($isVerifiedMitra)
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Kendaraan Saya
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Kelola kendaraan
-                    </p>
-                </a>
-
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19.5 10.5c0 7.5-7.5 10.5-7.5 10.5S4.5 18 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Tempat Pengambilan
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Kelola pickup location
-                    </p>
-                </a>
-
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v4.5m0 3h.008v.008H12V16.5ZM10.125 3.75h3.75l6.75 11.25-1.875 3.75H5.25l-1.875-3.75 6.75-11.25Z" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Denda
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Lihat denda
-                    </p>
-                </a>
-
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12.75 11.25 15 15 9.75m6 2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Transaksi Saya
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Lihat transaksi
-                    </p>
-                </a>
-            @else
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Mulai Sewa
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Cari kendaraan
-                    </p>
-                </a>
-
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 12.75 11.25 15 15 9.75m6 2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Transaksi Saya
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Riwayat rental
-                    </p>
-                </a>
-
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v4.5m0 3h.008v.008H12V16.5ZM10.125 3.75h3.75l6.75 11.25-1.875 3.75H5.25l-1.875-3.75 6.75-11.25Z" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Denda
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Lihat denda
-                    </p>
-                </a>
-
-                <a href="#"
-                    class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9.75 9.75a2.25 2.25 0 1 1 4.5 0c0 1.5-2.25 1.875-2.25 3.375m0 3.375h.008v.008H12v-.008Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
-                        </svg>
-                    </div>
-                    <p class="mt-4 text-sm font-semibold text-gray-800 dark:text-white">
-                        Bantuan
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Butuh bantuan?
-                    </p>
-                </a>
-            @endif
-        </div>
-    </section>
-
-    {{-- RECENT TRANSACTIONS --}}
-
-    <section class="mb-6">
-        <div class="mb-3 flex items-end justify-between gap-3">
-            <div>
-                <h2 class="font-bold text-gray-800 dark:text-white">
-                    Transaksi Terakhir
-                </h2>
-                <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                    Aktivitas rental terbaru kamu.
-                </p>
-            </div>
-
-            <a href="#"
-                class="text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
-                Lihat Semua
-            </a>
-        </div>
-
-        <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-            @forelse ($recentTransactions as $transaction)
-                <a href="#"
-                    class="block border-b border-gray-100 p-4 transition last:border-b-0 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-600/50 sm:p-5">
-                    <div class="flex items-center gap-4">
-
-                        <div
-                            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                            @if ($transaction['type'] === 'Car')
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
-                                </svg>
-                            @elseif ($transaction['type'] === 'Bike')
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m6 17 3-6h6l3 6m-9-6 1.5-3h3L15 11m-9 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm16 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
-                                </svg>
-                            @else
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M5.25 17.25h13.5M6 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0ZM22.5 17.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1-4.5 0ZM5.25 17.25l1.5-7.5h7.5l3 7.5" />
-                                </svg>
+                            @if ($user->vehicles->count() > 0)
+                                <a href="{{ route('vehicles.index', ['owner' => $user->id]) }}"
+                                    class="shrink-0 text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                                    Lihat semua
+                                </a>
                             @endif
                         </div>
 
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="min-w-0">
-                                    <h3 class="truncate text-sm font-semibold text-gray-800 dark:text-white">
-                                        {{ $transaction['vehicle'] }}
-                                    </h3>
-                                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                                        {{ $transaction['date'] }} · {{ $transaction['duration'] }}
+                        <div class="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+                            @forelse ($user->vehicles->take(4) as $vehicle)
+                                <a href="{{ route('vehicles.show', $vehicle->id) }}"
+                                    class="group overflow-hidden rounded-2xl border border-gray-100 bg-white transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
+                                    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-600">
+                                        <img src="{{ asset('storage/' . $vehicle->profile) }}"
+                                            alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
+                                            class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+
+                                        <span
+                                            class="absolute left-2 top-2 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">
+                                            {{ $vehicle->type->name }}
+                                        </span>
+                                    </div>
+
+                                    <div class="p-3">
+                                        <div class="flex items-start justify-between gap-2">
+                                            <h3
+                                                class="truncate text-xs font-bold text-gray-800 dark:text-white sm:text-sm">
+                                                {{ $vehicle->brand }} {{ $vehicle->model }}
+                                            </h3>
+
+                                            <span class="shrink-0 text-[9px] font-medium text-gray-400">
+                                                {{ $vehicle->seats }} Kursi
+                                            </span>
+                                        </div>
+
+                                        <div class="mt-3 flex items-center gap-2">
+                                            <div
+                                                class="h-7 w-7 shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-500">
+                                                <img src="{{ $vehicle->owner->profile ? asset('storage/' . $vehicle->owner->profile) : asset('images/default-profile.png') }}"
+                                                    alt="{{ $vehicle->owner->name }}" class="h-full w-full object-cover">
+                                            </div>
+
+                                            <div class="min-w-0">
+                                                <p class="text-[9px] text-gray-400">Pemilik</p>
+                                                <p class="truncate text-xs font-medium text-gray-700 dark:text-gray-200">
+                                                    {{ $vehicle->owner->name }}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-3 border-t border-gray-100 pt-2.5 dark:border-gray-600">
+                                            <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                                {{ $vehicle->deposit_amount ? 'Deposit Rp ' . number_format($vehicle->deposit_amount, 0, ',', '.') : 'Tanpa deposit' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            @empty
+                                <div class="col-span-full rounded-2xl bg-gray-50 p-6 text-center dark:bg-gray-800">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        Belum ada kendaraan yang dikelola.
                                     </p>
                                 </div>
+                            @endforelse
+                        </div>
+                    </section>
+                @endif
+            </div>
 
-                                <span
-                                    class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                                    {{ $transaction['status'] }}
-                                </span>
-                            </div>
+            {{-- RIGHT SIDEBAR --}}
+            <div class="space-y-6">
 
-                            <div class="mt-2 flex items-center justify-between gap-3">
-                                <p class="text-xs text-gray-400 dark:text-gray-400">
-                                    {{ $transaction['type'] }}
-                                </p>
-                                <p class="text-sm font-bold text-gray-800 dark:text-white">
-                                    {{ $transaction['total'] }}
+                {{-- MITRA PROFILE --}}
+                @if ($user->mitra_status === 'Verified')
+                    <div class="rounded-2xl bg-white p-4 dark:bg-gray-700">
+                        <div class="mb-4 flex items-center gap-3">
+                            <span
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-white dark:text-gray-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                                </svg>
+                            </span>
+
+                            <div>
+                                <h2 class="text-sm font-bold text-gray-800 dark:text-white">
+                                    Profil Mitra
+                                </h2>
+                                <p class="text-[11px] text-gray-400">
+                                    Penyedia kendaraan di RentalCar
                                 </p>
                             </div>
                         </div>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="hidden h-5 w-5 shrink-0 text-gray-400 sm:block">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                        </svg>
+                        <div class="space-y-2">
+                            <div
+                                class="flex items-center justify-between gap-4 rounded-xl bg-gray-50 px-3 py-2.5 dark:bg-gray-600/60">
+                                <span class="text-xs text-gray-500 dark:text-gray-400">Nama Lengkap</span>
+                                <span
+                                    class="max-w-[55%] truncate text-right text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                    {{ $user->mitraIdentity->full_name }}
+                                </span>
+                            </div>
 
+                            <div
+                                class="flex items-center justify-between gap-4 rounded-xl bg-gray-50 px-3 py-2.5 dark:bg-gray-600/60">
+                                <span class="text-xs text-gray-500 dark:text-gray-400">Email</span>
+                                <span
+                                    class="max-w-[55%] truncate text-right text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                    {{ $user->mitraIdentity->email }}
+                                </span>
+                            </div>
+
+                            <div
+                                class="flex items-center justify-between gap-4 rounded-xl bg-gray-50 px-3 py-2.5 dark:bg-gray-600/60">
+                                <span class="text-xs text-gray-500 dark:text-gray-400">Telepon</span>
+                                <span class="text-right text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                    {{ $user->mitraIdentity->telp }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            @empty
-                <div class="p-8 text-center">
-                    <div
-                        class="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-6 w-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 6v6l4 2m5-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
+                @endif
+
+                {{-- USER ACTION --}}
+                @if ($user->id == auth()->user()->id)
+                    <div class="rounded-2xl bg-white p-4 dark:bg-gray-700">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m16.862 4.487 1.888 1.888m-1.888-1.888L8.25 13.5l-.75 3 3-.75 8.612-8.613a1.5 1.5 0 0 0 0-2.121Z" />
+                                </svg>
+                            </span>
+
+                            <a href="{{ route('user.edit', $user->id) }}" class="min-w-0 flex-1">
+                                <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                                    Edit Profil
+                                </p>
+                                <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-400">
+                                    Ubah informasi profil kamu.
+                                </p>
+                            </a>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
+                            </svg>
+                        </div>
                     </div>
-                    <p class="mt-3 text-sm font-semibold text-gray-700 dark:text-gray-200">
-                        Belum ada transaksi
-                    </p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                        Transaksi rental kamu akan muncul di sini.
-                    </p>
-                </div>
-            @endforelse
+                @endif
+
+            </div>
         </div>
     </section>
 
-    {{-- OTHER MENU --}}
 
-    <section class="mb-6">
-        <div class="mb-3">
-            <h2 class="font-bold text-gray-800 dark:text-white">
-                Lainnya
-            </h2>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                Informasi dan bantuan lainnya.
-            </p>
-        </div>
-
-        <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-
-            <a href="#"
-                class="flex items-center gap-4 border-b border-gray-100 p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-600/50">
-                <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9.75 9.75a2.25 2.25 0 1 1 4.5 0c0 1.5-2.25 1.875-2.25 3.375m0 3.375h.008v.008H12v-.008Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
-                    </svg>
-                </div>
-
-                <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-gray-800 dark:text-white">
-                        Bantuan
-                    </p>
-                    <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-400">
-                        Pertanyaan dan bantuan penggunaan aplikasi
-                    </p>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                    stroke="currentColor" class="h-5 w-5 text-gray-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                </svg>
-            </a>
-
-            <a href="#"
-                class="flex items-center gap-4 border-b border-gray-100 p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-600/50">
-                <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 12.75 11.25 15 15 9.75m-6.75-6h7.5L19.5 7.5v13.125a1.125 1.125 0 0 1-1.125 1.125H5.625A1.125 1.125 0 0 1 4.5 20.625V4.875A1.125 1.125 0 0 1 5.625 3.75H9Z" />
-                    </svg>
-                </div>
-
-                <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-gray-800 dark:text-white">
-                        Kebijakan & Ketentuan
-                    </p>
-                    <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-400">
-                        Syarat dan ketentuan penggunaan RentalCar
-                    </p>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                    stroke="currentColor" class="h-5 w-5 text-gray-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                </svg>
-            </a>
-
-            <a href="#"
-                class="flex items-center gap-4 border-b border-gray-100 p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-600/50">
-                <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </div>
-
-                <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-gray-800 dark:text-white">
-                        Privasi
-                    </p>
-                    <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-400">
-                        Pelajari bagaimana data kamu digunakan
-                    </p>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                    stroke="currentColor" class="h-5 w-5 text-gray-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                </svg>
-            </a>
-
-            <a href="#" class="flex items-center gap-4 p-4 transition hover:bg-gray-50 dark:hover:bg-gray-600/50">
-                <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 6.75h.008v.008H12V6.75Zm0 4.5h.008v.008H12v-.008Zm0 4.5h.008v.008H12v-.008Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
-                    </svg>
-                </div>
-
-                <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-gray-800 dark:text-white">
-                        Tentang RentalCar
-                    </p>
-                    <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-400">
-                        Informasi tentang aplikasi
-                    </p>
-                </div>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                    stroke="currentColor" class="h-5 w-5 text-gray-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                </svg>
-            </a>
-
-        </div>
-    </section>
 @endsection

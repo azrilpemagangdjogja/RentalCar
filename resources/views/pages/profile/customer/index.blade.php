@@ -8,9 +8,9 @@
 
         <section class="md:mb-6 hidden md:block">
             <div>
-                <p class="text-sm font-medium text-gray-400 dark:text-gray-400">
+                {{-- <p class="text-sm font-medium text-gray-400 dark:text-gray-400">
                     Akun Saya
-                </p>
+                </p> --}}
                 <h1 class="mt-1 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     Menu Saya
                 </h1>
@@ -92,7 +92,7 @@
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 
                 @if (($user->mitra_status ?? 'Unverified') === 'Verified')
-                    <a href="#"
+                    <a href="{{ route('vehicle.index') }}"
                         class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
                         <div
                             class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">

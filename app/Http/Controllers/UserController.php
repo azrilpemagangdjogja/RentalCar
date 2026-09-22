@@ -7,6 +7,7 @@ use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Conversation;
+use Illuminate\Support\Facades\Redirect;
 use illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -14,15 +15,49 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
 
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
-        $users = User::all();
+
+        $search = $request->search;
+
+        if ($user->role == "Admin") {
+            $users = User::whereNot('id', $user->id)->where('role', 'User')->paginate(25);
+            if ($request->search) {
+                $users = User::where(function ($query) use ($search) {
+                    $query->where("id", 'LIKE', '%' . $search . '%')
+                        ->orWhere("name", 'LIKE', '%' . $search . '%')
+                        ->orWhere("telp", 'LIKE', '%' . $search . '%')
+                        ->orWhere("mitra_status", 'LIKE', '%' . $search . '%')
+                        ->orWhere("role", 'LIKE', '%' . $search . '%')
+                        ->orWhere("email", 'LIKE', '%' . $search . '%');
+                })
+                ->whereNot('id', $user->id)
+                ->where('role', 'User')
+                ->paginate(25);
+            }
+        } elseif ($user->role = "Superadmin"){
+            $users = User::whereNot('id', $user->id)->paginate(25);
+            if ($request->search) {
+                $users = User::where(function ($query) use ($search) {
+                    $query->where("id", 'LIKE', '%' . $search . '%')
+                        ->orWhere("name", 'LIKE', '%' . $search . '%')
+                        ->orWhere("telp", 'LIKE', '%' . $search . '%')
+                        ->orWhere("mitra_status", 'LIKE', '%' . $search . '%')
+                        ->orWhere("role", 'LIKE', '%' . $search . '%')
+                        ->orWhere("email", 'LIKE', '%' . $search . '%');
+                })
+                ->whereNot('id', $user->id)
+                ->paginate(25);
+            }
+        }
+
         $totalUsers = $users->count();
+
         $totalRoleUsers = $users->where('role', 'User')->count();
         $totalRoleAdmins = $users->where('role', 'Admin')->count();
         $totalRoleSuperadmins = $users->where('role', 'Superadmin')->count();
@@ -73,7 +108,7 @@ class UserController extends Controller
 
         UserHistory::record(
             "User",
-            $user->name . " Menambahkan user " . $data->name
+            $user->name . " Menambahkan user " . $data['name']
         );
 
         return redirect('user');
@@ -168,6 +203,18 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = auth()->user();
+        if ($user->role !== "Admin" && $user->role !== "Superadmin") {
+            abort(404);
+        }
+
+        $users = User::findOrFail($id);
+        UserHistory::record(
+            "Pengguna",
+            $user->name . " menghapus akun " . $users->name . " dengan email " . $users->email
+        );
+        $users->delete();
+
+        return redirect()->route('user.index');
     }
 }

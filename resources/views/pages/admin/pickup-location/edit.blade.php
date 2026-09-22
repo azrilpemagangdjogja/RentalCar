@@ -20,7 +20,7 @@
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
                     </svg>
-                    <span>Profile</span>                
+                    <span>Profile</span>
                 </div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Profile Pickup
                     Location</h1>
@@ -159,15 +159,19 @@
                         sistem beserta relasi kendaraan yang terkait.</p>
                 </div>
 
-                <button type="button"
-                    class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-600/20 sm:w-auto">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673A2.25 2.25 0 0 1 15.916 21.75H8.084a2.25 2.25 0 0 1-2.244-2.077L4.77 5.79m14.458 0a48.108 48.108 0 0 0-3.478-.397m-10.98.562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m0 0V4.5A2.25 2.25 0 0 1 11.52 2.25h.96a2.25 2.25 0 0 1 2.25 2.25v.893m-7.5 0a48.667 48.667 0 0 1 7.5 0" />
-                    </svg>
-                    Hapus Pickup Location
-                </button>
+                <form action="{{ route('pickup-location.destroy', $pickupLocation->id) }}" method="POST" onsubmit="return confirm('yakin ingin menghapus {{ $pickupLocation->name }}? tindakan ini tidak bisa dibatalkan!')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-600/20 sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                            stroke="currentColor" class="h-5 w-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673A2.25 2.25 0 0 1 15.916 21.75H8.084a2.25 2.25 0 0 1-2.244-2.077L4.77 5.79m14.458 0a48.108 48.108 0 0 0-3.478-.397m-10.98.562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m0 0V4.5A2.25 2.25 0 0 1 11.52 2.25h.96a2.25 2.25 0 0 1 2.25 2.25v.893m-7.5 0a48.667 48.667 0 0 1 7.5 0" />
+                        </svg>
+                        Hapus Pickup Location
+                    </button>
+                </form>
             </div>
         </div>
 
