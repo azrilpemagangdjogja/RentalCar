@@ -5,7 +5,7 @@
         {{-- HEADER --}} <section class="mb-6">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <div class="hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400 md:flex"> <a href="#"
+                    <div class="hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400 sm:flex"> <a href="#"
                             class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a> <svg
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                             stroke="currentColor" class="h-4 w-4">
@@ -13,7 +13,7 @@
                         </svg> <span>Approvement</span> </div>
                     <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                         Approvement Identitas Mitra </h1>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                         Periksa dan kelola pengajuan identitas pengguna yang ingin menjadi mitra. </p>
                 </div>
             </div>

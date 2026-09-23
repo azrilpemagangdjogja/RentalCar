@@ -6,7 +6,7 @@
 
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
@@ -16,7 +16,7 @@
                 </div>
                 <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Waktu Rental
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola waktu rental yang bisa digunakan oleh mitra.
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Kelola waktu rental yang bisa digunakan oleh mitra.
                 </p>
             </div>
 
@@ -32,13 +32,13 @@
 
         {{-- SUMMARY --}}
 
-        <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div class="mb-6 grid grid-cols-2 gap-4">
             <div class="rounded-2xl bg-white p-5 dark:border dark:border-gray-600 dark:bg-gray-700">
                 <div class="flex items-center justify-between gap-4">
                     <div>
                         <p class="text-xs font-medium text-gray-400 dark:text-gray-400">Total Waktu</p>
                         <p class="mt-2 text-2xl font-bold text-gray-800 dark:text-white">{{ $rentalTimes->count() }}</p>
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">waktu terdaftar</p>
+                        <p class="mt-1 text-xs hidden sm:block text-gray-500 dark:text-gray-400">waktu terdaftar</p>
                     </div>
                     <div
                         class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
@@ -57,7 +57,7 @@
                     <div>
                         <p class="text-xs font-medium text-gray-400 dark:text-gray-400">Kendaraan</p>
                         <p class="mt-2 text-2xl font-bold text-gray-800 dark:text-white">{{ $vehicleCount ?? 0 }}</p>
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">kendaraan Terdaftar</p>
+                        <p class="mt-1 text-xs hidden sm:block text-gray-500 dark:text-gray-400">kendaraan Terdaftar</p>
                     </div>
                     <div
                         class="flex h-11 w-11 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
@@ -87,7 +87,7 @@
 
             <div class="divide-y divide-gray-100 dark:divide-gray-600">
                 @forelse ($rentalTimes as $time)
-                    <div class="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:p-6">
+                    <div class="flex gap-4 p-5 flex-row items-center sm:p-6">
                         <div
                             class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -106,7 +106,7 @@
                                 </span>
                             </div>
 
-                            <p class="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                            <p class="mt-1 hidden sm:block text-sm leading-6 text-gray-500 dark:text-gray-400">
                                 {{ $time->description ?: 'Tidak ada deskripsi untuk region ini.' }}
                             </p>
 

@@ -6,32 +6,39 @@
     <section class="mb-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="md:flex hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                {{-- <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="#" class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
                     </svg>
                     <span>History</span>
-                </div>
+                </div> --}}
                 <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     History Aktivitas
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                     Lihat riwayat aktivitas pengguna yang tercatat dalam sistem.
                 </p>
             </div>
         </div>
     </section>
 
-    {{-- SUMMARY --}}
+    {{-- STATISTICS --}}
 
-    <section class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Total</span>
+    <div class="mt-8 hidden mb-8 sm:grid grid-cols-2 gap-3 sm:grid-cols-4">
+
+        {{-- TOTAL HISTORY --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">
+                        {{ method_exists($histories, 'total') ? $histories->total() : $histories->count() }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -39,17 +46,19 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">
-                {{ method_exists($histories, 'total') ? $histories->total() : $histories->count() }}
-            </p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Total aktivitas</p>
         </div>
 
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Pengguna</span>
+        {{-- TOTAL --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Pengguna</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">
+                        {{ $histories->pluck('user_id')->filter()->unique()->count() }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -57,17 +66,19 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">
-                {{ $histories->pluck('user_id')->filter()->unique()->count() }}
-            </p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Pengguna tercatat</p>
         </div>
 
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Aktivitas</span>
+        {{-- ACTIVITY TYPE --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Jenis Aktivitas</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">
+                        {{ $histories->pluck('activity')->filter()->unique()->count() }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -75,17 +86,18 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-2xl font-bold text-gray-800 dark:text-white">
-                {{ $histories->pluck('activity')->filter()->unique()->count() }}
-            </p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Jenis aktivitas</p>
         </div>
 
-        <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-            <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Terbaru</span>
+        {{-- RECENT HISTORY --}}
+
+        <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Hari ini</p>
+                    <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">{{ $todayHistory ?? '-' }}</p>
+                </div>
                 <div
-                    class="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -93,48 +105,45 @@
                     </svg>
                 </div>
             </div>
-            <p class="mt-4 text-lg font-bold text-gray-800 dark:text-white">
-                {{ $histories->first()?->created_at?->format('d M Y') ?? '-' }}
-            </p>
-            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Aktivitas terakhir</p>
         </div>
-    </section>
+
+    </div>
 
     {{-- FILTER --}}
 
-    <section class="mt-6 rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div class="relative w-full lg:max-w-md">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 text-gray-400">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m21 21-4.5-4.5m2.25-5.25a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
-                    </svg>
-                </div>
-                <input type="search" placeholder="Cari nama, email, atau aktivitas..."
-                    class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
-            </div>
+    <form action="{{ route('user-history.index') }}" class="mb-4 flex flex-col gap-3 sm:flex-row">
 
-            <div class="grid grid-cols-2 gap-3 sm:flex">
-                <select
-                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 outline-none focus:border-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                    <option value="">Semua Aktivitas</option>
-                    @foreach ($histories->pluck('activity')->filter()->unique()->sort() as $activity)
-                        <option value="{{ $activity }}">{{ $activity }}</option>
-                    @endforeach
-                </select>
-
-                <select
-                    class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-600 outline-none focus:border-gray-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
-                    <option value="">Semua Waktu</option>
-                    <option value="today">Hari Ini</option>
-                    <option value="week">7 Hari Terakhir</option>
-                    <option value="month">30 Hari Terakhir</option>
-                </select>
+        <div class="relative flex-1">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                    stroke="currentColor" class="h-5 w-5 text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-4.35-4.35m1.35-5.4a6.75 6.75 0 1 1-13.5 0 6.75 6.75 0 0 1 13.5 0Z" />
+                </svg>
             </div>
+            <input type="search" name="search" value="{{ request('search') }}"
+                placeholder="Cari jenis, user, atau deskripsi..."
+                class="w-full rounded-xl border border-gray-100 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
         </div>
-    </section>
+
+        <select
+            class="hidden sm:block rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+            <option>Semua Role</option>
+            <option>User</option>
+            <option>Admin</option>
+            <option>Superadmin</option>
+        </select>
+
+        <select
+            class="hidden sm:block rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+            <option>Semua Status</option>
+            <option>Unverified</option>
+            <option>Pending</option>
+            <option>Verified</option>
+            <option>Rejected</option>
+        </select>
+
+    </form>
 
     {{-- HISTORY LIST --}}
 
@@ -165,8 +174,8 @@
                                         <div
                                             class="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-600">
                                             @if ($item->user_profile)
-                                                <img src="{{ asset('storage/' . $item->user_profile) }}" alt="{{ $item->user_name }}"
-                                                    class="h-full w-full object-cover">
+                                                <img src="{{ asset('storage/' . $item->user_profile) }}"
+                                                    alt="{{ $item->user_name }}" class="h-full w-full object-cover">
                                             @else
                                                 <div
                                                     class="flex h-full w-full items-center justify-center text-gray-500 dark:text-gray-300">

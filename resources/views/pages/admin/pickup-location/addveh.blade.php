@@ -5,7 +5,7 @@
     <section class="w-full">
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="mb-2 hiden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('pickup-location.show', $pickupLocation->id) }}"
                         class="transition hover:text-gray-700 dark:hover:text-gray-200">Pickup Location</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -16,7 +16,7 @@
                 </div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Kelola Kendaraan
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Atur kendaraan yang ditempatkan pada
+                <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Atur kendaraan yang ditempatkan pada
                     {{ $pickupLocation->name }}.</p>
             </div>
             <a href="{{ route('pickup-location.show', $pickupLocation->id) }}"

@@ -5,7 +5,7 @@
         {{-- HEADER --}}
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
-                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('pickup-location.index') }}"
                         class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">Lokasi Pengambilan</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -16,7 +16,7 @@
                 </div>
                 <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     {{ $pickupLocation->name }}</h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia pada lokasi pengambilan ini.</p>
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia pada lokasi pengambilan ini.</p>
             </div>
             <a href="{{ route('pickup-location.index') }}"
                 class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">

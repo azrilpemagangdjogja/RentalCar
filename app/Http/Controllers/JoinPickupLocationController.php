@@ -23,7 +23,10 @@ class JoinPickupLocationController extends Controller
         if ($user->mitra_status !== "Verified") {
             abort(404);
         }
-        $recommendedLocations = PickupLocation::where('status', 'Active')->get();
+        $recommendedLocations = PickupLocation::where('status', 'Active')->withCount('vehicles')->get()
+        ->filter(function ($item){
+            return $item->vehicle_count < $item->max_vehicle;
+        });
         $suggestedLocations = PickupLocation::where('status', 'Active')->get();
         $pickupLocations = PickupLocation::where('status', 'Active')->paginate(10);
         $areas = RegionFilter::get();

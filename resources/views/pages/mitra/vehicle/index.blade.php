@@ -113,7 +113,7 @@
 
     {{-- SEARCH & FILTER --}}
 
-    <form action="{{ route('user.index') }}" class="mb-4 mt-8 flex flex-col gap-3 sm:flex-row">
+    <form action="{{ route('vehicle.index') }}" class="mb-4 mt-8 flex flex-col gap-3 sm:flex-row">
 
         <div class="relative flex-1">
             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -124,8 +124,8 @@
                 </svg>
             </div>
             <input type="search" name="search" value="{{ request('search') }}"
-                placeholder="Cari nama, email, atau nomor telepon..."
-                class="w-full rounded-xl dark:border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
+                placeholder="Cari brand, merk, plat kendaraanmu..."
+                class="w-full rounded-xl border border-gray-100 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
         </div>
 
         <select
@@ -167,64 +167,6 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-600">
-                        <tr class="transition hover:bg-gray-100/70 dark:hover:bg-gray-600/50">
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-4">
-                                    <div
-                                        class="flex h-12 w-16 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
-                                        </svg>
-                                    </div>
-                                    <div class="min-w-0">
-                                        <p class="truncate font-semibold text-gray-800 dark:text-white">Toyota Avanza</p>
-                                        <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Toyota · 2024 · Hitam</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5 font-medium text-gray-700 dark:text-gray-200">H 1234 AB</td>
-                            <td class="px-6 py-5 text-gray-500 dark:text-gray-300">Car</td>
-                            <td class="px-6 py-5 text-gray-500 dark:text-gray-300">Jakarta Selatan</td>
-                            <td class="px-6 py-5">
-                                <span
-                                    class="inline-flex rounded-full bg-gray-800 px-3 py-1 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">Aktif</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <div class="flex justify-end gap-2">
-                                    <a href="#"
-                                        class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        title="Lihat">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M2.25 12s3.5-6 9.75-6 9.75 6 9.75 6-3.5 6-9.75 6-9.75-6-9.75-6Z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                        </svg>
-                                    </a>
-                                    <a href="#"
-                                        class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        title="Edit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L11.25 15.403l-4.5 1.5 1.5-4.5L16.862 4.487Z" />
-                                        </svg>
-                                    </a>
-                                    <button type="button"
-                                        class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        title="Hapus">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673A2.25 2.25 0 0 1 15.916 21.75H8.084a2.25 2.25 0 0 1-2.244-2.077L4.77 5.79m14.458 0a48.108 48.108 0 0 0-3.478-.397m-10.507 0a48.108 48.108 0 0 1 3.478-.397m0 0V4.125c0-.621.504-1.125 1.125-1.125h3.308c.621 0 1.125.504 1.125 1.125V5.393" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
                         @forelse($vehicles as $item)
                             <tr class="transition hover:bg-gray-100/70 dark:hover:bg-gray-600/50">
                                 <td class="px-6 py-5">
@@ -297,50 +239,6 @@
 
         {{-- MOBILE CARDS --}}
         <div class="space-y-3 md:hidden">
-
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
-                <div class="flex gap-4">
-                    <div
-                        class="flex h-16 w-20 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6"
-                            stroke="currentColor" class="h-7 w-7">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
-                        </svg>
-                    </div>
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="min-w-0">
-                                <h3 class="truncate font-semibold text-gray-800 dark:text-white">Toyota Avanza</h3>
-                                <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Toyota · 2024 · Hitam</p>
-                            </div>
-                            <span
-                                class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-200 dark:text-gray-800">Aktif</span>
-                        </div>
-                        <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
-                            <div>
-                                <p class="text-gray-400">Plat Nomor</p>
-                                <p class="mt-1 font-semibold text-gray-700 dark:text-gray-200">H 1234 AB</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400">Lokasi</p>
-                                <p class="mt-1 truncate font-semibold text-gray-700 dark:text-gray-200">Jakarta Selatan</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 flex gap-2 border-t border-gray-200 pt-3 dark:border-gray-600">
-                    <a href="#"
-                        class="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 dark:bg-gray-600 dark:text-gray-200">
-                        Lihat
-                    </a>
-                    <a href="#"
-                        class="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gray-800 py-2.5 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
-                        Edit
-                    </a>
-                </div>
-            </div>
 
             @forelse($vehicles as $item)
                 <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">

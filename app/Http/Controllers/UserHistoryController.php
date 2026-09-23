@@ -11,15 +11,31 @@ class UserHistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
+        $search = $request->search;
         if ($user->role == "Admin" || $user->role == "Superadmin"){
-            $histories = UserHistory::orderByDesc('created_at')->paginate(10);
+            $history = UserHistory::orderByDesc('created_at');
+            $todayHistory = UserHistory::whereToday('created_at')->count();
         } else {
-            $histories = UserHistory::where('user_id', $user->id)->orderByDesc('created_at')->paginate(20);
+            $history = UserHistory::where('user_id', $user->id)->orderByDesc('created_at');
+            $todayHistory = UserHistory::where('user_id', $user->id)->whereToday('created_at')->count();
         }
-        return view('pages.user-history.index', compact('histories'));
+
+        $histories = $history->paginate(30);
+
+        if (isset($search)){
+            $histories = $history->where(function ($query) use ($search){
+                $query->where('activity', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%')
+                    ->orWhere('user_email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('user_telp', 'LIKE', '%' . $search . '%')
+                    ->orWhere('user_name', 'LIKE', '%' . $search . '%');
+            })->paginate(30);
+        }
+
+        return view('pages.user-history.index', compact(['histories', 'todayHistory']));
     }
 
     /**

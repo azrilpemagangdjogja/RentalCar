@@ -6,7 +6,7 @@
         <div class="mb-8">
             <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Tambah Pickup Location
             </h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Tambahkan lokasi yang dapat digunakan sebagai tempat
+            <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Tambahkan lokasi yang dapat digunakan sebagai tempat
                 pengambilan kendaraan.</p>
         </div>
 

@@ -6,7 +6,7 @@
 
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('rental-time.index') }}"
                         class="transition hover:text-gray-700 dark:hover:text-gray-200">Waktu Rental</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -17,7 +17,7 @@
                 </div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Edit Waktu Rental
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Perbarui informasi waktu yang digunakan mitra pada
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Perbarui informasi waktu yang digunakan mitra pada
                     kendaraan miliknya.</p>
             </div>
         </div>

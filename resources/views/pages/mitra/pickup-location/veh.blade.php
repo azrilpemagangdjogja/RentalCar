@@ -5,20 +5,13 @@
     <section class="mb-8">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400"> <a
-                        href="{{ route('join-pickup-location.show', $pickupLocation->id) }}"
-                        class="transition hover:text-gray-700 dark:hover:text-gray-200">
-                        Lokasi Pengambilan </a> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                    </svg> <span class="truncate">{{ $pickupLocation->name }}</span> </div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     Titipkan Kendaraan </h1>
-                <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-1 hidden sm:block max-w-2xl text-sm text-gray-500 dark:text-gray-400">
                     Kelola kendaraan milik Anda yang ingin dititipkan atau sudah berada di <span
                         class="font-medium text-gray-700 dark:text-gray-200">{{ $pickupLocation->name }}</span>. </p>
             </div>
-            <a href="{{ url()->previous() }}"
+            <a href="{{ route('join-pickup-location.show', $pickupLocation->id) }}"
                 class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 sm:w-auto">
                 {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                     stroke="currentColor" class="h-5 w-5">

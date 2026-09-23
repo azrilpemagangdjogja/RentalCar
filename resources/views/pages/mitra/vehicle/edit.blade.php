@@ -12,8 +12,8 @@
             </svg>
             <span>Tambah Kendaraan</span>
         </div> --}}
-        <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Tambah Kendaraan</h1>
-        <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Tambahkan kendaraan baru ke dalam mitramu.</p>
+        <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Ubah Kendaraan</h1>
+        <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Ubah kendaraan yang saat ini dimiliki.</p>
     </section>
 
     {{-- VALIDATION ERROR --}}

@@ -6,7 +6,7 @@
 
         <div class="md:flex hidden flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
-                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                {{-- <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('join-pickup-location.index') }}"
                         class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">
                         Lokasi Pengambilan
@@ -16,14 +16,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
                     </svg>
                     <span class="truncate">{{ $pickupLocation->name }}</span>
-                </div>
+                </div> --}}
 
                 <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     {{ $pickupLocation->name }}
                 </h1>
 
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    Informasi pickup location dan kendaraan yang tersedia di lokasi ini.
+                    Informasi lokasi pengambilan dan kendaraan yang tersedia di lokasi ini.
                 </p>
             </div>
 
@@ -261,7 +261,7 @@
             <div class="rounded-2xl bg-white dark:bg-gray-700">
                 <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
                     <h2 class="text-base font-semibold text-gray-800 dark:text-white">
-                        Informasi Pickup Location
+                        Informasi Lokasi Pengambilan
                     </h2>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Informasi lokasi yang tersimpan di sistem.
@@ -332,7 +332,7 @@
             <div class="rounded-2xl bg-white dark:bg-gray-700">
                 <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
                     <h2 class="text-base font-semibold text-gray-800 dark:text-white">
-                        Tentang Pickup Location
+                        Tentang Lokasi Pengambilan
                     </h2>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Informasi tambahan mengenai lokasi.
@@ -341,7 +341,7 @@
 
                 <div class="p-5 sm:p-6">
                     <p class="text-sm leading-7 text-gray-500 dark:text-gray-300">
-                        {{ $pickupLocation->description ?: 'Belum ada deskripsi untuk pickup location ini.' }}
+                        {{ $pickupLocation->description ?: 'Belum ada deskripsi untuk lokasi pengambilan ini.' }}
                     </p>
                 </div>
             </div>
@@ -356,7 +356,7 @@
                     Lokasi pada Peta
                 </h2>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    Posisi pickup location berdasarkan koordinat yang tersimpan.
+                    Posisi lokasi pengambilan berdasarkan koordinat yang tersimpan.
                 </p>
             </div>
 
@@ -376,7 +376,7 @@
                             Pemilik Kendaraan
                         </h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Pengguna yang menitipkan kendaraan pada pickup location ini.
+                            Pengguna yang menitipkan kendaraan pada lokasi pengambilan ini.
                         </p>
                     </div>
                 </div>
@@ -432,7 +432,7 @@
                 <div class="rounded-2xl bg-white dark:bg-gray-700">
                     <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">
-                            Staff Pickup Location
+                            Staff Lokasi Pengambilan
                         </h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             Pemilik kendaraan yang saat ini menyimpan kendaraannya di lokasi ini.
@@ -477,7 +477,7 @@
                             Kendaraan Saya
                         </h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            Kelola kendaraan yang ingin ditempatkan di pickup location ini.
+                            Kelola kendaraan yang ingin ditempatkan di lokasi pengambilan ini.
                         </p>
                     </div>
 
@@ -519,7 +519,7 @@
 
         {{-- SYSTEM INFORMATION --}}
 
-        <div class="mt-6 rounded-2xl bg-gray-100 p-5 dark:bg-gray-800">
+        {{-- <div class="mt-6 rounded-2xl bg-gray-100 p-5 dark:bg-gray-800">
             <div class="flex gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                     stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-400 dark:text-gray-400">
@@ -540,7 +540,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </section>
 

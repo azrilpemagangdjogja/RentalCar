@@ -7,7 +7,7 @@
 
         <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ url()->previous() }}" class="transition hover:text-gray-700 dark:hover:text-white">
                         Pengajuan Kendaraan
                     </a>
@@ -19,7 +19,7 @@
                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
                     Tolak Pengajuan
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                     Tolak permintaan penitipan kendaraan di {{ $approvement->location_name }}
                 </p>
             </div>

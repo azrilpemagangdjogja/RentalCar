@@ -16,16 +16,26 @@ class VehicleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
         $owner = $user?->id;
+        $search = $request->search;
 
         if ($user->mitra_status !== "Verified") {
             abort(404);
         }
 
         $vehicles = Vehicle::where('owner_id', $owner)->with(["PickupLocation", "type"])->paginate(10);
+        if ($search){
+            $vehicles = Vehicle::where('owner_id', $owner)->with(["PickupLocation", "type"])->where(function ($query) use ($search){
+                $query->where('brand', 'LIKE', '%' . $search . '%')
+                    ->orWhere('model', 'LIKE', '%' . $search . '%')
+                    ->orWhere('color', 'LIKE', '%' . $search . '%')
+                    ->orWhere('year', 'LIKE', '%' . $search . '%')
+                    ->orWhere('plate_number', 'LIKE', '%' . $search . '%');
+            })->paginate(25);
+        }
         $vehiclesActive = Vehicle::where('status', 'Active')->where('owner_id', $owner)->count();
         $vehiclesInActive = Vehicle::where('status', 'Inactive')->where('owner_id', $owner)->count();
         return view("pages.mitra.vehicle.index", compact(['vehicles', 'vehiclesActive', 'vehiclesInActive']));

@@ -8,7 +8,7 @@
                 <h1 class="text-xl font-semibold text-gray-800 dark:text-white">
                     Landing Page
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                     Kelola konten yang ditampilkan pada halaman utama RentalCar.
                 </p>
             </div>

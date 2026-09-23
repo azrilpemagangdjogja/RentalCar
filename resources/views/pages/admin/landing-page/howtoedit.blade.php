@@ -6,7 +6,7 @@
         {{-- HEADER --}}
 
         <section class="mb-6">
-            <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+            <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                 <a href="{{ route('landing.howto') }}"
                     class="transition hover:text-gray-700 dark:hover:text-gray-200">Landing Page</a>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -17,7 +17,7 @@
             </div>
             <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Edit How To Use
             </h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Atur konten yang ditampilkan pada bagian cara
+            <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Atur konten yang ditampilkan pada bagian cara
                 menggunakan layanan RentalCar.</p>
         </section>
 
