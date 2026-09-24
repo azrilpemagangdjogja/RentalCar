@@ -131,7 +131,7 @@
 
                 <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
 
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">
                             Informasi Akun
                         </h2>
@@ -220,7 +220,7 @@
 
                 <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
 
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">
                             Informasi Mitra
                         </h2>
@@ -352,7 +352,7 @@
 
                 <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
 
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">
                             Aktivitas Akun
                         </h2>
@@ -362,7 +362,7 @@
                         </p>
                     </div>
 
-                    <div class="divide-y divide-gray-100 dark:divide-gray-600">
+                    <div class="divide-y divide-gray-200 dark:divide-gray-600">
 
                         {{-- LAST LOGIN --}}
 
@@ -439,7 +439,7 @@
 
                 <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
 
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">
                             Status Akun
                         </h2>
@@ -491,7 +491,7 @@
 
                 <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
 
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">
                             Aksi User
                         </h2>

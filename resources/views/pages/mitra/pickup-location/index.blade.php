@@ -15,12 +15,66 @@
                 </div> --}}
                 <h1 class="text-2xl mt-2 font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Lokasi
                     Pengambilan</h1>
-                <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Cari lokasi pengambilan yang cocok untuk anda.</p>
+                <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Cari lokasi pengambilan yang cocok
+                    untuk anda.</p>
             </div>
         </div>
 
+        <form action="{{ route('vehicle.index') }}" class="mb-4 mt-8 flex flex-col gap-3 sm:flex-row">
+
+            <div class="relative flex-1">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-5 w-5 text-gray-400">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-4.35-4.35m1.35-5.4a6.75 6.75 0 1 1-13.5 0 6.75 6.75 0 0 1 13.5 0Z" />
+                    </svg>
+                </div>
+                <input type="search" name="search" value="{{ request('search') }}"
+                    placeholder="Cari lokasi..."
+                    class="w-full rounded-xl border border-gray-100 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
+            </div>
+
+            <select
+                class="hidden sm:block rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+                <option>Semua Role</option>
+                <option>User</option>
+                <option>Admin</option>
+                <option>Superadmin</option>
+            </select>
+
+            {{-- <select
+                class="hidden sm:block rounded-xl dark:border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+                <option>Semua Status</option>
+                <option>Unverified</option>
+                <option>Pending</option>
+                <option>Verified</option>
+                <option>Rejected</option>
+            </select> --}}
+
+        </form>
+
+        {{-- AREA FILTER --}}
+        <section class="mb-10">
+            <div>
+                <form action="{{ route('join-pickup-location.index') }}" method="GET">
+                    <div class="mt-4 flex gap-2 overflow-x-auto sm:flex-wrap">
+                        @foreach ($areas as $area)
+                            <a href="{{ route('join-pickup-location.index', ['area' => $area]) }}"
+                                class="rounded-full border px-4 flex items-center justify-center sm:py-2 text-xs font-medium transition
+                            {{ request('area') == $area
+                                ? 'border-gray-800 bg-gray-800 text-white dark:border-gray-200 dark:bg-gray-200 dark:text-gray-800'
+                                : 'border-gray-200 bg-white text-gray-600 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-600' }}">
+                                {{ $area }}
+                            </a>
+                        @endforeach
+                    </div>
+                </form>
+            </div>
+        </section>
+
         {{-- RECOMMENDED --}}
-        
+
         <section class="mb-10">
             <div class="mb-5 flex items-end justify-between">
                 <div>
@@ -112,72 +166,6 @@
                         </p>
                     </div>
                 @endforelse
-            </div>
-        </section>
-
-        {{-- AREA FILTER --}}
-        <section class="mb-10">
-            <div class="mb-5">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
-                    Pilih Berdasarkan Daerah
-                </h2>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    Temukan pickup location berdasarkan wilayah yang kamu inginkan.
-                </p>
-            </div>
-
-            <div class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
-                <form action="{{ route('join-pickup-location.index') }}" method="GET">
-                    <div class="grid gap-4 sm:grid-cols-[1fr_auto]">
-                        <div class="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                                stroke="currentColor"
-                                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v3.75l2.25 1.5" />
-                            </svg>
-
-                            <select name="area"
-                                class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3.5 pl-12 pr-10 text-sm text-gray-700 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:focus:border-gray-300">
-                                <option value="">Semua daerah</option>
-                                @foreach ($areas as $area)
-                                    <option value="{{ $area }}" @selected(request('area') == $area)>
-                                        {{ $area }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                                stroke="currentColor"
-                                class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
-                            </svg>
-                        </div>
-
-                        <button type="submit"
-                            class="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-800 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                                stroke="currentColor" class="h-4 w-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m21 21-4.35-4.35m1.35-5.4a6.75 6.75 0 1 1-13.5 0 6.75 6.75 0 0 1 13.5 0Z" />
-                            </svg>
-                            Cari Lokasi
-                        </button>
-                    </div>
-
-                    <div class="mt-5 flex flex-wrap gap-2">
-                        @foreach ($areas->take(8) as $area)
-                            <a href="{{ route('join-pickup-location.index', ['area' => $area]) }}"
-                                class="rounded-full border px-4 py-2 text-xs font-medium transition
-                            {{ request('area') == $area
-                                ? 'border-gray-800 bg-gray-800 text-white dark:border-gray-200 dark:bg-gray-200 dark:text-gray-800'
-                                : 'border-gray-200 bg-white text-gray-600 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-600' }}">
-                                {{ $area }}
-                            </a>
-                        @endforeach
-                    </div>
-                </form>
             </div>
         </section>
 

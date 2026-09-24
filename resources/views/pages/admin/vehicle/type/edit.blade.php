@@ -35,7 +35,7 @@
                 <div class="lg:col-span-2">
 
                     <div class="rounded-2xl bg-gray-50 dark:bg-gray-700">
-                        <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                        <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                             <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Vehicle Type</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Masukkan informasi dasar untuk jenis
                                 kendaraan ini.</p>
@@ -80,7 +80,7 @@
                     {{-- STATUS --}}
 
                     <section
-                        class="rounded-2xl border border-gray-100 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+                        class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
                         <div class="mb-6">
                             <h2 class="mt-4 font-bold text-gray-800 dark:text-white">Status</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Aktifkan atau nonaktifkan tipe

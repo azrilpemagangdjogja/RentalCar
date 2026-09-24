@@ -41,7 +41,7 @@
 
                 <div class="lg:col-span-2">
                     <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
-                        <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                        <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                             <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Profile</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Ubah informasi dasar yang digunakan
                                 untuk mengenali pickup location.</p>
@@ -83,7 +83,7 @@
 
                 <div class="space-y-6">
                     <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
-                        <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                        <div class="border-b border-gray-200 p-5 dark:border-gray-600">
                             <h2 class="text-base font-semibold text-gray-800 dark:text-white">Status</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Tentukan apakah pickup location dapat
                                 digunakan.</p>

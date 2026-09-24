@@ -42,7 +42,7 @@
             {{-- LOCATION INFORMATION --}}
 
             <div class="rounded-2xl border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
-                <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                     <div class="flex items-center gap-3">
                         <div
                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">

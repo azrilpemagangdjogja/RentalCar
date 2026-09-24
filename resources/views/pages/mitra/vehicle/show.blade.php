@@ -4,7 +4,7 @@
     {{-- HEADER --}}
 
     <section class="mb-6">
-        <div class="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+        <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
             <a href="{{ route('vehicle.index') }}" class="transition hover:text-gray-700 dark:hover:text-gray-200">Kendaraan</a>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
@@ -12,7 +12,7 @@
             <span>{{ $vehicle->brand }} {{ $vehicle->model }}</span>
         </div>
         <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Detail Kendaraan</h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi lengkap mengenai kendaraan yang tersimpan di sistem.</p>
+        <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Informasi lengkap mengenai kendaraan yang tersimpan di sistem.</p>
     </section>
 
     {{-- VEHICLE HEADER --}}

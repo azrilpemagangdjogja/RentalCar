@@ -28,7 +28,7 @@
         {{-- SUMMARY --}}
         <section class="hidden grid-cols-2 gap-3 md:grid sm:grid-cols-4 sm:gap-5">
             {{-- TOTAL --}}
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Total</span>
                     <div
@@ -45,7 +45,7 @@
             </div>
 
             {{-- PENDING --}}
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Pending</span>
                     <div
@@ -64,7 +64,7 @@
             </div>
 
             {{-- APPROVED --}}
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Approved</span>
                     <div
@@ -82,7 +82,7 @@
             </div>
 
             {{-- REJECTED --}}
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Rejected</span>
                     <div
@@ -101,7 +101,7 @@
         </section>
 
         {{-- FILTER --}}
-        <section class="mt-6 mb-8 rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+        <section class="mt-6 mb-8 rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
             <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 {{-- SEARCH --}}
                 <div class="relative w-full lg:max-w-lg">
@@ -143,7 +143,7 @@
 
             {{-- DESKTOP TABLE --}}
             <div
-                class="hidden overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700 md:block">
+                class="hidden overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700 md:block">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[1100px] text-left text-sm">
                         <thead
@@ -364,7 +364,7 @@
             <div class="space-y-3 md:hidden">
 
                 @forelse($approvement as $item)
-                    <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
+                    <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
 
                         {{-- VEHICLE HEADER --}}
                         <div class="flex gap-4">
@@ -505,7 +505,7 @@
                 @empty
 
                     <div
-                        class="rounded-2xl border border-gray-100 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
+                        class="rounded-2xl border border-gray-200 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
                         <div class="flex flex-col items-center">
                             <div
                                 class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 dark:bg-gray-600 dark:text-gray-300">
@@ -545,7 +545,7 @@
 
             {{-- DESKTOP TABLE --}}
             <div
-                class="hidden overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700 md:block">
+                class="hidden overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700 md:block">
                 <div class="overflow-x-auto">
                     <table class="w-full min-w-[1100px] text-left text-sm">
                         <thead
@@ -766,7 +766,7 @@
             <div class="space-y-3 md:hidden">
 
                 @forelse($approvementOuting as $item)
-                    <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
+                    <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
 
                         {{-- VEHICLE HEADER --}}
                         <div class="flex gap-4">
@@ -907,7 +907,7 @@
                 @empty
 
                     <div
-                        class="rounded-2xl border border-gray-100 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
+                        class="rounded-2xl border border-gray-200 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
                         <div class="flex flex-col items-center">
                             <div
                                 class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 dark:bg-gray-600 dark:text-gray-300">
@@ -942,7 +942,7 @@
 
             <div class="flex items-center gap-2">
                 <button type="button"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-100 text-gray-400 dark:border-gray-600 dark:text-gray-500">
+                    class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-400 dark:border-gray-600 dark:text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m15 19-7-7 7-7" />
@@ -954,7 +954,7 @@
                 </span>
 
                 <button type="button"
-                    class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-100 text-gray-600 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                    class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-600 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />

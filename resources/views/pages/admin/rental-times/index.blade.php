@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="divide-y divide-gray-100 dark:divide-gray-600">
+            <div class="divide-y divide-gray-200 dark:divide-gray-600">
                 @forelse ($rentalTimes as $time)
                     <div class="flex gap-4 p-5 flex-row items-center sm:p-6">
                         <div

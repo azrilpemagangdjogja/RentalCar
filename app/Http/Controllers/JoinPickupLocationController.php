@@ -16,7 +16,7 @@ class JoinPickupLocationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
 
@@ -27,9 +27,18 @@ class JoinPickupLocationController extends Controller
         ->filter(function ($item){
             return $item->vehicle_count < $item->max_vehicle;
         });
+
+        $area = $request->area;
+        if (isset($area)){
+            $recommendedLocations = PickupLocation::where('status', 'Active')->withCount('vehicles')
+            ->where('address', 'LIKE' , '%' . $area . '%')->get()
+            ->filter(function ($item){
+                return $item->vehicle_count < $item->max_vehicle;
+            });
+        }
         $suggestedLocations = PickupLocation::where('status', 'Active')->get();
         $pickupLocations = PickupLocation::where('status', 'Active')->paginate(10);
-        $areas = RegionFilter::get();
+        $areas = RegionFilter::get()->pluck('name');
         return view("pages.mitra.pickup-location.index", compact(['recommendedLocations', 'areas', 'suggestedLocations', 'pickupLocations']));
     }
 

@@ -84,9 +84,9 @@
                 </div>
             </div>
 
-            <div class="divide-y divide-gray-100 dark:divide-gray-600">
+            <div class="divide-y divide-gray-200 dark:divide-gray-600">
                 @forelse ($vehicleTypes as $vehicleType)
-                    <div class="flex flex-col gap-4 p-5 flex-row items-center sm:p-6">
+                    <div class="flex gap-4 p-5 flex-row items-center sm:p-6">
                         <div
                             class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6"

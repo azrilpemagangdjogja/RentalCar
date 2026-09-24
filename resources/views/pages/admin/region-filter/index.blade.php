@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="divide-y divide-gray-100 dark:divide-gray-600">
+            <div class="divide-y divide-gray-200 dark:divide-gray-600">
                 @forelse ($regionFilters as $region)
                     <div class="flex gap-4 p-5 flex-row items-center sm:p-6">
                         <div
@@ -103,7 +103,7 @@
                                 <h3 class="text-sm font-semibold text-gray-800 dark:text-white">{{ $region->name }}</h3>
                                 <span
                                     class="rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-200">
-                                    {{ $region->vehicles_count ?? 0 }} kendaraan
+                                    {{ $region->status == "Active" ? "Aktif" : "Nonaktif" }}
                                 </span>
                             </div>
 

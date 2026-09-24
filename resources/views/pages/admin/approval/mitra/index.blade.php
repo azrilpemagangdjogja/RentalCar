@@ -22,7 +22,7 @@
 
         {{-- SUMMARY --}}
         <section class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Total</span>
                     <div
@@ -38,7 +38,7 @@
                 <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Pengajuan identitas</p>
             </div>
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Pending</span>
                     <div
@@ -56,7 +56,7 @@
                 <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Menunggu keputusan</p>
             </div>
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Approved</span>
                     <div
@@ -73,7 +73,7 @@
                 <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">Telah disetujui</p>
             </div>
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-xs font-medium text-gray-500 dark:text-gray-300 sm:text-sm">Rejected</span>
                     <div
@@ -92,7 +92,7 @@
         </section>
 
         {{-- FILTER --}}
-        <section class="mb-8 rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+        <section class="mb-8 rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
             <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div class="relative w-full lg:max-w-lg">
                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -132,7 +132,7 @@
             <div class="space-y-4">
                 @forelse ($approvement as $item)
                     <article
-                        class="rounded-2xl border border-gray-100 bg-white p-5 transition hover:border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:p-6">
+                        class="rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:p-6">
                         <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
                             <div class="flex min-w-0 items-start gap-4">
                                 <div class="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600">
@@ -191,7 +191,7 @@
                             </div>
 
                             <div
-                                class="grid grid-cols-2 gap-4 border-t border-gray-100 pt-4 dark:border-gray-600 sm:grid-cols-3 sm:border-0 sm:pt-0 lg:min-w-[430px]">
+                                class="grid grid-cols-2 gap-4 border-t border-gray-200 pt-4 dark:border-gray-600 sm:grid-cols-3 sm:border-0 sm:pt-0 lg:min-w-[430px]">
                                 <div>
                                     <p class="text-xs text-gray-400 dark:text-gray-500">NIK</p>
                                     <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
@@ -214,7 +214,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex gap-2 border-t border-gray-100 pt-4 dark:border-gray-600 lg:border-0 lg:pt-0">
+                            <div class="flex gap-2 border-t border-gray-200 pt-4 dark:border-gray-600 lg:border-0 lg:pt-0">
                                 <a href="{{ route('approval-mitra-identity.show', $item->id) }}"
                                     class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 sm:flex-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -249,7 +249,7 @@
                     </article>
                 @empty
                     <div
-                        class="rounded-2xl border border-gray-100 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
+                        class="rounded-2xl border border-gray-200 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
                         <div class="flex flex-col items-center">
                             <div
                                 class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 dark:bg-gray-600 dark:text-gray-300">

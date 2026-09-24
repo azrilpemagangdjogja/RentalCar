@@ -105,7 +105,7 @@
 
         {{-- PICKUP LOCATION --}}
 
-        <div class="mb-6 rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
+        <div class="mb-6 rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
             <div class="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
                 <div class="flex items-center gap-4">
                     <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
@@ -128,12 +128,12 @@
                     {{ $approvement->location_longitude ?? '-' }}
                 </div>
             </div>
-            <div class="border-t border-gray-100 px-5 py-4 dark:border-gray-600">
+            <div class="border-t border-gray-200 px-5 py-4 dark:border-gray-600">
                 <p class="text-sm leading-6 text-gray-600 dark:text-gray-300">
                     {{ $approvement->location_address ?? 'Alamat pickup location tidak tersedia.' }}
                 </p>
                 @if ($approvement->location_description)
-                    <p class="mt-3 border-t border-gray-100 pt-3 text-sm leading-6 text-gray-500 dark:border-gray-600 dark:text-gray-400">
+                    <p class="mt-3 border-t border-gray-200 pt-3 text-sm leading-6 text-gray-500 dark:border-gray-600 dark:text-gray-400">
                         {{ $approvement->location_description }}
                     </p>
                 @endif
@@ -147,8 +147,8 @@
             {{-- VEHICLE DETAIL --}}
 
             <div class="space-y-6 lg:col-span-2">
-                <div class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-                    <div class="border-b border-gray-100 px-5 py-4 dark:border-gray-600">
+                <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
+                    <div class="border-b border-gray-200 px-5 py-4 dark:border-gray-600">
                         <div class="flex items-center justify-between gap-4">
                             <div>
                                 <h2 class="text-base font-semibold text-gray-800 dark:text-white">
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-gray-100 bg-gray-100 dark:border-gray-600 dark:bg-gray-600 sm:grid-cols-3">
+                        <div class="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-gray-200 bg-gray-100 dark:border-gray-600 dark:bg-gray-600 sm:grid-cols-3">
                             <div class="bg-white p-4 dark:bg-gray-700">
                                 <p class="text-xs text-gray-400">Transmisi</p>
                                 <p class="mt-1 text-sm font-semibold text-gray-800 dark:text-white">
@@ -247,8 +247,8 @@
 
                 {{-- MITRA --}}
 
-                <div class="rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-                    <div class="border-b border-gray-100 px-5 py-4 dark:border-gray-600">
+                <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
+                    <div class="border-b border-gray-200 px-5 py-4 dark:border-gray-600">
                         <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
                             Mitra
                         </p>
@@ -268,8 +268,8 @@
 
                 {{-- APPLICANT --}}
 
-                <div class="rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-                    <div class="border-b border-gray-100 px-5 py-4 dark:border-gray-600">
+                <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
+                    <div class="border-b border-gray-200 px-5 py-4 dark:border-gray-600">
                         <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
                             Pemohon
                         </p>
@@ -307,8 +307,8 @@
 
                 {{-- VIEWER --}}
 
-                <div class="rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-                    <div class="border-b border-gray-100 px-5 py-4 dark:border-gray-600">
+                <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
+                    <div class="border-b border-gray-200 px-5 py-4 dark:border-gray-600">
                         <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
                             Viewer
                         </p>
@@ -368,8 +368,8 @@
 
                 {{-- STATUS --}}
 
-                <div class="rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-                    <div class="border-b border-gray-100 px-5 py-4 dark:border-gray-600">
+                <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
+                    <div class="border-b border-gray-200 px-5 py-4 dark:border-gray-600">
                         <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
                             Status Pengajuan
                         </p>
@@ -408,7 +408,7 @@
 
         {{-- TIMESTAMP --}}
 
-        <div class="mt-6 rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
+        <div class="mt-6 rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700">
             <div class="grid grid-cols-1 divide-y divide-gray-100 sm:grid-cols-2 sm:divide-x sm:divide-y-0 dark:divide-gray-600">
                 <div class="px-5 py-4">
                     <p class="text-xs text-gray-400">Dibuat pada</p>

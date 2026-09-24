@@ -19,7 +19,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $pickupLocations = PickupLocation::with('vehicles')->orderBy("created_at", "desc")->paginate(10);
@@ -38,7 +38,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
         return view("pages.admin.pickup-location.create");
     }
@@ -50,7 +50,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
         $data = $request->validate([
             "name" => "required",
@@ -79,12 +79,12 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $pickupLocation = PickupLocation::findOrFail($id);
         $vehicle = $pickupLocation->vehicles->where('status', 'Active')->count();
-        return view("pages.admin.pickup-location.show", compact(["pickupLocation", "vehicle"]));
+        return view("pages.admin.pickup-location.show", compact(["pickupLocation", "vehicle", "user"]));
     }
 
     /**
@@ -94,7 +94,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $vehicles = Vehicle::where("owner_id", $user->id)->get();
@@ -109,7 +109,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $data = $request->validate([
@@ -135,7 +135,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user !== "Superadmin"){
-            abort(404);
+            abort(403);
         }
 
         $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
@@ -154,63 +154,92 @@ class PickupLocationController extends Controller
         return redirect()->route('pickup-location.index');
     }
 
-    public function veh(string $id)
-    {
-        $user = auth()->user();
-        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
-        }
+    // public function veh(string $id)
+    // {
+    //     $user = auth()->user();
+    //     if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
+    //         abort(403);
+    //     }
 
-        $vehicles = Vehicle::where("owner_id", $user->id)->where('pickup_location_id', null)->get();
-        $pickupLocation = PickupLocation::findOrFail($id);
-        $usedVehicles = Vehicle::where("owner_id", $user->id)->where('pickup_location_id', $pickupLocation->id)->get();
-        return view("pages.admin.pickup-location.addveh", compact(["pickupLocation", "vehicles", "usedVehicles"]));
-    }
+    //     $vehicles = Vehicle::where("owner_id", $user->id)->where('pickup_location_id', null)->get();
+    //     if ($user->role == "Superadmin"){
+    //         $pickupLocation = PickupLocation::findOrFail($id);
+    //     } elseif ($user->role == "Admin") {
+    //         $pickupLocation = PickupLocation::findOrFail($id);
+    //         if ($user->id !== $pickupLocation->owner_id){
+    //             abort(403);
+    //         }
+    //     } else {
+    //         abort(403);
+    //     }
+    //     $usedVehicles = Vehicle::where("owner_id", $user->id)->where('pickup_location_id', $pickupLocation->id)->get();
+    //     return view("pages.admin.pickup-location.addveh", compact(["pickupLocation", "vehicles", "usedVehicles"]));
+    // }
 
-    public function addveh($pickupLocation, $vehicle)
-    {
-        $user = auth()->user();
-        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
-        }
+    // public function addveh($pickupLocation, $vehicle)
+    // {
+    //     $user = auth()->user();
+    //     if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
+    //         abort(403);
+    //     }
 
-        $pickupLocations = PickupLocation::where("owner_id", $user->id)->findOrFail($pickupLocation);
-        $vehicle = Vehicle::where("owner_id", $user->id)->findOrFail($vehicle);
-        $vehicleCount = Vehicle::where("pickup_location_id", $pickupLocations->id)->count();
+    //     if ($user->role == "Superadmin"){
+    //         $pickupLocations = PickupLocation::findOrFail($pickupLocation);
+    //     } elseif ($user->role == "Admin") {
+    //         $pickupLocations = PickupLocation::findOrFail($pickupLocation);
+    //         if ($user->id !== $pickupLocations->owner_id){
+    //             abort(403);
+    //         }
+    //     } else {
+    //         abort(403);
+    //     }
 
-        if ($pickupLocation) {
-            if ($vehicleCount >= $pickupLocations?->max_vehicle) {
-                return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
-            }
-        }
+    //     $vehicle = Vehicle::where("owner_id", $user->id)->findOrFail($vehicle);
+    //     $vehicleCount = Vehicle::where("pickup_location_id", $pickupLocations->id)->count();
 
-        $vehicle->update([
-            "pickup_location_id" => $pickupLocations->id,
-        ]);
+    //     if ($pickupLocation) {
+    //         if ($vehicleCount >= $pickupLocations?->max_vehicle) {
+    //             return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
+    //         }
+    //     }
 
-        return redirect()->route("pickup-location.veh", $pickupLocations->id);
-    }
+    //     $vehicle->update([
+    //         "pickup_location_id" => $pickupLocations->id,
+    //     ]);
 
-    public function unveh($pickupLocation, $vehicle){
-        $user = auth()->user();
-        if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
-        }
-        $vehicle = Vehicle::where('pickup_location_id', $pickupLocation)->where('id', $vehicle)->firstOrFail();
-        $vehicle->update([
-            "pickup_location_id" => null,
-        ]);
-        return back();
-    }
+    //     return redirect()->route("pickup-location.veh", $pickupLocations->id);
+    // }
+
+    // public function unveh($pickupLocation, $vehicle){
+    //     $user = auth()->user();
+    //     if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
+    //         abort(403);
+    //     }
+    //     $vehicle = Vehicle::where('pickup_location_id', $pickupLocation)->where('id', $vehicle)->firstOrFail();
+    //     $vehicle->update([
+    //         "pickup_location_id" => null,
+    //     ]);
+    //     return back();
+    // }
 
     public function manage(string $id)
     {
         $user = auth()->user();
         if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
+            abort(403);
         }
 
-        $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
+        if ($user->role == "Superadmin"){
+            $pickupLocation = PickupLocation::findOrFail($id);
+        } elseif ($user->role == "Admin") {
+            $pickupLocation = PickupLocation::findOrFail($id);
+            if ($user->id !== $pickupLocation->owner_id){
+                abort(403);
+            }
+        } else {
+            abort(403);
+        }
+
         return view("pages.admin.pickup-location.manage", compact(["pickupLocation"]));
     }
 
@@ -218,7 +247,7 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
+            abort(403);
         }
 
         $data = $request->validate([
@@ -227,9 +256,18 @@ class PickupLocationController extends Controller
             "longitude" => "required",
             "max_vehicle" => "integer|required",
         ]);
-        $pickupLocation = PickupLocation::where("owner_id", $user->id)->findOrFail($id);
-        $vehicleCount = Vehicle::where("pickup_location_id", $pickupLocation->id)->count();
+        if ($user->role == "Superadmin"){
+            $pickupLocation = PickupLocation::findOrFail($id);
+        } elseif ($user->role == "Admin") {
+            $pickupLocation = PickupLocation::findOrFail($id);
+            if ($user->id !== $pickupLocation->owner_id){
+                abort(403);
+            }
+        } else {
+            abort(403);
+        }
 
+        $vehicleCount = Vehicle::where("pickup_location_id", $pickupLocation->id)->count();
 
         if ($data['max_vehicle'] < $vehicleCount) {
             return back()->with("error", "Kapasitas telah penuh");
@@ -250,10 +288,20 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
+            abort(403);
         }
 
-        $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
+        if ($user->role == "Superadmin"){
+            $pickupLocation = PickupLocation::findOrFail($id);
+        } elseif ($user->role == "Admin") {
+            $pickupLocation = PickupLocation::findOrFail($id);
+            if ($user->id !== $pickupLocation->owner_id){
+                abort(403);
+            }
+        } else {
+            abort(403);
+        }
+
         return view("pages.admin.pickup-location.edit", compact(["pickupLocation"]));
     }
 
@@ -261,14 +309,24 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
+            abort(403);
         }
 
         $data = $request->validate([
             "name" => "required",
             "description" => "nullable",
         ]);
-        $pickupLocation = PickupLocation::where("owner_id", $user->id)->findOrFail($id);
+
+        if ($user->role == "Superadmin"){
+            $pickupLocation = PickupLocation::findOrFail($id);
+        } elseif ($user->role == "Admin") {
+            $pickupLocation = PickupLocation::findOrFail($id);
+            if ($user->id !== $pickupLocation->owner_id){
+                abort(403);
+            }
+        } else {
+            abort(403);
+        }
 
         $pickupLocation->update($data);
         return redirect()->route("pickup-location.show", $id);
@@ -278,13 +336,22 @@ class PickupLocationController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== 'Admin' && $user->role !== 'Superadmin') {
-            abort(404);
+            abort(403);
         }
         $data = $request->validate([
             'status' => 'required|in:Active,Inactive',
         ]);
 
-        $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
+        if ($user->role == "Superadmin"){
+            $pickupLocation = PickupLocation::findOrFail($id);
+        } elseif ($user->role == "Admin") {
+            $pickupLocation = PickupLocation::findOrFail($id);
+            if ($user->id !== $pickupLocation->owner_id){
+                abort(403);
+            }
+        } else {
+            abort(403);
+        }
 
         $pickupLocation->fill($data);
         if ($pickupLocation->isDirty()){

@@ -28,8 +28,9 @@ class MessageController extends Controller
             ])
             ->get();
 
-        $announcement = Message::where('receiver_id', $user->id)->where('conversation_id', null)->get();
-        return view('pages.message.index', compact(['message', 'announcement']));
+        $announcement = Message::where('receiver_id', $user->id)->where('conversation_id', null)->where('status', 'Unreaded')->orderBy('created_at', 'desc')->get();
+        $readedAnnouncement = Message::where('receiver_id', $user->id)->where('conversation_id', null)->where('status', 'readed')->orderBy('created_at', 'desc')->paginate(30);
+        return view('pages.message.index', compact(['message', 'announcement', 'readedAnnouncement']));
     }
 
     /**
@@ -139,7 +140,15 @@ class MessageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = auth()->user();
+
+        $message = Message::where('status', 'Readed')->whereNull('conversation_id')->findOrFail($id);
+        if ($message->receiver_id == $user->id){
+            $message->delete();
+        } else {
+            abort(403);
+        }
+        return redirect()->route('message.index');
     }
 
 

@@ -16,7 +16,8 @@
                 </div>
                 <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     {{ $pickupLocation->name }}</h1>
-                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia pada lokasi pengambilan ini.</p>
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia
+                    pada lokasi pengambilan ini.</p>
             </div>
             <a href="{{ route('pickup-location.index') }}"
                 class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
@@ -107,7 +108,7 @@
                 {{-- LOCATION INFORMATION --}}
 
                 <div class="rounded-2xl bg-white dark:bg-gray-700">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Lokasi</h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi lengkap pickup location yang
                             tersimpan di sistem.</p>
@@ -149,7 +150,7 @@
                 {{-- DESCRIPTION --}}
 
                 <div class="rounded-2xl bg-white dark:bg-gray-700">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">Deskripsi</h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Deskripsi mengenai pickup location.</p>
                     </div>
@@ -162,7 +163,7 @@
                 {{-- VEHICLES --}}
 
                 <div class="rounded-2xl bg-white dark:bg-gray-700">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                         <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <h2 class="text-base font-semibold text-gray-800 dark:text-white">Kendaraan</h2>
@@ -243,7 +244,7 @@
                 {{-- INFO PEMILIK --}}
 
                 <div class="rounded-2xl bg-white dark:bg-gray-700 md:hidden">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">Info Pemilik</h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi pemilik pickup location.</p>
                     </div>
@@ -263,7 +264,7 @@
                                     {{ $pickupLocation->owner->email }}
                                 </p>
                             </div>
-        
+
                         </div>
 
                         <div class="mt-5 divide-y divide-gray-100 dark:divide-gray-600">
@@ -282,7 +283,7 @@
                                 </span>
                             </div>
                             <div class="flex items-center justify-end gap-4 py-3 last:pb-0">
-                                <a  href="{{ route('profile.show', $pickupLocation->owner->id) }}"
+                                <a href="{{ route('profile.show', $pickupLocation->owner->id) }}"
                                     class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-800 px-4 py-3 text-sm font-semibold text-gray-800 transition hover:border-gray-700 dark:border-white dark:text-white dark:hover:border-gray-200">
                                     Lihat Profil
                                 </a>
@@ -294,7 +295,7 @@
                 {{-- LOCATION STATUS --}}
 
                 <div class="rounded-2xl bg-white dark:bg-gray-700">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">Status Pickup Location</h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Atur ketersediaan lokasi untuk digunakan.
                         </p>
@@ -347,7 +348,7 @@
                 {{-- INFO PEMILIK --}}
 
                 <div class="rounded-2xl hidden bg-white dark:bg-gray-700 md:block">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
+                    <div class="border-b border-gray-200 p-5 dark:border-gray-600">
                         <h2 class="text-base font-semibold text-gray-800 dark:text-white">Info Pemilik</h2>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi pemilik pickup location.</p>
                     </div>
@@ -384,8 +385,9 @@
                                     {{ $pickupLocation->owner->mitra_status }}
                                 </span>
                             </div>
-                            <div class="flex items-center mb-1 border-gray-200 dark:border-gray-500 justify-end gap-4 py-3 last:pb-0">
-                                <a  href="{{ route('profile.show', $pickupLocation->owner->id) }}"
+                            <div
+                                class="flex items-center mb-1 border-gray-200 dark:border-gray-500 justify-end gap-4 py-3 last:pb-0">
+                                <a href="{{ route('profile.show', $pickupLocation->owner->id) }}"
                                     class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-800 px-4 py-3 text-sm font-semibold text-gray-800 transition hover:border-gray-700 dark:border-white dark:text-white dark:hover:border-gray-200">
                                     Lihat Profil
                                 </a>
@@ -396,16 +398,18 @@
 
                 {{-- QUICK ACTION --}}
 
-                <div class="rounded-2xl bg-white dark:bg-gray-700">
-                    <div class="border-b border-gray-100 p-5 dark:border-gray-600">
-                        <h2 class="text-base font-semibold text-gray-800 dark:text-white">Aksi Pickup Location</h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola kendaraan dan informasi lokasi.</p>
-                    </div>
-                    <div class="space-y-1 p-4">
+                @if ($user->role == 'Superadmin')
+                    <div class="rounded-2xl bg-white dark:bg-gray-700">
+                        <div class="border-b border-gray-200 p-5 dark:border-gray-600">
+                            <h2 class="text-base font-semibold text-gray-800 dark:text-white">Aksi Pickup Location</h2>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola kendaraan dan informasi lokasi.
+                            </p>
+                        </div>
+                        <div class="space-y-1 p-4">
 
-                        {{-- ADD VEHICLE --}}
+                            {{-- ADD VEHICLE --}}
 
-                        <a href="{{ route('pickup-location.veh', $pickupLocation->id) }}"
+                            {{-- <a href="{{ route('pickup-location.veh', $pickupLocation->id) }}"
                             class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
                             <span
                                 class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
@@ -423,56 +427,119 @@
                                 stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
                             </svg>
-                        </a>
+                        </a> --}}
 
-                        {{-- MANAGE LOCATION --}}
+                            {{-- MANAGE LOCATION --}}
 
-                        <a href="{{ route('pickup-location.manage', $pickupLocation->id) }}"
-                            class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
-                            <span
-                                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                            <a href="{{ route('pickup-location.manage', $pickupLocation->id) }}"
+                                class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
+                                <span
+                                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 6v12m-6-6h12M4.5 4.5h15v15h-15v-15Z" />
+                                    </svg>
+                                </span>
+                                <span class="min-w-0 flex-1">
+                                    <span class="block">Kelola Lokasi</span>
+                                    <span
+                                        class="mt-0.5 block text-xs font-normal text-gray-400 dark:text-gray-400">Kapasitas,
+                                        alamat, dan koordinat.</span>
+                                </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6v12m-6-6h12M4.5 4.5h15v15h-15v-15Z" />
+                                    stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
                                 </svg>
-                            </span>
-                            <span class="min-w-0 flex-1">
-                                <span class="block">Kelola Lokasi</span>
-                                <span class="mt-0.5 block text-xs font-normal text-gray-400 dark:text-gray-400">Kapasitas,
-                                    alamat, dan koordinat.</span>
-                            </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
-                            </svg>
-                        </a>
+                            </a>
 
-                        {{-- EDIT PROFILE --}}
+                            {{-- EDIT PROFILE --}}
 
-                        <a href="{{ route('pickup-location.profile', $pickupLocation->id) }}"
-                            class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
-                            <span
-                                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                            <a href="{{ route('pickup-location.profile', $pickupLocation->id) }}"
+                                class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
+                                <span
+                                    class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.862 4.487 18.75 6.375m-1.888-1.888L8.25 13.5l-.75 3 3-.75 8.612-8.613a1.5 1.5 0 0 0 0-2.121Z" />
+                                    </svg>
+                                </span>
+                                <span class="min-w-0 flex-1">
+                                    <span class="block">Edit Profil</span>
+                                    <span class="mt-0.5 block text-xs font-normal text-gray-400 dark:text-gray-400">Nama,
+                                        deskripsi, dan hapus lokasi.</span>
+                                </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16.862 4.487 18.75 6.375m-1.888-1.888L8.25 13.5l-.75 3 3-.75 8.612-8.613a1.5 1.5 0 0 0 0-2.121Z" />
+                                    stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
                                 </svg>
-                            </span>
-                            <span class="min-w-0 flex-1">
-                                <span class="block">Edit Profil</span>
-                                <span class="mt-0.5 block text-xs font-normal text-gray-400 dark:text-gray-400">Nama,
-                                    deskripsi, dan hapus lokasi.</span>
-                            </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
-                            </svg>
-                        </a>
+                            </a>
 
+                        </div>
                     </div>
-                </div>
+                @elseif ($user->role == 'Admin')
+                    @if ($pickupLocation->owner_id == $user->id)
+                        <div class="rounded-2xl bg-white dark:bg-gray-700">
+                            <div class="border-b border-gray-200 p-5 dark:border-gray-600">
+                                <h2 class="text-base font-semibold text-gray-800 dark:text-white">Aksi Pickup Location</h2>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola kendaraan dan informasi
+                                    lokasi.</p>
+                            </div>
+                            <div class="space-y-1 p-4">
+
+                                {{-- MANAGE LOCATION --}}
+
+                                <a href="{{ route('pickup-location.manage', $pickupLocation->id) }}"
+                                    class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
+                                    <span
+                                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 6v12m-6-6h12M4.5 4.5h15v15h-15v-15Z" />
+                                        </svg>
+                                    </span>
+                                    <span class="min-w-0 flex-1">
+                                        <span class="block">Kelola Lokasi</span>
+                                        <span
+                                            class="mt-0.5 block text-xs font-normal text-gray-400 dark:text-gray-400">Kapasitas,
+                                            alamat, dan koordinat.</span>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
+                                    </svg>
+                                </a>
+
+                                {{-- EDIT PROFILE --}}
+
+                                <a href="{{ route('pickup-location.profile', $pickupLocation->id) }}"
+                                    class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">
+                                    <span
+                                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M16.862 4.487 18.75 6.375m-1.888-1.888L8.25 13.5l-.75 3 3-.75 8.612-8.613a1.5 1.5 0 0 0 0-2.121Z" />
+                                        </svg>
+                                    </span>
+                                    <span class="min-w-0 flex-1">
+                                        <span class="block">Edit Profil</span>
+                                        <span
+                                            class="mt-0.5 block text-xs font-normal text-gray-400 dark:text-gray-400">Nama,
+                                            deskripsi, dan hapus lokasi.</span>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.8" stroke="currentColor" class="h-4 w-4 text-gray-400">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 5 7 7-7 7" />
+                                    </svg>
+                                </a>
+
+                            </div>
+                        </div>
+                    @endif
+                @endif
 
                 {{-- SYSTEM INFORMATION --}}
 

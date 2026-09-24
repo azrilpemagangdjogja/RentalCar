@@ -33,7 +33,7 @@
 
                 <div class="lg:col-span-2">
                     <div class="rounded-2xl bg-gray-50 dark:bg-gray-700">
-                        <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
+                        <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
                             <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Waktu</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Masukkan informasi dasar untuk waktu
                                 yang akan digunakan pada sistem.</p>
@@ -78,7 +78,7 @@
                     {{-- INFORMATION --}}
 
                     <section
-                        class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+                        class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
                         <div class="mb-6">
                             <div
                                 class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">

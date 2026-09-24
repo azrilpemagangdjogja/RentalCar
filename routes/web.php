@@ -88,9 +88,9 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('approval-join-vehicle', ApprovalJoinVehicleController::class);
 
     Route::patch('/pickup-location/{id}/status', [PickupLocationController::class,'status'])->name('pickup-location.status');
-    Route::get('/pickup-location/{id}/veh', [PickupLocationController::class,'veh'])->name('pickup-location.veh');
-    Route::post('/pickup-location/{pickupLocation}/addveh/{vehicle}', [PickupLocationController::class,'addveh'])->name('pickup-location.addveh');
-    Route::patch('/pickup-location/{pickupLocation}/unveh/{vehicle}', [PickupLocationController::class,'unveh'])->name('pickup-location.unveh');
+    // Route::get('/pickup-location/{id}/veh', [PickupLocationController::class,'veh'])->name('pickup-location.veh');
+    // Route::post('/pickup-location/{pickupLocation}/addveh/{vehicle}', [PickupLocationController::class,'addveh'])->name('pickup-location.addveh');
+    // Route::patch('/pickup-location/{pickupLocation}/unveh/{vehicle}', [PickupLocationController::class,'unveh'])->name('pickup-location.unveh');
     Route::get('/pickup-location/{id}/manage', [PickupLocationController::class,'manage'])->name('pickup-location.manage');
     Route::put('/pickup-location/{id}/addmanage', [PickupLocationController::class,'addmanage'])->name('pickup-location.addmanage');
     Route::get('/pickup-location/{id}/profile', [PickupLocationController::class,'profile'])->name('pickup-location.profile');

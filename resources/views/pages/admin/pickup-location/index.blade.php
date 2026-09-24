@@ -40,7 +40,7 @@
 
             {{-- TOTAL --}}
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Lokasi</p>
@@ -61,7 +61,7 @@
 
             {{-- ACTIVE --}}
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Aktif</p>
@@ -80,7 +80,7 @@
 
             {{-- INACTIVE --}}
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Tidak Aktif</p>
@@ -99,7 +99,7 @@
 
             {{-- VEHICLES --}}
 
-            <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
+            <div class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Kendaraan</p>
@@ -148,11 +148,11 @@
                         </svg>
                     </div>
                     <input type="search" placeholder="Cari nama lokasi, alamat, atau pembuat..."
-                        class="w-full rounded-xl border border-gray-100 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
+                        class="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
                 </div>
 
                 <select
-                    class="rounded-xl hidden sm:block border border-gray-100 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
+                    class="rounded-xl hidden sm:block border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:focus:border-gray-300">
                     <option>Semua Status</option>
                     <option value="Active">Aktif</option>
                     <option value="Inactive">Tidak Aktif</option>
@@ -162,12 +162,12 @@
             {{-- LOCATION LIST --}}
 
             <div
-                class="overflow-hidden rounded-2xl sm:border sm:border-gray-100 sm:bg-white sm:dark:border-gray-600 sm:dark:bg-gray-700">
+                class="overflow-hidden rounded-2xl sm:border sm:border-gray-200 sm:bg-white sm:dark:border-gray-600 sm:dark:bg-gray-700">
 
                 {{-- DESKTOP HEADER --}}
 
                 <div
-                    class="hidden grid-cols-6 items-center gap-5 border-b border-gray-100 px-5 py-3 dark:border-gray-600 sm:grid">
+                    class="hidden grid-cols-6 items-center gap-5 border-b border-gray-200 px-5 py-3 dark:border-gray-600 sm:grid">
                     <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                         Lokasi
                     </div>
@@ -194,11 +194,11 @@
                     {{-- LOCATION ROW --}}
 
                     <div
-                        class="rounded-2xl border grid grid-cols-1 border-gray-100 bg-white p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 sm:grid sm:grid-cols-6 sm:items-center sm:gap-5 sm:rounded-none sm:border-0 sm:border-b sm:px-5 sm:shadow-none sm:last:border-b-0 mb-4 sm:mb-0">
+                        class="rounded-2xl border grid grid-cols-1 border-gray-200 bg-white p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 sm:grid sm:grid-cols-6 sm:items-center sm:gap-5 sm:rounded-none sm:border-0 sm:border-b sm:px-5 sm:shadow-none sm:last:border-b-0 mb-4 sm:mb-0">
 
                         {{-- LOCATION --}}
 
-                        <div class="flex justify-between">
+                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-600 pb-4 sm:border-none sm:pb-0">
                             <div class="flex min-w-0 items-center gap-3">
                                 <div
                                     class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
@@ -340,7 +340,7 @@
                         {{-- ACTION --}}
 
                         <div
-                            class="mt-4 flex items-center justify-end border-t border-gray-100 pt-3 dark:border-gray-600 sm:mt-0 sm:border-0 sm:pt-0">
+                            class="mt-4 flex items-center justify-end border-t border-gray-200 pt-3 dark:border-gray-600 sm:mt-0 sm:border-0 sm:pt-0">
                             <a href="{{ route('pickup-location.show', $location->id) }}"
                                 class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-600"
                                 title="Lihat detail">

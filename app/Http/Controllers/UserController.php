@@ -20,7 +20,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $search = $request->search;
@@ -72,7 +72,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
         return view("pages.admin.user.create");
     }
@@ -85,7 +85,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $data = $request->validate([
@@ -122,7 +122,7 @@ class UserController extends Controller
         $users = auth()->user();
 
         if ($users->role !== "Admin" && $users->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $conversation = Conversation::where(function ($query) use ($users) {
@@ -146,7 +146,7 @@ class UserController extends Controller
         $users = auth()->user();
 
         if ($users->role !== "Admin" && $users->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $user = User::findOrFail($id);
@@ -161,7 +161,7 @@ class UserController extends Controller
         $users = auth()->user();
 
         if ($users->role !== "Admin" && $users->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $data = $request->validate([
@@ -205,7 +205,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
-            abort(404);
+            abort(403);
         }
 
         $users = User::findOrFail($id);

@@ -136,7 +136,7 @@
                     </div>
                     <input type="search" name="search" value="{{ request('search') }}"
                         placeholder="Cari nama, email, atau nomor telepon..."
-                        class="w-full rounded-xl border border-gray-100 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
+                        class="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-12 pr-4 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
                 </div>
 
                 <select
@@ -161,12 +161,12 @@
             {{-- USER LIST --}}
 
             <div
-                class="overflow-hidden rounded-2xl sm:border sm:border-gray-100 sm:bg-white sm:dark:border-gray-600 sm:dark:bg-gray-700">
+                class="overflow-hidden rounded-2xl sm:border sm:border-gray-200 sm:bg-white sm:dark:border-gray-600 sm:dark:bg-gray-700">
 
                 {{-- DESKTOP HEADER --}}
 
                 <div
-                    class="hidden grid-cols-6 items-center gap-5 border-b border-gray-100 px-5 py-3 dark:border-gray-600 sm:grid">
+                    class="hidden grid-cols-6 items-center gap-5 border-b border-gray-200 px-5 py-3 dark:border-gray-600 sm:grid">
                     <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
                         User
                     </div>
@@ -192,13 +192,13 @@
                     {{-- USER ROW --}}
 
                     <div
-                        class="rounded-2xl border grid grid-cols-1 border-gray-100 bg-white p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 sm:grid sm:grid-cols-6 sm:items-center sm:gap-5 sm:rounded-none sm:border-0 sm:border-b sm:px-5 sm:shadow-none sm:last:border-b-0 mb-4 sm:mb-0">
+                        class="rounded-2xl border grid grid-cols-1 border-gray-200 bg-white p-4 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 sm:grid sm:grid-cols-6 sm:items-center sm:gap-5 sm:rounded-none sm:border-0 sm:border-b sm:px-5 sm:shadow-none sm:last:border-b-0 mb-4 sm:mb-0">
 
                         {{-- MOBILE USER --}}
 
                         <div class="sm:hidden flex justify-between items-center border-b border-gray-200 dark:border-gray-600 pb-4">
                             <div
-                                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
+                                class="flex h-11 w-11 shrink-0 items-center overflow-hidden justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                                 @if ($item->profile)
                                     <img src="{{ asset('storage/' . $item->profile) }}" alt="{{ $item->name }}"
                                         class="h-full w-full object-cover">
@@ -272,7 +272,7 @@
                         <div class="mt-4 sm:mt-0 hidden sm:block">
                             <div class="flex min-w-0 items-center gap-2">
                                 <div
-                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                                     @if ($item->profile)
                                         <img src="{{ asset('storage/' . $item->profile) }}" alt="{{ $item->name }}"
                                             class="h-full w-full object-cover">

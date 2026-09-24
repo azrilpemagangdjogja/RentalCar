@@ -11,7 +11,7 @@
 
 <body>
     <div
-        class="flex h-screen w-full flex-col overflow-hidden bg-gradient-to-b from-slate-200/85 via-slate-200/70 to-slate-200/55 text-gray-800 dark:bg-gradient-to-b dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-800/90 dark:text-gray-50">
+        class="flex h-screen w-full flex-col overflow-hidden bg-gradient-to-b from-slate-200/70 via-slate-200/60 to-slate-100 text-gray-800 dark:bg-gradient-to-b dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-800/90 dark:text-gray-50">
         <x-admin-navbar />
         <div class="flex min-h-0 w-full flex-1">
             @if (auth()->user()->role == "Admin" || auth()->user()->role == "Superadmin")
