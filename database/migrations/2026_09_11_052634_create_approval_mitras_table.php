@@ -13,27 +13,24 @@ return new class extends Migration
     {
         Schema::create('approval_mitras', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('applicant_id')
                 ->nullable()
                 ->constrained('users')
                 ->nullOnDelete()
                 ->nullOnUpdate();
-            $table->string('applicant_name');
-            $table->string('applicant_email');
-            $table->string('applicant_telp');
-            $table->string('applicant_profile');
+
+            $table->string('nik');
+            $table->string('full_name');
+            $table->string('ktp_photo');
 
             $table->foreignId('reviewer_id')
                 ->nullable()
                 ->constrained('users')
                 ->nullOnUpdate()
                 ->nullOnDelete();
-            $table->string('reviewer_name')->nullable();
-            $table->string('reviewer_email')->nullable();
-            $table->string('reviewer_telp')->nullable();
-            $table->string('reviewer_profile')->nullable();
 
+            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->text('rejected_reason')->nullable();
             $table->timestamps();
         });
     }

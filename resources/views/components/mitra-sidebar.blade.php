@@ -157,8 +157,11 @@
 
 </aside>
 
-<div
-    class="hidden h-full w-58 shrink-0 bg-none pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
+<div class="hidden h-full w-54 shrink-0
+{{-- bg-none --}}
+{{-- bg-gray-50 dark:bg-gray-700 --}}
+{{-- border-r border-gray-100 dark:border-gray-600 --}}
+pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
 
     {{-- LOGO --}}
 

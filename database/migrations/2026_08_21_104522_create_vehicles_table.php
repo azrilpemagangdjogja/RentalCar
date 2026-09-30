@@ -38,15 +38,17 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('model');
 
-            $table->enum('status', ['Active','Inactive','Not Available'])->default('Active');
+            $table->enum('status', ['Active', 'Inactive', 'Service'])->default('Active');
             $table->text('description')->nullable();
-
-            $table->integer('deposit_amount')->nullable();
 
             $table->string('fuel_type')->nullable();
             $table->string('transmission')->nullable();
             $table->string('engine_capacity')->nullable();
             $table->string('seats')->nullable();
+
+            $table->integer('deposit_amount')->nullable();
+            $table->integer('price_amount')->nullable();
+            
             $table->timestamps();
         });
     }

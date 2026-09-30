@@ -18,11 +18,12 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->string('ktp_photo');
             $table->string('nik', 16)->unique();
             $table->string('full_name');
             $table->string('email')->unique();
             $table->string('telp')->unique();
-            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
         });
     }

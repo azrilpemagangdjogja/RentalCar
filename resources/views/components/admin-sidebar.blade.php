@@ -111,7 +111,7 @@
                 {{-- TYPE VEHICLES --}}
 
                 <a href="{{ route('vehicle-type.index') }}"
-                    class="{{ request()->routeIs('user.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                    class="{{ request()->routeIs('vehicle-type.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -123,7 +123,7 @@
                 {{-- PICKUP LOCATIONS --}}
 
                 <a href="{{ route('pickup-location.index') }}"
-                    class="{{ request()->routeIs('pickup-location.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                    class="{{ request()->routeIs('pickup-location.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -180,10 +180,12 @@
                         <span>Approval Member Mitra</span>
                     </div>
 
-                    <span
-                        class="rounded-full bg-gray-800 px-2 py-0.5 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">
-                        5
-                    </span>
+                    @if ($approvementMitra->count() > 0)
+                        <span
+                            class="rounded-full bg-gray-800 px-2 py-0.5 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">
+                            {{ $approvementMitra->count() }}
+                        </span>
+                    @endif
                 </a>
 
                 {{-- FINE APPROVAL --}}
@@ -491,11 +493,18 @@
 
 
 <div
-    class="hidden h-full w-58 shrink-0 bg-none pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
+    class="hidden h-full w-54 shrink-0
+{{-- bg-none --}}
+{{-- bg-gray-50 dark:bg-gray-700 --}}
+{{-- border-r border-gray-100 dark:border-gray-600 --}}
+pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
 
     {{-- LOGO --}}
 
-    {{-- <div class="flex h-16 shrink-0 items-center px-5">
+    {{-- <div class="flex h-16 shrink-0 items-center gap-4 px-5">
+        <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-white">
+            <x-icon.icon-car />
+        </div>
         <div>
             <p class="text-lg font-bold tracking-tight text-gray-800 dark:text-white">RentalCar</p>
             <p class="text-[10px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-300">Admin Panel</p>
@@ -613,8 +622,8 @@
                     class="{{ request()->routeIs('approaval-join-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
 
                     <div class="flex items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
@@ -641,10 +650,12 @@
                         <span>Approval Member Mitra</span>
                     </div>
 
-                    <span
-                        class="rounded-full bg-gray-800 px-2 py-0.5 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">
-                        5
-                    </span>
+                    @if ($approvementMitra->count() > 0)
+                        <span
+                            class="rounded-full bg-gray-800 px-2 py-0.5 text-[10px] font-semibold text-white dark:bg-gray-50 dark:text-gray-800">
+                            {{ $approvementMitra->count() }}
+                        </span>
+                    @endif
                 </a>
 
                 {{-- FINE APPROVAL --}}
@@ -777,8 +788,8 @@
 
                 {{-- SYSTEM SETTINGS --}}
 
-                <a href="#"
-                    class="{{ request()->routeIs('user.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                <a href="{{ route('app-identity.index') }}"
+                    class="{{ request()->routeIs('app-identity.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"

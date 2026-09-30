@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rental_times', function (Blueprint $table) {
             $table->id();
-            $table->integer('day')->nullable();
+            $table->integer('day')->unique();
             $table->text('description');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();

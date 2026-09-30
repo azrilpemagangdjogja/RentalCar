@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AppIdentityController;
 use App\Http\Controllers\ApprovalJoinVehicleController;
+use App\Http\Controllers\ApprovalVehicleDocument;
+use App\Http\Controllers\GetVehicleDocumentPhotoController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LayoutsController;
 use App\Http\Controllers\MitraIdentityController;
@@ -8,6 +11,7 @@ use App\Http\Controllers\UserHistoryController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
 use App\Models\LandingHero;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehiclesController;
@@ -52,31 +56,44 @@ Route::resource('profile', ProfileController::class);
 
 // Fitur Khusus User
 Route::middleware(['auth', 'role:User'])->group(function () {
-    Route::get('/customer-dashboard', [LayoutsController::class,'indexcustomer'])->name('customer.dashboard');
+    Route::get('first-vehicle-create', [VehiclesController::class, 'create'])->name('first.vehicle.create');
+    Route::get('/customer-dashboard', [LayoutsController::class, 'indexcustomer'])->name('customer.dashboard');
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('transaction', TransactionController::class);
-    Route::resource('mitra-identity', MitraIdentityController::class);
-    Route::get('search', [SearchController::class,'customer'])->name('search.customer');
+    Route::get('search', [SearchController::class, 'customer'])->name('search.customer');
+
+    // Cek Apakah dia sedang mengajukan mitra namun belum mengajukan kendaraan
+    Route::middleware(['auth', 'has.approvement.mitra.hasnt.vehicle.approval'])->group(function () {
+        Route::resource('mitra-identity', MitraIdentityController::class);
+    });
 });
 
 // Fitur khusus User yg memiliki status_mitra = 'Verified' 
-Route::middleware(['auth','mitra.verified'])->group(function () {
-    Route::get('/mitra-dashboard', [LayoutsController::class,'indexmitra'])->name('mitra.dashboard');
+Route::middleware(['auth', 'mitra.verified'])->group(function () {
     Route::resource('vehicle', VehicleController::class);
-    Route::get('/join-pickup-location/{id}/veh', [JoinPickupLocationController::class,'veh'])->name('join-pickup-location.veh');
-    Route::get('/join-pickup-location/{pickupLocation}/vehun', [JoinPickupLocationController::class,'vehun'])->name('join-pickup-location.vehun');
-    Route::patch('/join-pickup-location/{pickupLocation}/unveh/{vehicle}', [JoinPickupLocationController::class,'unveh'])->name('join-pickup-location.unveh');
-    Route::post('/join-pickup-location/{pickupLocation}/addveh/{vehicle}', [JoinPickupLocationController::class,'addveh'])->name('join-pickup-location.addveh');
-    Route::patch('/join-pickup-location/{pickupLocation}/cancelveh/{vehicle}', [JoinPickupLocationController::class,'cancelveh'])->name('join-pickup-location.cancelveh');
-    Route::resource('join-pickup-location', JoinPickupLocationController::class);
+    Route::middleware(['auth', 'mitra.vehicle.check'])->group(function () {
+        Route::get('/mitra-dashboard', [LayoutsController::class, 'indexmitra'])->name('mitra.dashboard');
+        Route::get('/join-pickup-location/{id}/veh', [JoinPickupLocationController::class, 'veh'])->name('join-pickup-location.veh');
+        Route::get('/join-pickup-location/{pickupLocation}/vehun', [JoinPickupLocationController::class, 'vehun'])->name('join-pickup-location.vehun');
+        Route::patch('/join-pickup-location/{pickupLocation}/unveh/{vehicle}', [JoinPickupLocationController::class, 'unveh'])->name('join-pickup-location.unveh');
+        Route::post('/join-pickup-location/{pickupLocation}/addveh/{vehicle}', [JoinPickupLocationController::class, 'addveh'])->name('join-pickup-location.addveh');
+        Route::patch('/join-pickup-location/{pickupLocation}/cancelveh/{vehicle}', [JoinPickupLocationController::class, 'cancelveh'])->name('join-pickup-location.cancelveh');
+        Route::resource('join-pickup-location', JoinPickupLocationController::class);
+    });
 });
 
 // Fitur Khusus Admin & Superadmin
 Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::get('/admin-dashboard', [LayoutsController::class, 'index'])->name('admin.dashboard');
     Route::resource('user', UserController::class);
+    Route::get('/app-identity/edit', [AppIdentityController::class, 'create'])->name('app-identity.edit');
+    Route::put('/app-identity', [AppIdentityController::class, 'update'])->name('app-identity.update');
+    Route::get('/vehicle-document-photo/{vehicle}/{photo}', [GetVehicleDocumentPhotoController::class, 'document'])->name('vehicle-document-photo');
+    Route::get('/approval-vehicle-document-photo/{vehicle}/{photo}', [GetVehicleDocumentPhotoController::class, 'approval'])->name('approval-vehicle-document-photo');
+    Route::resource('app-identity', AppIdentityController::class);
     Route::resource('vehicle-type', VehicleTypeController::class);
     Route::resource('region-filter', RegionFilterController::class);
+    Route::resource('approval-vehicle-document', ApprovalVehicleDocument::class);
     Route::resource('rental-time', RentalTimeController::class);
     Route::resource('approval-mitra-identity', ApprovalMitraIdentityController::class);
     Route::patch('/approval-mitra-identity/{id}/approve', [ApprovalMitraIdentityController::class, 'approve'])->name('approval-mitra-identity.approve');
@@ -87,17 +104,17 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::patch('/approval-join-vehicle/{id}/outing', [ApprovalJoinVehicleController::class, 'outing'])->name('approval-join-vehicle.outing');
     Route::resource('approval-join-vehicle', ApprovalJoinVehicleController::class);
 
-    Route::patch('/pickup-location/{id}/status', [PickupLocationController::class,'status'])->name('pickup-location.status');
+    Route::patch('/pickup-location/{id}/status', [PickupLocationController::class, 'status'])->name('pickup-location.status');
     // Route::get('/pickup-location/{id}/veh', [PickupLocationController::class,'veh'])->name('pickup-location.veh');
     // Route::post('/pickup-location/{pickupLocation}/addveh/{vehicle}', [PickupLocationController::class,'addveh'])->name('pickup-location.addveh');
     // Route::patch('/pickup-location/{pickupLocation}/unveh/{vehicle}', [PickupLocationController::class,'unveh'])->name('pickup-location.unveh');
-    Route::get('/pickup-location/{id}/manage', [PickupLocationController::class,'manage'])->name('pickup-location.manage');
-    Route::put('/pickup-location/{id}/addmanage', [PickupLocationController::class,'addmanage'])->name('pickup-location.addmanage');
-    Route::get('/pickup-location/{id}/profile', [PickupLocationController::class,'profile'])->name('pickup-location.profile');
-    Route::put('/pickup-location/{id}/addprofile', [PickupLocationController::class,'addprofile'])->name('pickup-location.addprofile');
+    Route::get('/pickup-location/{id}/manage', [PickupLocationController::class, 'manage'])->name('pickup-location.manage');
+    Route::put('/pickup-location/{id}/addmanage', [PickupLocationController::class, 'addmanage'])->name('pickup-location.addmanage');
+    Route::get('/pickup-location/{id}/profile', [PickupLocationController::class, 'profile'])->name('pickup-location.profile');
+    Route::put('/pickup-location/{id}/addprofile', [PickupLocationController::class, 'addprofile'])->name('pickup-location.addprofile');
     Route::resource('pickup-location', PickupLocationController::class);
 
-// Landing Page
+    // Landing Page
     // Hero Section
     Route::get('hero', [AdminLandingHeroController::class, 'hero'])->name('landing.hero');
     Route::get('hero-edit', [AdminLandingHeroController::class, 'heroedit'])->name('landing.hero.edit');

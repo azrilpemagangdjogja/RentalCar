@@ -45,7 +45,7 @@ class RentalTimeController extends Controller
         }
 
         $data = $request->validate([
-            "day" => "required|integer",
+            "day" => "required|integer|min:1|unique:rental_times,day",
             "description" => "required",
             "status" => "required",
         ]);

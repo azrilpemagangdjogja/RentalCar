@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehicle extends Model
 {
+    protected $table = "vehicles";
     protected $fillable = [
         "owner_id",
         "type_id",
@@ -40,6 +41,10 @@ class Vehicle extends Model
 
     public function vehicleTime(){
         return $this->belongsToMany(RentalTime::class, 'vehicle_times', 'vehicle_id', 'time_id');
+    }
+
+    public function vehicleDocument(){
+        return $this->hasOne(VehicleDocument::class, 'vehicle_id');
     }
 
     public function approvalJoin(){

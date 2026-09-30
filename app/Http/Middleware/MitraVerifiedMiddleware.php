@@ -17,7 +17,7 @@ class MitraVerifiedMiddleware
     {
         $user = auth()->user();
         $mitraVerified = $user->mitra_status == "Verified";
-        
+
         if ($mitraVerified) {
             return $next($request);
         } else {

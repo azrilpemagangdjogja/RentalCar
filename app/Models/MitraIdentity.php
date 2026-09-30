@@ -20,4 +20,9 @@ class MitraIdentity extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function approvalMitraIdentity()
+    {
+        return $this->hasOne(ApprovalMitraIdentity::class, 'mitra_identity_id');
+    }
 }

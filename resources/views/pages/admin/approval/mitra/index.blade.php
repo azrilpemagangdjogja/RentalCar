@@ -5,12 +5,12 @@
         {{-- HEADER --}} <section class="mb-6">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <div class="hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400 sm:flex"> <a href="#"
+                    {{-- <div class="hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400 sm:flex"> <a href="#"
                             class="transition hover:text-gray-700 dark:hover:text-gray-200">Operasional</a> <svg
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                             stroke="currentColor" class="h-4 w-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                        </svg> <span>Approvement</span> </div>
+                        </svg> <span>Approvement</span> </div> --}}
                     <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                         Approvement Identitas Mitra </h1>
                     <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
@@ -136,9 +136,9 @@
                         <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
                             <div class="flex min-w-0 items-start gap-4">
                                 <div class="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600">
-                                    @if ($item->user?->profile)
-                                        <img src="{{ asset('storage/' . $item->user->profile) }}"
-                                            alt="{{ $item->user->name }}" class="h-full w-full object-cover">
+                                    @if ($item->applicant?->profile)
+                                        <img src="{{ asset('storage/' . $item->applicant->profile) }}"
+                                            alt="{{ $item->applicant->name }}" class="h-full w-full object-cover">
                                     @else
                                         <div
                                             class="flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-300">
@@ -154,7 +154,7 @@
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2">
                                         <h3 class="truncate text-base font-bold text-gray-800 dark:text-white sm:text-lg">
-                                            {{ $item->longname ?? $item->user?->name }}
+                                            {{ $item->longname ?? $item->applicant?->name }}
                                         </h3>
 
                                         @if ($item->status == 'Pending')
@@ -181,7 +181,7 @@
                                     </div>
 
                                     <p class="mt-1 truncate text-sm text-gray-500 dark:text-gray-400">
-                                        {{ $item->user?->email ?? ($item->email ?? '-') }}
+                                        {{ $item->applicant?->email ?? ($item->email ?? '-') }}
                                     </p>
 
                                     <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
@@ -202,20 +202,20 @@
                                 <div>
                                     <p class="text-xs text-gray-400 dark:text-gray-500">No. Telepon</p>
                                     <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        {{ $item->user?->telp ?? ($item->telp ?? '-') }}
+                                        {{ $item->applicant?->telp ?? ($item->telp ?? '-') }}
                                     </p>
                                 </div>
 
                                 <div>
                                     <p class="text-xs text-gray-400 dark:text-gray-500">Nama Akun</p>
                                     <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        {{ $item->user?->name ?? '-' }}
+                                        {{ $item->applicant?->name ?? '-' }}
                                     </p>
                                 </div>
                             </div>
 
                             <div class="flex gap-2 border-t border-gray-200 pt-4 dark:border-gray-600 lg:border-0 lg:pt-0">
-                                <a href="{{ route('approval-mitra-identity.show', $item->id) }}"
+                                <a href="{{ route('approval-mitra-identity.show', $item->applicant_id) }}"
                                     class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 sm:flex-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
@@ -230,7 +230,7 @@
                                 @if ($item->status == 'Pending')
                                     <form action="{{ route('approval-mitra-identity.approve', $item->id) }}"
                                         method="POST"
-                                        onsubmit="return confirm('Setujui pengajuan identitas {{ $item->longname ?? $item->user?->name }}?')">
+                                        onsubmit="return confirm('Setujui pengajuan identitas {{ $item->longname ?? $item->applicant?->name }}?')">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit"

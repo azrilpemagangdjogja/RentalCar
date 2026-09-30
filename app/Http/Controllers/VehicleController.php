@@ -53,8 +53,7 @@ class VehicleController extends Controller
         }
         $days = RentalTime::where('status', 'Active')->get();
         $types = VehicleType::where('status', 'Active')->get();
-        $pickupLocations = PickupLocation::where("owner_id", $owner)->get();
-        return view("pages.mitra.vehicle.create", compact("pickupLocations", "types", "days"));
+        return view("pages.mitra.vehicle.create", compact("types", "days"));
     }
 
     /**
@@ -85,6 +84,8 @@ class VehicleController extends Controller
             "role" => "nullable",
             "pickup_location_id" => "nullable",
             "type_id" => "nullable",
+
+            ""
         ]);
 
         $time = $request->validate([

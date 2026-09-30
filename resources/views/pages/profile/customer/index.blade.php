@@ -6,15 +6,15 @@
 
         {{-- HEADER --}}
 
-        <section class="md:mb-6 hidden md:block">
+        <section class="mb-6">
             <div>
                 {{-- <p class="text-sm font-medium text-gray-400 dark:text-gray-400">
                     Akun Saya
                 </p> --}}
                 <h1 class="mt-1 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
-                    Menu Saya
+                    Profile
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                     Kelola akun, rental, transaksi, dan pengaturan kamu.
                 </p>
             </div>
@@ -64,8 +64,8 @@
                         </p>
                     </div>
 
-                    <a href=""
-                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-white px-12 transition group-hover:bg-gray-200 group-hover:text-gray-800 dark:bg-gray-600 dark:text-gray-300 dark:group-hover:bg-gray-200 dark:group-hover:text-gray-800">
+                    <a href="{{ route('user.edit', $user->id) }}"
+                        class="hidden sm:flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-white px-12 transition group-hover:bg-gray-200 group-hover:text-gray-800 dark:bg-gray-600 dark:text-gray-300 dark:group-hover:bg-gray-200 dark:group-hover:text-gray-800">
                         {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                             stroke="currentColor" class="h-5 w-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
@@ -74,6 +74,14 @@
                     </a>
 
                 </div>
+                <a href="{{ route('user.edit', $user->id) }}"
+                    class="flex sm:hidden h-9 w-full mt-4 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-white px-12 transition group-hover:bg-gray-200 group-hover:text-gray-800 dark:bg-gray-600 dark:text-gray-300 dark:group-hover:bg-gray-200 dark:group-hover:text-gray-800">
+                    {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                            stroke="currentColor" class="h-5 w-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
+                        </svg> --}}
+                    <span>Edit</span>
+                </a>
             </div>
         </section>
 
@@ -166,7 +174,7 @@
                         </p>
                     </a>
                 @else
-                    <a href="{{ route('mitra-identity.create') }}"
+                    <a href="{{ route('mitra-identity.index') }}"
                         class="group rounded-2xl border border-gray-100 bg-white p-4 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500">
                         <div
                             class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">

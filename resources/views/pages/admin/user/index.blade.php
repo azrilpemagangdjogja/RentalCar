@@ -6,7 +6,7 @@
 
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-2xl mt-2 font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Kelola Users
+                <h1 class="text-2xl mt-2 font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Kelola Pengguna
                 </h1>
                 <p class="hidden sm:block mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola akun pengguna, role, dan
                     status keanggotaan
@@ -19,7 +19,7 @@
                     stroke="currentColor" class="h-5 w-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-7-7h14" />
                 </svg>
-                Tambah User
+                Tambah Pengguna
             </a>
 
         </div>
@@ -33,7 +33,7 @@
             <div class="rounded-2xl dark:border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700 sm:p-5">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Users</p>
+                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Total Pengguna</p>
                         <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">{{ $totalUsers }}</p>
                     </div>
                     <div
@@ -114,7 +114,7 @@
 
             {{-- <div class="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 class="text-lg font-bold text-gray-800 dark:text-white">Daftar Users</h2>
+                    <h2 class="text-lg font-bold text-gray-800 dark:text-white">Daftar Pengguna</h2>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola seluruh akun pengguna yang terdaftar.
                     </p>
                 </div>
@@ -168,7 +168,7 @@
                 <div
                     class="hidden grid-cols-6 items-center gap-5 border-b border-gray-200 px-5 py-3 dark:border-gray-600 sm:grid">
                     <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
-                        User
+                        Pengguna
                     </div>
                     <div class="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
                         Telp
@@ -380,8 +380,8 @@
                                     d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
                             </svg>
                         </div>
-                        <h3 class="mt-3 text-sm font-semibold text-gray-800 dark:text-white">Belum ada User</h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Belum ada user yang terdaftar.</p>
+                        <h3 class="mt-3 text-sm font-semibold text-gray-800 dark:text-white">Belum ada Pengguna</h3>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Belum ada pengguna yang terdaftar.</p>
                     </div>
                 @endforelse
             </div>

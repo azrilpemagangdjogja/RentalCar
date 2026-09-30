@@ -50,47 +50,6 @@
 
                 {{-- PROFILE --}}
 
-                <section
-                    class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
-                    <div class="mb-6 flex items-start gap-4">
-                        <div
-                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                                stroke="currentColor" class="h-5 w-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5M6.75 18h.008v.008H6.75V18ZM17.25 18h.008v.008h-.008V18Z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-gray-800 dark:text-white">Foto Kendaraan</h2>
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Foto kendaraan yang akan diperlihatkan
-                                kepada pelanggan.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-
-                        <div
-                            class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600">
-                            <img src="{{ asset('storage/' . $vehicle->profile) }}" alt="Preview"
-                                class="h-full w-full object-cover">
-                        </div>
-
-                        <div class="flex-1">
-                            <input type="file" name="profile" id="profile"
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-50 dark:file:text-gray-800">
-
-                            <p class="mt-2 text-xs text-gray-400">
-                                Kosongkan jika tidak ingin mengganti foto.
-                            </p>
-
-                            @error('profile')
-                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                    </div>
-                </section>
 
                 {{-- BASIC INFORMATION --}}
 

@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Vehicle::class, 'owner_id');
     }
 
+    public function approvementVehicles()
+    {
+        return $this->hasMany(ApprovalVehicle::class, 'owner_id');
+    }
+
     public function pickupLocations()
     {
         return $this->hasMany(PickupLocation::class, 'owner_id');
@@ -60,5 +65,13 @@ class User extends Authenticatable
 
     public function messageReceiver(){
         return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    public function applicantMitra(){
+        return $this->hasOne(ApprovalMitraIdentity::class, 'applicant_id');
+    }
+
+    public function reviewerMitra(){
+        return $this->hasMany(ApprovalMitraIdentity::class, 'reviewer_id');
     }
 }

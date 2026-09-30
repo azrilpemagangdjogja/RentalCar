@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_albums', function (Blueprint $table) {
+        Schema::create('app_identities', function (Blueprint $table) {
             $table->id();
+            $table->string('app_name');
+            $table->string('app_logo');
+            $table->string('app_description');
+            $table->string('app_whatsapp');
+            $table->string('app_favicon');
+            $table->string('app_email');
+            $table->string('app_owner');
             $table->timestamps();
         });
     }
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_albums');
+        Schema::dropIfExists('sistem_settings');
     }
 };

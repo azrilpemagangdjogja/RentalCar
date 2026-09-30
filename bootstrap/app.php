@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Middleware\HasApprovementMitraMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Middleware\MitraVehicleCheck;
 use App\Http\Middleware\MitraMemberVerifiedMiddleware;
 use App\Http\Middleware\MitraVerifiedMiddleware;
 
@@ -18,6 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'mitra.verified' => MitraVerifiedMiddleware::class,
+            'mitra.vehicle.check' => MitraVehicleCheck::class,
+            'has.approvement.mitra.hasnt.vehicle.approval' => HasApprovementMitraMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

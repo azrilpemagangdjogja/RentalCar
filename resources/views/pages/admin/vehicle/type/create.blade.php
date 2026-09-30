@@ -34,7 +34,7 @@
                 <div class="lg:col-span-2">
 
                     <div class="rounded-2xl bg-gray-50 dark:bg-gray-700">
-                        <div class="border-b border-gray-200 p-5 dark:border-gray-600 sm:p-6">
+                        <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
                             <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Vehicle Type</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Masukkan informasi dasar untuk jenis
                                 kendaraan ini.</p>
@@ -50,7 +50,7 @@
                                     Type</label>
                                 <input type="text" name="name" id="name" value="{{ old('name') }}"
                                     placeholder="Contoh: Car, Bicycle, Bus, Truck" required
-                                    class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
+                                    class="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
                                 @error('name')
                                     <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
                                 @enderror
@@ -62,7 +62,7 @@
                                 <label for="description"
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Deskripsi</label>
                                 <textarea name="description" id="description" rows="7" placeholder="Jelaskan jenis kendaraan ini..." required
-                                    class="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">{{ old('description') }}</textarea>
+                                    class="w-full resize-none rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">{{ old('description') }}</textarea>
                                 @error('description')
                                     <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
                                 @enderror
@@ -79,7 +79,7 @@
                     {{-- STATUS --}}
 
                     <section
-                        class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+                        class="rounded-2xl border border-gray-100 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
                         <div class="mb-6">
                             <h2 class="mt-4 font-bold text-gray-800 dark:text-white">Status</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Aktifkan atau nonaktifkan tipe kendaraan.</p>
@@ -88,7 +88,7 @@
                             <label for="status"
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
                             <select name="status" id="status"
-                                class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
+                                class="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
                                 <option value="Active" @selected(old('status') === 'Active')>Aktif</option>
                                 <option value="Inactive" @selected(old('status') === 'Inactive')>Tidak Aktif</option>
                             </select>
@@ -121,7 +121,7 @@
 
             <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                 <a href="{{ route('vehicle-type.index') }}"
-                    class="inline-flex w-full items-center justify-center rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 sm:w-auto">
+                    class="inline-flex w-full items-center justify-center rounded-xl border border-gray-100 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 sm:w-auto">
                     Batal
                 </a>
                 <button type="submit"
