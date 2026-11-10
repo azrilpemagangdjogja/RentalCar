@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('approval_vehicle_documents', function (Blueprint $table) {
+        Schema::create('approval_vehicles', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('owner_id')
@@ -21,6 +21,11 @@ return new class extends Migration
 
             $table->foreignId('type_id')
                 ->constrained('vehicle_types')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignId('transmission_id')
+                ->constrained('vehicle_transmissions')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
@@ -36,7 +41,6 @@ return new class extends Migration
             $table->text('description');
 
             $table->string('fuel_type');
-            $table->string('transmission');
             $table->string('engine_capacity');
             $table->string('seats');
 
@@ -47,11 +51,10 @@ return new class extends Migration
             $table->string('odometer_photo');
             $table->string('chassis_photo');
 
-            $table->string('tax_proof_photo');
-            $table->date('tax_due_date');
+            $table->string('selfie_photo');
 
             $table->string('stnk_photo');
-            $table->date('stnk_due_date');
+            $table->date('stnk_due_date')->nullable();
 
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->string('rejected_reason')->nullable();
@@ -64,6 +67,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('approval_vehicle_documents');
+        Schema::dropIfExists('approval_vehicles');
     }
 };

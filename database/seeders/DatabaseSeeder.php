@@ -48,32 +48,32 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Mitras',
-            'email' => 'testmitra@example.com',
+            'name' => 'Test',
+            'email' => 'test@example.com',
             'password'=> bcrypt('12345678'),
             'role'=> 'User',
             'telp'=> '08393448283',
-            'mitra_status'=> 'Verified',
+            'mitra_status'=> 'Unverified',
             'last_login_at' => now(),
         ]);
 
         User::create([
-            'name' => 'Mitras2',
-            'email' => 'testmitra2@example.com',
+            'name' => 'Test2',
+            'email' => 'test2@example.com',
             'password'=> bcrypt('12345678'),
             'role'=> 'User',
             'telp'=> '08393148283',
-            'mitra_status'=> 'Verified',
+            'mitra_status'=> 'Unverified',
             'last_login_at' => now(),
         ]);
 
         User::create([
-            'name' => 'Mitras3',
-            'email' => 'testmitra3@example.com',
+            'name' => 'Test3',
+            'email' => 'test3@example.com',
             'password'=> bcrypt('12345678'),
             'role'=> 'User',
             'telp'=> '08393458283',
-            'mitra_status'=> 'Verified',
+            'mitra_status'=> 'Unverified',
             'last_login_at' => now(),
         ]);
 

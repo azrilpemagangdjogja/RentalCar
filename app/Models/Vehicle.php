@@ -21,9 +21,10 @@ class Vehicle extends Model
         "location",
         "fuel_type",
         "engine_capacity",
-        "transmission",
+        "transmission_id",
         "seats",
         "deposit_amount",
+        "price_amount",
         "status",
     ];
 
@@ -37,6 +38,10 @@ class Vehicle extends Model
 
     public function type(){
         return $this->belongsTo(VehicleType::class);
+    }
+
+    public function transmission(){
+        return $this->belongsTo(VehicleTransmission::class, 'transmission_id');
     }
 
     public function vehicleTime(){

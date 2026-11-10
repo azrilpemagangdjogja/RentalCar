@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApprovalMitraIdentity extends Model
 {
-    protected $table = "approval_mitras";
+    protected $table = "approval_mitra_identities";
     protected $fillable = [
         "applicant_id",
         "nik",

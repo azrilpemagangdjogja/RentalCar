@@ -67,11 +67,11 @@
                         </div>
 
                         <div class="flex-1">
-                            <input type="file" name="profile" id="profile"
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                            <input type="file" name="profile" id="profile" required
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:hover:file:bg-gray-200 dark:file:text-gray-800">
 
                             <p class="mt-2 text-xs text-gray-400">
-                                Kosongkan jika tidak ingin mengganti foto.
+                                JPG, PNG, atau JPEG. Maks. 2MB.
                             </p>
 
                             @error('profile')
@@ -228,11 +228,16 @@
                         {{-- TRANSMISI --}}
 
                         <div>
-                            <label for="transmission"
+                            <label for="transmission_id"
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Transmisi</label>
-                            <input type="text" name="transmission" id="transmission"
-                                value="{{ old('transmission') }}" placeholder="Contoh: Manual"
-                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
+                            <select name="transmission_id" id="transmission_id" required
+                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
+                                <option value="">Pilih transmisi</option>
+                                @foreach ($transmissions as $transmission)
+                                    <option value="{{ $transmission->id }}" @selected(old('transmission_id') == $transmission->id)>{{ $transmission->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         {{-- KAPASITAS MESIN --}}
@@ -290,7 +295,7 @@
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="front_photo" id="front_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
                             @error('front_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -304,7 +309,7 @@
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="left_photo" id="left_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
                             @error('left_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -318,7 +323,7 @@
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="right_photo" id="right_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
                             @error('right_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -332,7 +337,7 @@
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="back_photo" id="back_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
                             @error('back_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -340,16 +345,30 @@
 
                         {{-- FOTO ODOMETER --}}
 
-                        <div class="sm:col-span-2">
+                        <div class="">
                             <label for="odometer_photo"
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Foto Odometer
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="odometer_photo" id="odometer_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
                             <p class="mt-2 text-xs text-gray-400 dark:text-gray-400">Pastikan angka kilometer pada odometer
                                 terlihat dengan jelas.</p>
                             @error('odometer_photo')
+                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- BUKTI PAJAK --}}
+
+                        <div class="">
+                            <label for="selfie_photo"
+                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Foto Selfie dengan kendaraan
+                                {{-- <span class="text-red-500">*</span> --}}
+                            </label>
+                            <input type="file" name="selfie_photo" id="selfie_photo" accept="image/*" required
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
+                            @error('selfie_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -377,36 +396,6 @@
                     </div>
                     <div class="grid gap-5 sm:grid-cols-2">
 
-                        {{-- BUKTI PAJAK --}}
-
-                        <div>
-                            <label for="tax_proof_photo"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Foto Bukti Pajak
-                                {{-- <span class="text-red-500">*</span> --}}
-                            </label>
-                            <input type="file" name="tax_proof_photo" id="tax_proof_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
-                            @error('tax_proof_photo')
-                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- TANGGAL JATUH TEMPO PAJAK --}}
-
-                        <div>
-                            <label for="tax_due_date"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal Jatuh Tempo
-                                Pajak
-                                {{-- <span class="text-red-500">*</span> --}}
-                            </label>
-                            <input type="date" name="tax_due_date" id="tax_due_date"
-                                value="{{ old('tax_due_date') }}" required
-                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
-                            @error('tax_due_date')
-                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
                         {{-- FOTO STNK --}}
 
                         <div>
@@ -415,7 +404,7 @@
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="stnk_photo" id="stnk_photo" accept="image/*" required
-                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
                             @error('stnk_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
@@ -433,6 +422,20 @@
                                 value="{{ old('stnk_due_date') }}" required
                                 class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
                             @error('stnk_due_date')
+                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- CHASSIS PHOTO --}}
+
+                        <div class="sm:col-span-2">
+                            <label for="chassis_photo"
+                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Foto Chassis
+                                {{-- <span class="text-red-500">*</span> --}}
+                            </label>
+                            <input type="file" name="chassis_photo" id="chassis_photo" accept="image/*" required
+                                class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:hover:bg-gray-100 dark:file:text-gray-800">
+                            @error('chassis_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>

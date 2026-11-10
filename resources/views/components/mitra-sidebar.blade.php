@@ -157,125 +157,72 @@
 
 </aside>
 
-<div class="hidden h-full w-54 shrink-0
-{{-- bg-none --}}
-{{-- bg-gray-50 dark:bg-gray-700 --}}
-{{-- border-r border-gray-100 dark:border-gray-600 --}}
-pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
 
-    {{-- LOGO --}}
 
-    {{-- SIDEBAR MENU --}}
 
-    <nav class="flex-1 overflow-y-auto scrollbar-none px-3 py-4">
+{{-- MOBILE BOTTOM NAVBAR --}}
 
-        {{-- DASHBOARD --}}
+<nav
+    class="fixed bottom-0 rounded-t-xl left-0 right-0 z-50 flex h-16 items-center justify-around
+    border-t border-gray-200 bg-white px-2
+    text-gray-700 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-50 md:hidden">
 
-        <div class="mb-6">
-            <p class="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-300">
-                Dashboard</p>
-            <a href="{{ route('mitra.dashboard') }}"
-                class="{{ request()->routeIs('mitra.dashboard') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
-                <x-icon.icon-dashboard />
-                <span>Dashboard</span>
-            </a>
-        </div>
+    {{-- DASHBOARD --}}
 
-        {{-- OPERASIONAL --}}
+    <a href="{{ route('mitra.dashboard') }}"
+        class="{{ request()->routeIs('mitra.dashboard')
+            ? 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl bg-gray-800 text-white dark:bg-gray-600'
+            : 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl transition hover:bg-gray-100 dark:hover:bg-gray-600' }}">
 
-        <div class="mb-6">
-            <p class="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-300">
-                Operasional</p>
-            <div class="space-y-1">
+        <x-icon.icon-dashboard />
 
-                {{-- KENDARAAN --}}
+        <span class="text-[10px]">Beranda</span>
+    </a>
 
-                <a href="{{ route('vehicle.index') }}"
-                    class="{{ request()->routeIs('vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
-                    <x-icon.icon-car />
-                    <span>Kendaraan</span>
-                </a>
+    {{-- TRANSAKSI --}}
 
-                {{-- PICKUP LOCATION --}}
+    <a href="{{ route('vehicle.index') }}"
+        class="{{ request()->routeIs('vehicle.*')
+            ? 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl bg-gray-800 text-white dark:bg-gray-600'
+            : 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl transition hover:bg-gray-100 dark:hover:bg-gray-600' }}">
 
-                <a href="{{ route('join-pickup-location.index') }}"
-                    class="{{ request()->routeIs('join-pickup-location.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
-                    <x-icon.icon-location />
-                    <span>Pickup Locations</span>
-                </a>
+        <x-icon.icon-car />
 
-                {{-- RENTAL --}}
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
-                    </svg>
-                    <span>Transaksi</span>
-                </a>
+        <span class="text-[10px]">Kendaraan</span>
+    </a>
 
-            </div>
-        </div>
+    {{-- JELAJAHI --}}
 
-        {{-- MITRA --}}
+    <a href="#"
+        class="flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl transition hover:bg-gray-100 dark:hover:bg-gray-600">
 
-        {{-- RIWAYAT --}}
-        <div class="mb-6">
-            <p class="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-300">
-                Riwayat
-            </p>
-            <div class="space-y-1">
+        <x-icon.icon-search />
 
-                {{-- RIWAYAT TRANSAKSI --}}
+        <span class="text-[10px]">Jelajahi</span>
+    </a>
 
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 text-gray-500 dark:text-gray-300">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
-                    </svg>
-                    <span>Riwayat Transaksi</span>
-                </a>
+    {{-- RIWAYAT --}}
 
-            </div>
-        </div>
+    <a href="{{ route('user-history.index') }}"
+        class="{{ request()->routeIs('user-history.*')
+            ? 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl bg-gray-800 text-white dark:bg-gray-600'
+            : 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl transition hover:bg-gray-100 dark:hover:bg-gray-600' }}">
 
-        {{-- LAINNYA --}}
+        <x-icon.icon-history />
 
-        <div>
-            <p class="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-300">
-                Lainnya
-            </p>
-            <div class="space-y-1">
+        <span class="text-[10px]">Riwayat</span>
+    </a>
 
-                {{-- PENGATURAN --}}
+    {{-- FAVORIT --}}
 
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 text-gray-500 dark:text-gray-300">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5ZM19.5 12a7.5 7.5 0 0 0-.114-1.307l1.664-1.296-1.5-2.598-1.97.797a7.47 7.47 0 0 0-2.26-1.307L15 4.125h-3l-.32 2.164a7.47 7.47 0 0 0-2.26 1.307l-1.97-.797-1.5 2.598 1.664 1.296a7.5 7.5 0 0 0 0 1.307Z" />
-                    </svg>
-                    <span>Profile</span>
-                </a>
+    <a href="{{ route('join-pickup-location.index') }}"
+        class="{{ request()->routeIs('join-pickup-location.*')
+            ? 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl bg-gray-800 text-white dark:bg-gray-600'
+            : 'flex h-11 w-14 flex-col items-center justify-center gap-0.5 rounded-xl transition hover:bg-gray-100 dark:hover:bg-gray-600' }}">
 
-                {{-- KELUAR --}}
+        <x-icon.icon-location />
 
-                <a href="{{ route('logout', auth()->id()) }}"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 text-gray-500 dark:text-gray-300">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M18 15l3-3m0 0-3-3m3 3H9" />
-                    </svg>
-                    <span>Keluar</span>
-                </a>
+        <span class="text-[10px]">Lokasi</span>
+    </a>
 
-            </div>
-        </div>
-
-    </nav>
-</div>
+</nav>

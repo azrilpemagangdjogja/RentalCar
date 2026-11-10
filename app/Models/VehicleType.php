@@ -16,4 +16,8 @@ class VehicleType extends Model
     public function vehicles(){
         return $this->hasMany(Vehicle::class, "type_id");
     }
+
+    public function approvalVehicles(){
+        return $this->hasMany(ApprovalVehicle::class, "type_id");
+    }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('approval_mitras', function (Blueprint $table) {
+        Schema::create('approval_mitra_identities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('applicant_id')
                 ->nullable()
@@ -29,7 +29,7 @@ return new class extends Migration
                 ->nullOnUpdate()
                 ->nullOnDelete();
 
-            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->enum('status', ['Pending', 'Approved', 'Rejected', 'Expired'])->default('Pending');
             $table->text('rejected_reason')->nullable();
             $table->timestamps();
         });

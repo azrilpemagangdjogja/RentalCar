@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use _PHPStan_33c983f26\Symfony\Contracts\Service\Attribute\Required;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
+use App\Models\ApprovalVehicle;
 use App\Models\VehicleType;
+use App\Models\VehicleTransmission;
 use App\Models\PickupLocation;
 use App\Models\RentalTime;
 use App\Models\UserHistory;
@@ -20,6 +22,9 @@ class VehicleController extends Controller
     {
         $user = auth()->user();
         $owner = $user?->id;
+        $active = $request->active;
+        $inactive = $request->inactive;
+        $unassigned = $request->unassigned;
         $search = $request->search;
 
         if ($user->mitra_status !== "Verified") {
@@ -36,6 +41,19 @@ class VehicleController extends Controller
                     ->orWhere('plate_number', 'LIKE', '%' . $search . '%');
             })->paginate(25);
         }
+
+        if ($active) {
+            $vehicles = Vehicle::where('owner_id', $owner)->with(["PickupLocation", "type"])->where('status', 'Active')->paginate(10);
+        }
+
+        if ($inactive) {
+            $vehicles = Vehicle::where('owner_id', $owner)->with(["PickupLocation", "type"])->where('status', 'Inactive')->paginate(10);
+        }
+
+        if ($unassigned) {
+            $vehicles = Vehicle::where('owner_id', $owner)->with(["PickupLocation", "type"])->whereNull('pickup_location_id')->paginate(10);
+        }
+
         $vehiclesActive = Vehicle::where('status', 'Active')->where('owner_id', $owner)->count();
         $vehiclesInActive = Vehicle::where('status', 'Inactive')->where('owner_id', $owner)->count();
         return view("pages.mitra.vehicle.index", compact(['vehicles', 'vehiclesActive', 'vehiclesInActive']));
@@ -51,9 +69,10 @@ class VehicleController extends Controller
         if ($user->mitra_status !== "Verified") {
             abort(404);
         }
+        $transmissions = VehicleTransmission::where('status', 'Active')->get();
         $days = RentalTime::where('status', 'Active')->get();
         $types = VehicleType::where('status', 'Active')->get();
-        return view("pages.mitra.vehicle.create", compact("types", "days"));
+        return view("pages.mitra.vehicle.create", compact("types", "days", "transmissions"));
     }
 
     /**
@@ -62,63 +81,97 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        $owner = $user?->id;
-        if ($user->mitra_status !== "Verified") {
+        $userWasMitra = $user->mitra_status == "Verified";
+
+        if (!$userWasMitra){
             abort(404);
         }
 
+        // dd($request);
+        $user = auth()->user();
         $data = $request->validate([
             "profile" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
             "brand" => "required",
-            "year" => "required",
             "model" => "required",
+            "year" => "required",
+            "color" => "required",
+            "plate_number" => "required|unique:vehicles,plate_number",
             "fuel_type" => "required",
-            "transmission" => "required",
+            "transmission_id" => "required",
             "engine_capacity" => "required",
             "seats" => "required",
-            "plate_number" => "required|unique:vehicles,plate_number",
-            "deposit_amount" => "nullable",
-            "description" => "nullable",
-            "status" => "nullable",
-            "color" => "nullable",
-            "role" => "nullable",
-            "pickup_location_id" => "nullable",
-            "type_id" => "nullable",
-
-            ""
+            "description" => "required",
+            "type_id" => "required",
+            "front_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "left_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "back_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "right_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "odometer_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "stnk_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "selfie_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "chassis_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
+            "stnk_due_date" => "required|date",
         ]);
 
-        $time = $request->validate([
-            "days" => 'Required|array',
-            'days.*' => 'exists:rental_times,id',
-        ]);
-
-        $data["owner_id"] = $owner;
+        // $time = $request->validate([
+        //     "days" => 'Required|array',
+        //     'days.*' => 'exists:rental_times,id',
+        // ]);
 
         if ($request->hasFile('profile')) {
             $data['profile'] = $request->file('profile')->store('vehicle_profiles', 'public');
         } else {
             unset($data['profile']);
         }
-
-        $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
-        $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
-
-        if ($data['pickup_location_id']) {
-            if ($vehicleCount >= $pickuLocation?->max_vehicle) {
-                return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
-            }
+        if ($request->hasFile('front_photo')) {
+            $data['front_photo'] = $request->file('front_photo')->store('vehicle_sidetoside', 'public');
+        } else {
+            unset($data['front_photo']);
+        }
+        if ($request->hasFile('back_photo')) {
+            $data['back_photo'] = $request->file('back_photo')->store('vehicle_sidetoside', 'public');
+        } else {
+            unset($data['back_photo']);
+        }
+        if ($request->hasFile('left_photo')) {
+            $data['left_photo'] = $request->file('left_photo')->store('vehicle_sidetoside', 'public');
+        } else {
+            unset($data['left_photo']);
+        }
+        if ($request->hasFile('right_photo')) {
+            $data['right_photo'] = $request->file('right_photo')->store('vehicle_sidetoside', 'public');
+        } else {
+            unset($data['right_photo']);
+        }
+        if ($request->hasFile('odometer_photo')) {
+            $data['odometer_photo'] = $request->file('odometer_photo')->store('odometer-photo', 'public');
+        } else {
+            unset($data['odometer_photo']);
+        }
+        if ($request->hasFile('selfie_photo')) {
+            $data['selfie_photo'] = $request->file('selfie_photo')->store('selfie-photo', 'public');
+        } else {
+            unset($data['selfie_photo']);
         }
 
-        $vehicle = Vehicle::create($data);
-        $vehicle->vehicleTime()->sync($time['days']);
+        if ($request->hasFile('stnk_photo')) {
+            $data['stnk_photo'] = $request->file('stnk_photo')->store('stnk-photo', 'private');
+        } else {
+            unset($data['stnk_photo']);
+        }
+        if ($request->hasFile('chassis_photo')) {
+            $data['chassis_photo'] = $request->file('chassis_photo')->store('chassis-photo', 'private');
+        } else {
+            unset($data['chassis_photo']);
+        }
 
         UserHistory::record(
             "Kendaraan",
-            $user->name . " Menambahkan kendaraan " . $data['brand'] . ' ' . $data['model']
+            $user->name . " Mengajukan kendaraan " . $data['brand'] . ' ' . $data['model']
         );
-
-        return redirect()->route("vehicle.index");
+        $data['owner_id'] = $user->id;
+        ApprovalVehicle::create($data);
+        return redirect()->route('vehicle.index');
     }
 
     /**
@@ -193,10 +246,14 @@ class VehicleController extends Controller
             unset($data['profile']);
         }
 
-        $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
-        $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
+        if (isset($data['pickup_location_id'])) {
+            $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
+            $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
+        } else {
+            $pickuLocation = null;
+        }
 
-        if ($data['pickup_location_id']) {
+        if (isset($data['pickup_location_id'])) {
             if ($vehicleCount >= $pickuLocation?->max_vehicle) {
                 return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
             }

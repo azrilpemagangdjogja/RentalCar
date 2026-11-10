@@ -13,6 +13,7 @@ class MitraIdentity extends Model
         'email',
         'telp',
         'nik',
+        'ktp_photo',
         'status',
     ];
 

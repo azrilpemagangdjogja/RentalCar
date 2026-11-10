@@ -21,11 +21,10 @@
     @elseif (auth()->user()->mitra_status == 'Verified')
     <div
         class="flex h-screen w-full flex-col overflow-hidden 
-        bg-gradient-to-b from-slate-200/60 via-slate-200/50 to-slate-100/90
-        {{-- bg-slate-100/80 dark:bg-gray-800/95 --}}
-        dark:bg-gradient-to-t dark:from-slate-800 dark:via-gray-800 dark:to-gray-800/95
+        {{-- bg-gradient-to-b from-slate-100 via-slate-100/90 to-slate-100/80 --}}
+        bg-slate-100/80 dark:bg-gray-800/95
+        {{-- dark:bg-gradient-to-t dark:from-slate-800 dark:via-gray-800 dark:to-gray-800/95 --}}
         text-gray-800 dark:text-gray-50">
-        <x-admin-navbar />
     @else
     <div
         class="flex h-screen w-full flex-col overflow-hidden 
@@ -43,16 +42,19 @@
                 <x-mitra-footer />
                 </main>
             @elseif (auth()->user()->mitra_status == 'Verified')
-                <x-mitra-sidebar />
-                <main class="min-h-0 w-full relative flex-1 overflow-y-auto md:px-6 px-4 py-4 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
-                    @yield('content')
-                <x-mitra-footer />
-                </main>
+                <x-mitra-sidebar/>
+                <div class="min-h-0 w-full flex flex-col">
+                    <x-mitra-navbar/>
+                    <main class="min-h-0 w-full relative flex-1 overflow-y-auto sm:px-16 px-4 py-8 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                        @yield('content')
+                    <x-mitra-footer />
+                    </main>
+                </div>
             @else
                 <x-customer-sidebar/>
                 <div class="min-h-0 w-full flex flex-col">
                     <x-customer-navbar/>
-                    <main class="min-h-0 w-full relative flex-1 overflow-y-auto sm:px-8 px-4 py-8 scrollbar-none scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                    <main class="min-h-0 w-full relative flex-1 overflow-y-auto sm:px-16 px-4 py-8 scrollbar-none scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
                         @yield('content')
                     <x-mitra-footer />
                     </main>

@@ -74,4 +74,8 @@ class User extends Authenticatable
     public function reviewerMitra(){
         return $this->hasMany(ApprovalMitraIdentity::class, 'reviewer_id');
     }
+
+    public function applicantVehicle(){
+        return $this->hasMany(ApprovalVehicle::class, 'owner_id');
+    }
 }

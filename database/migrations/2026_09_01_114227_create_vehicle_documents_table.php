@@ -24,14 +24,12 @@ return new class extends Migration
             $table->string('back_photo');
             $table->string('odometer_photo');
             $table->string('chassis_photo');
-
-            $table->string('tax_proof_photo');
-            $table->date('tax_due_date');
-
+            $table->string('selfie_photo');
+            
             $table->string('stnk_photo');
             $table->date('stnk_due_date');
 
-            $table->enum('status', ['Due', 'Expired', 'Valid']);
+            $table->enum('status', ['Due', 'Expired', 'Valid'])->default('Valid');
             $table->timestamps();
         });
     }

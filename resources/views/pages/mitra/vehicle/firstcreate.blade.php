@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="flex-1">
-                        <input type="file" name="profile" id="profile"
+                        <input type="file" name="profile" id="profile" required
                             class="block w-full cursor-pointer rounded-xl border border-gray-300 bg-white text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3 file:text-sm file:font-medium file:text-white hover:file:bg-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-white dark:file:text-gray-800">
 
                         <p class="mt-2 text-xs text-gray-400">
@@ -292,16 +292,20 @@
                         </div>
 
                         <div>
-                            <label for="transmission"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Transmisi
+                            <label for="type" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Transmisi Kendaraan
                             </label>
 
-                            <input type="text" name="transmission" id="transmission" value="{{ old('transmission') }}"
-                                placeholder="Contoh: Manual"
-                                class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:bg-gray-800 dark:focus:ring-gray-300/10">
+                            <select name="transmission_id" id="type" required
+                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:bg-gray-800 dark:focus:ring-white/10">
+                                <option value="">Pilih transmisi kendaraan</option>
+                                @foreach ($transmissions as $transmission)
+                                    <option value="{{ $transmission->id }}" @selected(old('transmission_id') == $transmission->id)>{{ $transmission->name }}
+                                    </option>
+                                @endforeach
+                            </select>
 
-                            @error('transmission')
+                            @error('transmission_id')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -383,7 +387,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Foto Depan
                                 </label>
-                                <input type="file" name="front_photo" id="front_photo" accept="image/*"
+                                <input type="file" name="front_photo" id="front_photo" accept="image/*" required
                                     class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                                 @error('front_photo')
                                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -394,7 +398,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Foto Kiri
                                 </label>
-                                <input type="file" name="left_photo" id="left_photo" accept="image/*"
+                                <input type="file" name="left_photo" id="left_photo" accept="image/*" required
                                     class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                                 @error('left_photo')
                                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -405,7 +409,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Foto Kanan
                                 </label>
-                                <input type="file" name="right_photo" id="right_photo" accept="image/*"
+                                <input type="file" name="right_photo" id="right_photo" accept="image/*" required
                                     class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                                 @error('right_photo')
                                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -416,7 +420,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Foto Belakang
                                 </label>
-                                <input type="file" name="back_photo" id="back_photo" accept="image/*"
+                                <input type="file" name="back_photo" id="back_photo" accept="image/*" required
                                     class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                                 @error('back_photo')
                                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -432,20 +436,20 @@
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Foto Odometer
                             </label>
-                            <input type="file" name="odometer_photo" id="odometer_photo" accept="image/*"
+                            <input type="file" name="odometer_photo" id="odometer_photo" accept="image/*" required
                                 class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                             @error('odometer_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
-                            <label for="tax_proof_photo"
+                            <label for="selfie_photo"
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Bukti Pajak
+                                Selfie dengan Kendaraan
                             </label>
-                            <input type="file" name="tax_proof_photo" id="tax_proof_photo" accept="image/*"
+                            <input type="file" name="selfie_photo" id="selfie_photo" accept="image/*" required
                                 class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
-                            @error('tax_proof_photo')
+                            @error('selfie_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -454,7 +458,7 @@
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Foto STNK
                             </label>
-                            <input type="file" name="stnk_photo" id="stnk_photo" accept="image/*"
+                            <input type="file" name="stnk_photo" id="stnk_photo" accept="image/*" required
                                 class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                             @error('stnk_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -465,7 +469,7 @@
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Foto Rangka
                             </label>
-                            <input type="file" name="chassis_photo" id="chassis_photo" accept="image/*"
+                            <input type="file" name="chassis_photo" id="chassis_photo" accept="image/*" required
                                 class="block w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-700 file:mr-4 file:border-0 file:bg-gray-800 file:px-4 file:py-3.5 file:text-sm file:font-medium file:text-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:file:bg-gray-200 dark:file:text-gray-800">
                             @error('chassis_photo')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -474,26 +478,14 @@
                     </div>
 
                     {{-- MASA BERLAKU --}}
-                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                        <div>
-                            <label for="tax_due_date"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Jatuh Tempo Pajak
-                            </label>
-                            <input type="date" name="tax_due_date" id="tax_due_date"
-                                value="{{ old('tax_due_date') }}"
-                                class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-sm text-gray-800 outline-none transition focus:border-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:bg-gray-800 dark:focus:ring-gray-300/10">
-                            @error('tax_due_date')
-                                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <div class="grid grid-cols-1 gap-5">
                         <div>
                             <label for="stnk_due_date"
                                 class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Jatuh Tempo STNK
                             </label>
                             <input type="date" name="stnk_due_date" id="stnk_due_date"
-                                value="{{ old('stnk_due_date') }}"
+                                value="{{ old('stnk_due_date') }}" required
                                 class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3.5 text-sm text-gray-800 outline-none transition focus:border-gray-800 focus:bg-white focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:bg-gray-800 dark:focus:ring-gray-300/10">
                             @error('stnk_due_date')
                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>

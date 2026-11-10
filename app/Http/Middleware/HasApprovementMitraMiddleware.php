@@ -17,7 +17,7 @@ class HasApprovementMitraMiddleware
     {
         $user = auth()->user();
 
-        if ($user->applicantMitra()->exists() && $user->approvementVehicles()->doesntExist()) {
+        if ($user->applicantMitra()->where('status', 'Pending')->exists() && $user->approvementVehicles()->doesntExist()) {
             return redirect()->route('first.vehicle.create');
         }
         return $next($request);

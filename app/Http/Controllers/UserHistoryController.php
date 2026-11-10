@@ -35,7 +35,12 @@ class UserHistoryController extends Controller
             })->paginate(30);
         }
 
-        return view('pages.user-history.index', compact(['histories', 'todayHistory']));
+        if ($user->role == "Admin" || $user->role == "Superadmin"){
+            return view('pages.user-history.admin-index', compact(['histories', 'todayHistory']));
+        } else {
+            return view('pages.user-history.user-index', compact(['histories', 'todayHistory']));
+        }
+        
     }
 
     /**

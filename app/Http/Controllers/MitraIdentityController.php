@@ -20,13 +20,13 @@ class MitraIdentityController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $mitraIdentity = MitraIdentity::where('user_id', $user->id)->first();
+        $mitraIdentity = MitraIdentity::where('user_id', $user->id)->where('status', 'Pending')->first();
 
-        if ($user->applicantMitra()->exists() && $user->mitra_status !== "Verified") {
+        if ($user->applicantMitra()->where('status', 'Pending')->exists() && $user->mitra_status !== "Verified") {
             return view('pages.mitra.mitra_verification.wascreate');
         }
-        if ($user->mitra_status == "Verified" || $mitraIdentity) {
-        }
+        // if ($user->mitra_status == "Verified" || $mitraIdentity) {
+        // }
         return view('pages.mitra.mitra_verification.index');
     }
 
@@ -36,7 +36,7 @@ class MitraIdentityController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $mitraIdentity = ApprovalMitraIdentity::where('applicant_id', $user->id)->first();
+        $mitraIdentity = ApprovalMitraIdentity::where('applicant_id', $user->id)->where('status', 'Pending')->first();
         if ($user->mitra_status == "Verified") {
             return view('pages.mitra.mitra_verification.wascreate');
         } elseif ($mitraIdentity) {
@@ -56,7 +56,7 @@ class MitraIdentityController extends Controller
             return redirect()->back()->with('error', 'Kamu sudah memiliki atau mendaftar sebagai mitra.');
         }
 
-        $mitraVerifiedCheck = ApprovalMitraIdentity::where('applicant_id', $user->id)->first();
+        $mitraVerifiedCheck = ApprovalMitraIdentity::where('applicant_id', $user->id)->where('status', 'Pending')->first();
         if ($mitraVerifiedCheck) {
             return redirect()->back()->with('error', 'Kamu sudah memiliki atau mendaftar sebagai mitra.');
         }

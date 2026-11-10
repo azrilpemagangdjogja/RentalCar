@@ -6,18 +6,9 @@
 
         <div class="mb-8 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
-                    <a href="{{ route('vehicle-type.index') }}"
-                        class="transition hover:text-gray-700 dark:hover:text-gray-200">Vehicle Types</a>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-4 w-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                    </svg>
-                    <span>{{ $vehicleType->name }}</span>
-                </div>
-                <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Edit Tipe Kendaraan
+                <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Edit Jenis Kendaraan
                 </h1>
-                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Perbarui informasi tipe kendaraan yang tersedia
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Perbarui informasi jenis kendaraan yang tersedia
                     pada sistem.</p>
             </div>
         </div>
@@ -36,7 +27,7 @@
 
                     <div class="rounded-2xl bg-gray-50 dark:bg-gray-700">
                         <div class="border-b border-gray-100 p-5 dark:border-gray-600 sm:p-6">
-                            <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Vehicle Type</h2>
+                            <h2 class="text-base font-semibold text-gray-800 dark:text-white">Informasi Jenis Kendaraan</h2>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Masukkan informasi dasar untuk jenis
                                 kendaraan ini.</p>
                         </div>
@@ -48,7 +39,7 @@
                             <div>
                                 <label for="name"
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Nama
-                                    Tipe</label>
+                                    Jenis</label>
                                 <input type="text" name="name" id="name"
                                     value="{{ old('name', $vehicleType->name) }}" placeholder="Contoh: SUV, MPV, Sedan"
                                     class="w-full rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">
@@ -62,7 +53,7 @@
                             <div>
                                 <label for="description"
                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Deskripsi</label>
-                                <textarea name="description" id="description" rows="6" placeholder="Jelaskan tipe kendaraan ini..."
+                                <textarea name="description" id="description" rows="6" placeholder="Jelaskan jenis kendaraan ini..."
                                     class="w-full resize-none rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 text-sm leading-6 text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-300 dark:focus:ring-white/10">{{ old('description', $vehicleType->description) }}</textarea>
                                 @error('description')
                                     <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
@@ -83,7 +74,7 @@
                         class="rounded-2xl border border-gray-100 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
                         <div class="mb-6">
                             <h2 class="mt-4 font-bold text-gray-800 dark:text-white">Status</h2>
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Aktifkan atau nonaktifkan tipe
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Aktifkan atau nonaktifkan jenis
                                 kendaraan.</p>
                         </div>
                         <div class="mt-5">
@@ -146,15 +137,15 @@
         <div class="mt-6 rounded-2xl dark:border border-red-100 bg-gray-50 dark:border-red-500/20 dark:bg-gray-700">
             <div class="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
                 <div>
-                    <h2 class="text-sm font-semibold text-red-600 dark:text-red-400">Hapus Tipe Kendaraan</h2>
+                    <h2 class="text-sm font-semibold text-red-600 dark:text-red-400">Hapus Jenis Kendaraan</h2>
                     <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400">
-                        Tipe kendaraan akan dihapus secara permanen. Pastikan tipe ini tidak sedang digunakan oleh
+                        Jenis kendaraan akan dihapus secara permanen. Pastikan jenis ini tidak sedang digunakan oleh
                         kendaraan.
                     </p>
                 </div>
 
                 <form action="{{ route('vehicle-type.destroy', $vehicleType->id) }}" method="POST"
-                    onsubmit="return confirm('Hapus tipe kendaraan ini?')">
+                    onsubmit="return confirm('Hapus jenis kendaraan ini?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit"

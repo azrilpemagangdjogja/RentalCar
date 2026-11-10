@@ -7,14 +7,6 @@
 
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                {{-- <div class="hidden items-center gap-2 text-sm text-gray-400 dark:text-gray-400 sm:flex">
-                    <a href="{{ route('app-identity.index') }}"
-                        class="transition hover:text-gray-700 dark:hover:text-gray-200">Pengaturan</a>
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
-                    </svg>
-                    <span>Edit</span>
-                </div> --}}
                 <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Edit Pengaturan
                 </h1>
                 <p class="mt-1 hidden text-sm text-gray-500 dark:text-gray-400 sm:block">Atur informasi dan identitas

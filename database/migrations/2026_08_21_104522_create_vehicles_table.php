@@ -29,6 +29,11 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->foreignId('transmission_id')
+                ->constrained('vehicle_transmissions')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->string('profile');
 
             $table->string('plate_number')->unique();
@@ -42,7 +47,6 @@ return new class extends Migration
             $table->text('description')->nullable();
 
             $table->string('fuel_type')->nullable();
-            $table->string('transmission')->nullable();
             $table->string('engine_capacity')->nullable();
             $table->string('seats')->nullable();
 

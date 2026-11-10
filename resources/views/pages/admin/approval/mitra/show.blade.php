@@ -54,7 +54,7 @@
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi akun dan identitas pemohon.</p>
             </div>
             <div class="p-5 sm:p-6">
-                <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
+                <div class="flex flex-row gap-5 sm:flex-row sm:items-center">
                     <div
                         class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600">
                         @if (filled($applicant->applicant?->profile))
@@ -69,18 +69,18 @@
                         @endif
                     </div>
                     <div class="min-w-0">
-                        <h3 class="font-semibold text-gray-800 dark:text-white">
+                        <h3 class="font-semibold truncate text-gray-800 dark:text-white">
                             {{ $applicant->applicant?->name ?? 'Belum tersedia' }}
                         </h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="mt-1 text-sm truncate text-gray-500 dark:text-gray-400">
                             {{ $applicant->applicant?->email ?? 'Belum tersedia' }}
                         </p>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="mt-1 text-sm truncate text-gray-500 dark:text-gray-400">
                             {{ $applicant->applicant?->telp ?? 'Belum tersedia' }}
                         </p>
                     </div>
                 </div>
-                <div class="mt-6 grid gap-5 sm:grid-cols-2">
+                <div class="mt-6 grid gap-5 grid-cols-2">
                     <div>
                         <p class="text-xs text-gray-400 dark:text-gray-500">Applicant ID</p>
                         <p class="mt-1 text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -102,21 +102,21 @@
                 <h2 class="font-semibold text-gray-800 dark:text-white">Data Identitas</h2>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Identitas yang diajukan oleh pemohon.</p>
             </div>
-            <div class="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
+            <div class="grid gap-5 p-5 grid-cols-2 sm:p-6">
                 <div>
                     <p class="text-xs text-gray-400 dark:text-gray-500">NIK</p>
-                    <p class="mt-1 text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <p class="mt-1 truncate text-sm font-medium text-gray-700 dark:text-gray-200">
                         {{ $applicant->nik ?? 'Belum tersedia' }}</p>
                 </div>
                 <div>
                     <p class="text-xs text-gray-400 dark:text-gray-500">Nama Lengkap</p>
-                    <p class="mt-1 text-sm font-medium text-gray-700 dark:text-gray-200">
+                    <p class="mt-1 truncate text-sm font-medium text-gray-700 dark:text-gray-200">
                         {{ $applicant->full_name ?? 'Belum tersedia' }}</p>
                 </div>
-                <div class="sm:col-span-2">
+                <div class="col-span-2">
                     <p class="mb-2 text-xs text-gray-400 dark:text-gray-500">Foto KTP</p>
                     @if (filled($applicant->ktp_photo))
-                        <img src="{{ Storage::url($applicant->ktp_photo) }}" alt="KTP"
+                        <img src="{{ route('approval-mitra-identity-photo', [$applicant->id, 'ktp_photo']) }}" alt="KTP"
                             class="max-h-72 w-full rounded-xl border border-gray-200 object-contain dark:border-gray-600">
                     @else
                         <div
@@ -198,7 +198,7 @@
                     <div>
                         <p class="text-xs text-gray-400 dark:text-gray-500">Transmisi</p>
                         <p class="mt-1 text-sm font-medium text-gray-700 dark:text-gray-200">
-                            {{ $vehicle?->transmission ?? 'Belum tersedia' }}</p>
+                            {{ $vehicle?->transmission->name ?? 'Belum tersedia' }}</p>
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 dark:text-gray-500">Kapasitas Mesin</p>
@@ -286,7 +286,7 @@
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Odometer</p>
                 @if ($vehicle?->odometer_photo)
-                    <img src="{{ route('approval-vehicle-document-photo', [$vehicle->id, 'odometer_photo']) }}" alt="Foto odometer"
+                    <img src="{{ Storage::url($vehicle->odometer_photo) }}" alt="Foto odometer"
                         class="aspect-video w-full rounded-2xl object-cover">
                 @else
                     <div
@@ -308,9 +308,9 @@
                 @endif
             </div>
             <div>
-                <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Bukti Pajak</p>
-                @if ($vehicle?->tax_proof_photo)
-                    <img src="{{ route('approval-vehicle-document-photo', [$vehicle->id, 'tax_proof_photo']) }}" alt="Bukti pajak kendaraan"
+                <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">Foto Selfie</p>
+                @if ($vehicle?->selfie_photo)
+                    <img src="{{ Storage::url($vehicle->selfie_photo) }}" alt="Bukti pajak kendaraan"
                         class="aspect-video w-full rounded-2xl object-cover">
                 @else
                     <div

@@ -590,6 +590,18 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                     <span>Kelola Jenis Kendaraan</span>
                 </a>
 
+                {{-- TYPE VEHICLES --}}
+
+                <a href="{{ route('vehicle-transmission.index') }}"
+                    class="{{ request()->routeIs('vehicle-transmission.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
+                    </svg>
+                    <span>Kelola Transmisi Kendaraan</span>
+                </a>
+
                 {{-- PICKUP LOCATIONS --}}
 
                 <a href="{{ route('pickup-location.index') }}"
@@ -660,8 +672,8 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
 
                 {{-- FINE APPROVAL --}}
 
-                <a href="#"
-                    class="{{ request()->routeIs('admin.dashboard') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
+                <a href="{{ route('approval-vehicle.index') }}"
+                    class="{{ request()->routeIs('approval-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
 
                     <div class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -669,7 +681,7 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.5 3.75h3L21 18.75H3L10.5 3.75Z" />
                         </svg>
-                        <span>Approval Denda</span>
+                        <span>Approval Kendaraan</span>
                     </div>
 
                     <span

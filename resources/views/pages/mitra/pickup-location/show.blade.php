@@ -4,19 +4,8 @@
 
         {{-- HEADER --}}
 
-        <div class="md:flex hidden flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="md:flex hidden flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
             <div class="min-w-0">
-                {{-- <div class="mb-2 flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
-                    <a href="{{ route('join-pickup-location.index') }}"
-                        class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">
-                        Lokasi Pengambilan
-                    </a>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-4 w-4 shrink-0">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                    </svg>
-                    <span class="truncate">{{ $pickupLocation->name }}</span>
-                </div> --}}
 
                 <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     {{ $pickupLocation->name }}
@@ -39,19 +28,18 @@
 
         {{-- LOCATION IDENTITY --}}
 
-        <div class="md:mt-8 rounded-2xl bg-white p-5 dark:bg-gray-700 sm:p-6">
-            <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
-                <div
-                    class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-500 dark:bg-gray-600 dark:text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6"
-                        stroke="currentColor" class="h-7 w-7">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19.5 10.5c0 7.142-7.5 10.5-7.5 10.5s-7.5-3.358-7.5-10.5a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
+        <section
+            class="mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
+            <div class="flex flex-col sm:flex-row">
+                <div class="h-36 w-full shrink-0 p-2 sm:h-36 sm:w-56">
+                    <iframe
+                        src="https://www.google.com/maps?q={{ $pickupLocation->latitude }},{{ $pickupLocation->longitude }}&output=embed"
+                        class="h-full w-full rounded-xl border border-gray-200 dark:border-gray-500" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
 
-                <div class="min-w-0 flex-1">
+                <div class="min-w-0 flex-1 p-4 pl-4 sm:p-6">
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div class="min-w-0">
                             <div class="flex flex-wrap items-center gap-2">
@@ -72,7 +60,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+
+        </section>
 
         {{-- STATISTICS --}}
 

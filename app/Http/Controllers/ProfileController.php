@@ -37,7 +37,12 @@ class ProfileController extends Controller
      */
     public function show(string $id)
     {
+        $users = auth()->user();
         $user = User::where("id", $id)->first();
+        if ($users->role == 'Admin' || $users->role == 'Superadmin') {
+            return view("pages.profile.admin.index", compact("user"));
+        }
+        
         return view("pages.profile.customer.index", compact("user"));
     }
 

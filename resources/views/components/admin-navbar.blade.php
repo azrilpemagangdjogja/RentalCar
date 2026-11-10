@@ -30,7 +30,7 @@
                 class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-800 text-white dark:bg-gray-50 dark:text-gray-800">
                 <x-icon.icon-car />
             </div>
-            <span class="text-lg font-bold tracking-tight">{{ $app_identity?->app_name ? $app_identity->app_name : "NamanyaBelumada"}}</span>
+            <span class="text-lg hidden sm:block font-bold tracking-tight">{{ $app_identity?->app_name ? $app_identity->app_name : "NamanyaBelumada"}}</span>
             </a>
         </div>
     </div>

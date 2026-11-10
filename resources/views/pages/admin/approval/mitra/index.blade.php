@@ -184,7 +184,7 @@
                                         {{ $item->applicant?->email ?? ($item->email ?? '-') }}
                                     </p>
 
-                                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
                                         Diajukan {{ $item->created_at?->format('d M Y, H:i') }}
                                     </p>
                                 </div>
@@ -193,21 +193,21 @@
                             <div
                                 class="grid grid-cols-2 gap-4 border-t border-gray-200 pt-4 dark:border-gray-600 sm:grid-cols-3 sm:border-0 sm:pt-0 lg:min-w-[430px]">
                                 <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">NIK</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-400">NIK</p>
                                     <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
                                         {{ $item->nik ?? '-' }}
                                     </p>
                                 </div>
 
                                 <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">No. Telepon</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-400">No. Telepon</p>
                                     <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
                                         {{ $item->applicant?->telp ?? ($item->telp ?? '-') }}
                                     </p>
                                 </div>
 
                                 <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">Nama Akun</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-400">Nama Akun</p>
                                     <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
                                         {{ $item->applicant?->name ?? '-' }}
                                     </p>

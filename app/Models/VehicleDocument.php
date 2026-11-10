@@ -16,12 +16,10 @@ class VehicleDocument extends Model
         'back_photo',
         'odometer_photo',
         'chassis_photo',
-        'tax_proof_photo',
-        'tax_due_date',
+        'selfie_photo',
         'stnk_photo',
         'stnk_due_date',
         'status',
-        'vehicle_albums',
     ];
 
     public function vehicle(){

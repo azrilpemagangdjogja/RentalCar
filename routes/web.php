@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppIdentityController;
 use App\Http\Controllers\ApprovalJoinVehicleController;
 use App\Http\Controllers\ApprovalVehicleDocument;
+use App\Http\Controllers\GetMitraIdentityPhotoController;
 use App\Http\Controllers\GetVehicleDocumentPhotoController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\LayoutsController;
@@ -29,7 +30,8 @@ use App\Http\Controllers\RentalTimeController;
 use App\Http\Controllers\JoinPickupLocationController;
 use App\Http\Controllers\ApprovalMitraIdentityController;
 use App\Http\Controllers\MessageController;
-
+use App\Http\Controllers\VehicleTransmissionController;
+use App\Http\Controllers\ApprovalVehicleController;
 
 
 //Landing Page
@@ -88,15 +90,22 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('user', UserController::class);
     Route::get('/app-identity/edit', [AppIdentityController::class, 'create'])->name('app-identity.edit');
     Route::put('/app-identity', [AppIdentityController::class, 'update'])->name('app-identity.update');
+    Route::get('/mitra-identity-photo/{mitra}/{photo}', [GetMitraIdentityPhotoController::class, 'identity'])->name('mitra-identity-photo');
+    Route::get('/approval-mitra-identity-photo/{mitra}/{photo}', [GetMitraIdentityPhotoController::class, 'approval'])->name('approval-mitra-identity-photo');
     Route::get('/vehicle-document-photo/{vehicle}/{photo}', [GetVehicleDocumentPhotoController::class, 'document'])->name('vehicle-document-photo');
     Route::get('/approval-vehicle-document-photo/{vehicle}/{photo}', [GetVehicleDocumentPhotoController::class, 'approval'])->name('approval-vehicle-document-photo');
     Route::resource('app-identity', AppIdentityController::class);
     Route::resource('vehicle-type', VehicleTypeController::class);
+    Route::resource('vehicle-transmission', VehicleTransmissionController::class);
     Route::resource('region-filter', RegionFilterController::class);
-    Route::resource('approval-vehicle-document', ApprovalVehicleDocument::class);
     Route::resource('rental-time', RentalTimeController::class);
     Route::resource('approval-mitra-identity', ApprovalMitraIdentityController::class);
     Route::patch('/approval-mitra-identity/{id}/approve', [ApprovalMitraIdentityController::class, 'approve'])->name('approval-mitra-identity.approve');
+
+    Route::patch('/approval-vehicle/{id}/approve', [ApprovalVehicleController::class, 'approve'])->name('approval-vehicle.approve');
+    Route::get('/approval-vehicle/{id}/rejection', [ApprovalVehicleController::class, 'rejection'])->name('approval-vehicle.rejection');
+    Route::patch('/approval-vehicle/{id}/reject', [ApprovalVehicleController::class, 'reject'])->name('approval-vehicle.reject');
+    Route::resource('approval-vehicle', ApprovalVehicleController::class);
 
     Route::patch('/approval-join-vehicle/{id}/approve', [ApprovalJoinVehicleController::class, 'approve'])->name('approval-join-vehicle.approve');
     Route::get('/approval-join-vehicle/{id}/rejection', [ApprovalJoinVehicleController::class, 'rejection'])->name('approval-join-vehicle.rejection');
