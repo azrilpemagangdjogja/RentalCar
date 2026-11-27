@@ -16,7 +16,14 @@ class ApprovalJoinVehicleController extends Controller
      */
     public function index()
     {
-        $approvement = ApprovalJoinVehicle::where('status', 'Pending')->where('category', 'In')->get();
+        $approvement = ApprovalJoinVehicle::whereIn('category', ['In', 'Out'])
+            ->orderByRaw("
+                CASE
+                WHEN status = 'Pending' THEN 0 ELSE 1 
+                END
+            ")
+            ->latest()
+            ->paginate(25);
         $approvementOuting = ApprovalJoinVehicle::where('status', 'Pending')->where('category', 'Out')->get();
         return view('pages.admin.approval.pickup-location.index', compact('approvement', 'approvementOuting'));
     }
@@ -64,7 +71,7 @@ class ApprovalJoinVehicleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+
     }
 
     /**
@@ -77,7 +84,8 @@ class ApprovalJoinVehicleController extends Controller
 
 
 
-    public function approve(string $id){
+    public function approve(string $id)
+    {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
@@ -86,27 +94,48 @@ class ApprovalJoinVehicleController extends Controller
         $approvement = ApprovalJoinVehicle::findOrFail($id);
         $vehicleCount = Vehicle::where('pickup_location_id', $approvement->location_id)->count();
         $pickupLocationCount = PickupLocation::where('id', $approvement->location_id)->first();
-        if ($vehicleCount >= $pickupLocationCount->max_vehicle) {
-            return redirect()->back()->with('error', 'Kapasitas lokasi pengambilan sudah penuh. Tidak dapat menyetujui kendaraan.');
+        if ($approvement->category == "In") {
+            if ($vehicleCount >= $pickupLocationCount->max_vehicle) {
+                return redirect()->back()->with('error', 'Kapasitas lokasi pengambilan sudah penuh. Tidak dapat menyetujui kendaraan.');
+            }
+
+            $vehicle = Vehicle::where('owner_id', $approvement->applicant_id)->where('id', $approvement->vehicle_id);
+            $approvement->update([
+                "viewer_id" => $user->id,
+                "viewer_name" => $user->name,
+                "viewer_email" => $user->name,
+                "viewer_profile" => $user->profile,
+                "viewer_telp" => $user->telp,
+                "status" => "Approved",
+            ]);
+            $vehicle->update([
+                "pickup_location_id" => $approvement->location_id
+            ]);
+
+            UserHistory::record(
+                "Persetujuan",
+                $user->name . " menyetujui kendaraan " . $approvement->vehicle_brand . ' ' . $approvement->vehicle_model . ' milik ' . $approvement->applicant_name . ' dititipkan ke lokasi pengambilan ' . $approvement->location_name
+            );
+        } else {
+            $vehicle = Vehicle::where('owner_id', $approvement->applicant_id)->where('id', $approvement->vehicle_id);
+            $approvement->update([
+                "viewer_id" => $user->id,
+                "viewer_name" => $user->name,
+                "viewer_email" => $user->name,
+                "viewer_profile" => $user->profile,
+                "viewer_telp" => $user->telp,
+                "status" => "Approved",
+            ]);
+            $vehicle->update([
+                "pickup_location_id" => null
+            ]);
+
+            UserHistory::record(
+                "Persetujuan",
+                // $user->name . " " .  
+                "menyetujui kendaraan " . $approvement->vehicle_brand . ' ' . $approvement->vehicle_model . ' milik ' . $approvement->applicant_name . ' ditarik dari lokasi pengambilan ' . $approvement->location_name
+            );
         }
-
-        $vehicle = Vehicle::where('owner_id', $approvement->applicant_id)->where('id', $approvement->vehicle_id);
-        $approvement->update([
-            "viewer_id" => $user->id,
-            "viewer_name" => $user->name,
-            "viewer_email" => $user->name,
-            "viewer_profile" => $user->profile,
-            "viewer_telp" => $user->telp,
-            "status" => "Approved",
-        ]);
-        $vehicle->update([
-            "pickup_location_id" => $approvement->location_id
-        ]);
-
-        UserHistory::record(
-            "Persetujuan",
-            $user->name . " menyetujui kendaraan " . $approvement->vehicle_brand . ' ' . $approvement->vehicle_model . ' milik ' . $approvement->applicant_name . ' dititipkan ke lokasi pengambilan ' . $approvement->location_name
-        );
 
         return redirect()->back();
     }
@@ -114,7 +143,8 @@ class ApprovalJoinVehicleController extends Controller
 
 
 
-    public function outing(string $id){
+    public function outing(string $id)
+    {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
@@ -140,7 +170,8 @@ class ApprovalJoinVehicleController extends Controller
 
 
 
-    public function rejection(string $id){
+    public function rejection(string $id)
+    {
         $approvement = ApprovalJoinVehicle::findOrFail($id);
         return view('pages.admin.approval.pickup-location.reject', compact('approvement'));
     }
@@ -148,7 +179,8 @@ class ApprovalJoinVehicleController extends Controller
 
 
 
-    public function reject(Request $request ,string $id){
+    public function reject(Request $request, string $id)
+    {
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);

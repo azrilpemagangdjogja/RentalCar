@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\RentalTime;
 
@@ -52,6 +53,11 @@ class RentalTimeController extends Controller
 
         RentalTime::create($data);
 
+        UserHistory::record(
+            "Waktu Sewa",
+            "Menambahkan waktu sewa " . $data['day'] . " hari, " . $data['description'] . ", " . $data['status'],
+        );
+
         return redirect()->route('rental-time.index');
     }
 
@@ -94,6 +100,12 @@ class RentalTimeController extends Controller
         ]);
 
         $rentalTime = RentalTime::findOrFail($id);
+
+        UserHistory::record(
+            "Waktu Sewa",
+            "Memperbarui waktu sewa " . $rentalTime->day . " hari, " . $rentalTime->description . ", " . $rentalTime->status . " menjadi " . $data['day'] . " hari, " . $data['description'] . ", " . $data['status'],
+        );
+        
         $rentalTime->update($data);
 
         return redirect()->route('rental-time.index');

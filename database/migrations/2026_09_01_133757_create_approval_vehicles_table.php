@@ -31,7 +31,7 @@ return new class extends Migration
 
             $table->string('profile');
 
-            $table->string('plate_number')->unique();
+            $table->string('plate_number');
 
             $table->string('brand');
             $table->year('year');
@@ -43,6 +43,9 @@ return new class extends Migration
             $table->string('fuel_type');
             $table->string('engine_capacity');
             $table->string('seats');
+
+            $table->string('deposit_amount')->nullable();
+            $table->string('price_amount')->nullable();
 
             $table->string('front_photo');
             $table->string('left_photo');
@@ -57,6 +60,7 @@ return new class extends Migration
             $table->date('stnk_due_date')->nullable();
 
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->enum('type', ['In', 'Out'])->default('In');
             $table->string('rejected_reason')->nullable();
             $table->timestamps();
         });

@@ -5,13 +5,13 @@
     <section class="mb-8">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <div class="mb-2 hidden md:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400"> <a
+                {{-- <div class="mb-2 hidden md:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400"> <a
                         href="{{ route('join-pickup-location.show', $pickupLocations->id) }}"
                         class="transition hover:text-gray-700 dark:hover:text-gray-200">
                         Lokasi Pengambilan </a> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
-                    </svg> <span class="truncate">{{ $pickupLocations->name }}</span> </div>
+                    </svg> <span class="truncate">{{ $pickupLocations->name }}</span> </div> --}}
                 <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     Kendaraan Anda </h1>
                 <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
@@ -102,7 +102,7 @@
 
                 {{-- DESKTOP TABLE --}}
                 <div
-                    class="hidden overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700 md:block">
+                    class="hidden overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700 lg:block">
                     <div class="overflow-x-auto">
                         <table class="w-full min-w-[900px] text-left text-sm">
                             <thead
@@ -210,9 +210,11 @@
 
                                         {{-- ACTION --}}
                                         <td class="px-5 py-4">
-                                            <form action="{{ route('join-pickup-location.unveh',[$item->approvalJoin->id, $item->id]) }}" method="POST" class="flex justify-end" onsubmit="return confirm('Ajukan penarikan kendaraan {{ $item->brand }} {{ $item->model }} dari {{ $pickupLocations->name }}?')">
+                                            <form
+                                                action="{{ route('join-pickup-location.unveh', [$pickupLocation, $item->id]) }} }}"
+                                                method="POST" class="flex justify-end"
+                                                onsubmit="return confirm('Ajukan penarikan kendaraan {{ $item->brand }} {{ $item->model }} dari {{ $pickupLocations->name }}?')">
                                                 @csrf
-                                                @method('PATCH')
                                                 <button type="submit"
                                                     class="inline-flex items-center justify-center rounded-lg bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
                                                     Lihat
@@ -249,7 +251,7 @@
                 </div>
 
                 {{-- MOBILE CARD --}}
-                <div class="space-y-3 md:hidden">
+                <div class="space-y-3 lg:hidden">
                     @forelse($vehicles as $item)
                         <div class="rounded-2xl border border-gray-100 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
                             {{-- VEHICLE HEADER --}}
@@ -335,12 +337,24 @@
                             </div>
 
                             {{-- ACTION --}}
-                            <div class="mt-4 border-t border-gray-200 pt-3 dark:border-gray-600">
-                                <a href="{{ route('vehicle.show', $item->id) }}"
-                                    class="flex w-full items-center justify-center rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
-                                    Lihat Detail
-                                </a>
-                            </div>
+                            @if ($item->approvalJoin->where('status', 'Pending')->doesntExist())
+                                <form action="{{ route('join-pickup-location.unveh', [$pickupLocation, $item->id]) }}"
+                                    method="POST" class="mt-4 border-t border-gray-200 pt-3 dark:border-gray-600">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit" {{-- href="{{ route('vehicle.show', $item->id) }}" --}}
+                                        class="flex w-full items-center justify-center rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
+                                        Ajukan Penarikan
+                                    </button>
+                                </form>
+                            @else
+                                <div class="mt-4 border-t border-gray-200 pt-3 dark:border-gray-600">
+                                    <a href="{{ route('vehicle.show', $item->id) }}"
+                                        class="flex w-full items-center justify-center rounded-lg bg-gray-100 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
+                                        Lihat Kendaraan
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     @empty
                         <div

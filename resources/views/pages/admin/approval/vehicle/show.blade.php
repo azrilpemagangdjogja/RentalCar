@@ -13,7 +13,7 @@
                     <p class="mt-1 hidden text-sm text-gray-500 dark:text-gray-400 sm:block">Kelola kendaraan dan lokasi
                         penempatannya dengan mudah.</p>
                 </div>
-                <a href="{{ url()->previous() }}"
+                <a href="{{ route('approval-vehicle.index') }}"
                     class="flex w-full items-center justify-center rounded-xl bg-gray-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
                     Kembali
                 </a>
@@ -270,7 +270,7 @@
                                     class="w-full rounded-xl bg-gray-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500">Setujui
                                     Pengajuan</button>
                             </form>
-                            <a href="{{ route('approval-vehicle.reject', $approvalVehicle->id) }}"
+                            <a href="{{ route('approval-vehicle.rejection', $approvalVehicle->id) }}"
                                 class="block w-full rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-500 dark:text-gray-200 dark:hover:bg-gray-600">Tolak
                                 Pengajuan</a>
                         </div>

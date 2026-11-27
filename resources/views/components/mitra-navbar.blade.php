@@ -1,29 +1,29 @@
-<header class="sticky top-0 z-50 w-full shrink-0 border-b border-gray-100/50 bg-white/70 text-gray-800 shadow-sm backdrop-blur-md dark:border-gray-600/50 dark:bg-gray-700/70 dark:text-white">
+<header class="sticky top-0 z-50 w-full shrink-0 border-b border-gray-100/50 bg-white/70 text-gray-800 backdrop-blur-md dark:border-gray-600/50 dark:bg-gray-700/70 dark:text-white">
     <nav class="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-16">
 
         {{-- LOGO --}}
-        <a href="{{ route('customer.dashboard') }}" class="flex shrink-0 items-center gap-3">
+        <a href="{{ route('mitra.dashboard') }}" class="flex shrink-0 items-center gap-3">
             <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-50 dark:text-gray-800">
                 <x-icon.icon-car />
             </div>
-            <span class="hidden text-lg font-bold tracking-tight sm:block">RentalCar</span>
+            <span class="hidden text-lg font-bold tracking-tight sm:block">{{ $app_identity?->app_name ? $app_identity->app_name : "RentalCar" }}</span>
         </a>
 
         {{-- NAVIGATION --}}
         <nav class="hidden items-center gap-1 lg:flex">
-            <a href="{{ route('customer.dashboard') }}"
-                class="{{ request()->routeIs('customer.dashboard') ? 'bg-gray-800 text-white dark:bg-gray-600' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600' }} rounded-xl px-4 py-2.5 text-sm font-medium transition">
+            <a href="{{ route('mitra.dashboard') }}"
+                class="{{ request()->routeIs('mitra.dashboard') ? 'bg-gray-800 text-white dark:bg-gray-600' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600' }} rounded-xl px-4 py-2.5 text-sm font-medium transition">
                 Dashboard
             </a>
-            <a href="{{ route('transaction.index') }}"
-                class="{{ request()->routeIs('transaction.index') ? 'bg-gray-800 text-white dark:bg-gray-600' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600' }} rounded-xl px-4 py-2.5 text-sm font-medium transition">
-                Transaksi
+            <a href="{{ route('vehicle.index') }}"
+                class="{{ request()->routeIs('vehicle.index') ? 'bg-gray-800 text-white dark:bg-gray-600' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600' }} rounded-xl px-4 py-2.5 text-sm font-medium transition">
+                Kendaraan
             </a>
-            <a href="#" title="Jelajahi"
+            <a href="" title="Jelajahi"
                 class="rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600">
                 Jelajahi
             </a>
-            <a href="#" title="Riwayat"
+            <a href="{{ route('user-history.index') }}" title="Riwayat"
                 class="rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600">
                 Riwayat
             </a>
@@ -73,8 +73,8 @@
 
     {{-- MOBILE NAVIGATION --}}
     {{-- <div class="flex items-center gap-1 overflow-x-auto border-t border-gray-100/50 px-4 py-2 dark:border-gray-600/50 lg:hidden">
-        <a href="{{ route('customer.dashboard') }}"
-            class="{{ request()->routeIs('customer.dashboard') ? 'bg-gray-800 text-white dark:bg-gray-600' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600' }} shrink-0 rounded-lg px-3 py-2 text-xs font-medium transition">
+        <a href="{{ route('mitra.dashboard') }}"
+            class="{{ request()->routeIs('mitra.dashboard') ? 'bg-gray-800 text-white dark:bg-gray-600' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-600' }} shrink-0 rounded-lg px-3 py-2 text-xs font-medium transition">
             Dashboard
         </a>
         <a href="{{ route('transaction.index') }}"

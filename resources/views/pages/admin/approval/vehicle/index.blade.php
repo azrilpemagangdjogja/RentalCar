@@ -9,7 +9,7 @@
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
-                        Approvement Kendaraan
+                        Setujui Kendaraan
                     </h1>
                     <p class="mt-1 hidden text-sm text-gray-500 dark:text-gray-400 sm:block">
                         Periksa dan kelola pengajuan kendaraan sebelum kendaraan digunakan.
@@ -141,164 +141,368 @@
             </div>
         </div> --}}
 
+
+
         <section class="mb-8">
-            <div class="space-y-4">
-                @forelse ($approvement as $item)
-                    <article
-                        class="rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 sm:p-6">
-                        <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-                            <div class="flex min-w-0 items-start gap-4">
-                                <div class="h-20 w-24 shrink-0 overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-600">
-                                    @if ($item->profile)
-                                        <img src="{{ asset('storage/' . $item->profile) }}"
-                                            alt="{{ $item->brand }} {{ $item->model }}"
-                                            class="h-full w-full object-cover">
-                                    @else
-                                        <div
-                                            class="flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-300">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.8" stroke="currentColor" class="h-7 w-7">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M3 16.5 8.25 11l4.5 4.5 3-3 5.25 5.25" />
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M19.5 6.75h.75v.75" />
-                                            </svg>
+            {{-- DESKTOP TABLE --}}
+            <div
+                class="hidden overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700 lg:block">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead
+                            class="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-500 dark:border-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                            <tr>
+                                <th class="px-5 py-4 font-semibold">Kendaraan</th>
+                                <th class="px-5 py-4 font-semibold">Pemilik</th>
+                                <th class="px-5 py-4 font-semibold">Kategori</th>
+                                <th class="px-5 py-4 font-semibold">Tahun</th>
+                                <th class="px-5 py-4 font-semibold">Diajukan</th>
+                                <th class="px-5 py-4 font-semibold">Status</th>
+                                <th class="px-5 py-4 text-right font-semibold">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-600">
+                            @forelse ($approvement as $item)
+                                <tr class="transition hover:bg-gray-50 dark:hover:bg-gray-600/50">
+                                    {{-- VEHICLE --}}
+                                    <td class="px-5 py-4">
+                                        <div class="flex min-w-0 items-center gap-3">
+                                            <div
+                                                class="h-11 w-14 shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-600">
+                                                @if ($item->profile)
+                                                    <img src="{{ asset('storage/' . $item->profile) }}"
+                                                        alt="{{ $item->brand }} {{ $item->model }}"
+                                                        class="h-full w-full object-cover">
+                                                @else
+                                                    <div
+                                                        class="flex h-full w-full items-center justify-center text-gray-400">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor"
+                                                            class="h-5 w-5">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
+                                                        </svg>
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            <div class="min-w-0">
+                                                <p class="truncate font-semibold text-gray-800 dark:text-white">
+                                                    {{ $item->brand }} {{ $item->model }}
+                                                </p>
+                                                <p class="mt-1 truncate text-xs text-gray-400">
+                                                    {{ $item->plate_number }}
+                                                </p>
+                                            </div>
                                         </div>
-                                    @endif
-                                </div>
+                                    </td>
 
-                                <div class="min-w-0">
-                                    <div class="flex flex-wrap items-center gap-2">
-                                        <h3 class="truncate text-base font-bold text-gray-800 dark:text-white sm:text-lg">
-                                            {{ $item->brand }} {{ $item->model }}
-                                        </h3>
+                                    {{-- OWNER --}}
+                                    <td class="px-6 py-5">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-600">
+                                                @if ($item->applicant->profile)
+                                                    <img src="{{ asset('storage/' . $item->applicant->profile) }}"
+                                                        alt="{{ $item->applicant->name }}"
+                                                        class="h-full w-full object-cover">
+                                                @else
+                                                    <div
+                                                        class="flex h-full w-full items-center justify-center text-gray-500 dark:text-gray-300">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
+                                                            class="h-5 w-5">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0M4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                                                        </svg>
+                                                    </div>
+                                                @endif
+                                            </div>
 
+                                            <div class="min-w-0">
+                                                <p class="truncate font-semibold text-gray-700 dark:text-gray-200">
+                                                    {{ $item->applicant->name }}
+                                                </p>
+                                                <p class="mt-1 truncate text-xs text-gray-400">
+                                                    {{ $item->applicant->email }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    {{-- CATEGORY --}}
+                                    <td class="px-5 py-4">
+                                        <span
+                                            class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                            {{ $item->type }}
+                                        </span>
+                                    </td>
+
+                                    {{-- YEAR --}}
+                                    <td class="whitespace-nowrap px-5 py-4 text-gray-600 dark:text-gray-300">
+                                        {{ $item->year }}
+                                    </td>
+
+                                    {{-- DATE --}}
+                                    <td class="whitespace-nowrap px-5 py-4 text-gray-600 dark:text-gray-300">
+                                        {{ $item->created_at }}
+                                    </td>
+
+                                    {{-- STATUS --}}
+                                    <td class="px-5 py-4">
                                         @if ($item->status == 'Pending')
                                             <span
-                                                class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
+                                                class="inline-flex rounded-full bg-gray-800 px-3 py-1 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
                                                 Pending
                                             </span>
-                                        @elseif ($item->status == 'Approved')
+                                        @elseif($item->status == 'Approved')
                                             <span
-                                                class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                                class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
                                                 Approved
                                             </span>
-                                        @elseif ($item->status == 'Rejected')
+                                        @elseif($item->status == 'Rejected')
                                             <span
-                                                class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-400">
+                                                class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-400">
                                                 Rejected
                                             </span>
                                         @else
                                             <span
-                                                class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-400">
+                                                class="inline-flex rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-400">
                                                 {{ $item->status }}
                                             </span>
                                         @endif
+                                    </td>
+
+                                    {{-- ACTION --}}
+                                    <td class="px-5 py-4">
+                                        <div class="flex justify-end gap-1">
+                                            <a href="{{ route('approval-vehicle.show', $item->id) }}"
+                                                class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                title="Lihat Detail">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
+                                                    class="h-5 w-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M2.25 12s3.5-6 9.75-6 9.75 6 9.75 6-3.5 6-9.75 6-9.75-6-9.75-6Z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                </svg>
+                                            </a>
+
+                                            @if ($item->status == 'Pending')
+                                                <form action="{{ route('approval-vehicle.approve', $item->id) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Setujui kendaraan {{ $item->brand }} {{ $item->model }} milik {{ $item->owner_name }}?')">
+                                                    @csrf
+                                                    @method('PATCH')
+
+                                                    <button type="submit"
+                                                        class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        title="Approve">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
+                                                            class="h-5 w-5">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m5 12.75 4 3.75L19 7.5" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+
+                                                <a href="{{ route('approval-vehicle.rejection', $item->id) }}"
+                                                    class="rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    title="Reject">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
+                                                        class="h-5 w-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="m7.5 7.5 9 9m0-9-9 9" />
+                                                    </svg>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="px-6 py-16 text-center">
+                                        <p class="font-semibold text-gray-700 dark:text-gray-200">
+                                            Belum ada pengajuan
+                                        </p>
+                                        <p class="mt-1 text-xs text-gray-400">
+                                            Belum ada kendaraan yang perlu diproses.
+                                        </p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {{-- TABLET AND MOBILE CARDS --}}
+            <div class="space-y-3 lg:hidden">
+                @forelse ($approvement as $item)
+                    <article class="rounded-2xl border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700">
+                        {{-- VEHICLE --}}
+                        <div class="flex min-w-0 items-center gap-3">
+                            <div class="h-14 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-600">
+                                @if ($item->profile)
+                                    <img src="{{ asset('storage/' . $item->profile) }}"
+                                        alt="{{ $item->brand }} {{ $item->model }}"
+                                        class="h-full w-full object-cover">
+                                @else
+                                    <div class="flex h-full w-full items-center justify-center text-gray-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.6" stroke="currentColor" class="h-6 w-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M3.75 13.5h16.5M5.25 13.5l1.5-5.25A2.25 2.25 0 0 1 8.918 6.75h6.164a2.25 2.25 0 0 1 2.168 1.5l1.5 5.25M5.25 13.5v4.5m13.5-4.5v4.5" />
+                                        </svg>
                                     </div>
-
-                                    <p class="mt-1 truncate text-sm text-gray-500 dark:text-gray-400">
-                                        {{ $item->applicant?->name ?? 'Pemilik tidak ditemukan' }}
-                                    </p>
-
-                                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
-                                        Diajukan {{ $item->created_at?->format('d M Y, H:i') }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div
-                                class="grid grid-cols-2 gap-4 border-t border-gray-200 pt-4 dark:border-gray-600 sm:grid-cols-4 sm:border-0 sm:pt-0 lg:min-w-[500px]">
-                                <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">Jenis</p>
-                                    <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        {{ $item->type?->name ?? '-' }}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">Nomor Polisi</p>
-                                    <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        {{ $item->plate_number ?? '-' }}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">Tahun</p>
-                                    <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        {{ $item->year ?? '-' }}
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">Transmisi</p>
-                                    <p class="mt-1 truncate text-sm font-semibold text-gray-700 dark:text-gray-200">
-                                        {{ $item->transmission?->name ?? '-' }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-2 border-t border-gray-200 pt-4 dark:border-gray-600 lg:border-0 lg:pt-0">
-                                <a href="{{ route('approval-vehicle.show', $item->id) }}"
-                                    class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-100 px-4 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 sm:flex-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.25 12s3.5-6 9.75-6 9.75 6 9.75 6-3.5 6-9.75 6-9.75-6-9.75-6Z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                    </svg>
-                                    Detail
-                                </a>
-
-                                @if ($item->status == 'Pending')
-                                    <form action="{{ route('approval-vehicle.approve', $item->id) }}" method="POST"
-                                        onsubmit="return confirm('Setujui pengajuan kendaraan {{ $item->brand }} {{ $item->model }}?')">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit"
-                                            class="flex h-full items-center justify-center rounded-xl bg-gray-800 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">
-                                            Setujui
-                                        </button>
-                                    </form>
-
-                                    <a href="{{ route('approval-vehicle.rejection', $item->id) }}"
-                                        class="flex items-center justify-center rounded-xl border border-gray-200 px-4 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-600">
-                                        Tolak
-                                    </a>
                                 @endif
                             </div>
+
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate font-semibold text-gray-800 dark:text-white">
+                                    {{ $item->brand }} {{ $item->model }}
+                                </p>
+                                <p class="mt-1 truncate text-xs text-gray-400">
+                                    {{ $item->plate_number }}
+                                </p>
+                            </div>
+
+                            @if ($item->status == 'Pending')
+                                <span
+                                    class="shrink-0 rounded-full bg-gray-800 px-2.5 py-1 text-[10px] font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
+                                    Pending
+                                </span>
+                            @elseif($item->status == 'Approved')
+                                <span
+                                    class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                    Approved
+                                </span>
+                            @elseif($item->status == 'Rejected')
+                                <span
+                                    class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-400">
+                                    Rejected
+                                </span>
+                            @else
+                                <span
+                                    class="shrink-0 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-500 dark:bg-gray-600 dark:text-gray-400">
+                                    {{ $item->status }}
+                                </span>
+                            @endif
+                        </div>
+
+                        {{-- SUMMARY --}}
+                        <div class="mt-4 grid grid-cols-2 gap-3 border-t border-gray-200 pt-3 dark:border-gray-600">
+                            <div class="grid grid-cols-1 gap-3 text-xs">
+
+
+                                <div>
+                                    <p class="text-gray-300 dark:text-gray-400">Pemilik</p>
+                                </div>
+
+                                <div class=" flex items-center gap-2">
+                                    <div class="h-7 w-7 shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-600">
+                                        @if ($item->applicant->profile)
+                                            <img src="{{ asset('storage/' . $item->applicant->profile) }}"
+                                                alt="{{ $item->applicant->name }}" class="h-full w-full object-cover">
+                                        @else
+                                            <div class="flex h-full w-full items-center justify-center text-gray-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
+                                                    class="h-4 w-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0M4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                                                </svg>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <p class="truncate font-semibold text-gray-700 dark:text-gray-200">
+                                            {{ $item->applicant->name }}
+                                        </p>
+                                        <p class="truncate font-semibold text-gray-700 dark:text-gray-200">
+                                            {{ $item->applicant->email }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="min-w-0">
+                                <p class="text-xs text-gray-400">Kategori</p>
+                                <p class="mt-1 truncate text-sm font-medium text-gray-700 dark:text-gray-200">
+                                    {{ $item->type }}
+                                </p>
+                            </div>
+
+                            <div class="min-w-0">
+                                <p class="text-xs text-gray-400">Tahun</p>
+                                <p class="mt-1 text-sm font-medium text-gray-700 dark:text-gray-200">
+                                    {{ $item->year }}
+                                </p>
+                            </div>
+
+                            <div class="min-w-0">
+                                <p class="text-xs text-gray-400">Diajukan</p>
+                                <p class="mt-1 truncate text-xs text-gray-600 dark:text-gray-300">
+                                    {{ $item->created_at }}
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- ACTION --}}
+                        <div class="mt-4 flex gap-2 border-t border-gray-200 pt-3 dark:border-gray-600">
+                            <a href="{{ route('approval-vehicle.show', $item->id) }}"
+                                class="flex flex-1 items-center justify-center rounded-xl bg-gray-100 px-3 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500">
+                                Lihat Detail
+                            </a>
+
+                            @if ($item->status == 'Pending')
+                                <form action="{{ route('approval-vehicle.approve', $item->id) }}" method="POST"
+                                    class="flex flex-1"
+                                    onsubmit="return confirm('Setujui kendaraan {{ $item->brand }} {{ $item->model }} milik {{ $item->owner_name }}?')">
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <button type="submit"
+                                        class="w-full rounded-xl bg-gray-800 px-3 py-2.5 text-xs font-semibold text-white dark:bg-gray-200 dark:text-gray-800">
+                                        Approve
+                                    </button>
+                                </form>
+
+                                <a href="{{ route('approval-vehicle.rejection', $item->id) }}"
+                                    class="flex flex-1 items-center justify-center rounded-xl border border-gray-200 px-3 py-2.5 text-xs font-semibold text-gray-700 dark:border-gray-500 dark:text-gray-200">
+                                    Reject
+                                </a>
+                            @endif
                         </div>
                     </article>
                 @empty
                     <div
                         class="rounded-2xl border border-gray-200 bg-white px-6 py-16 text-center dark:border-gray-600 dark:bg-gray-700">
-                        <div class="flex flex-col items-center">
-                            <div
-                                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 dark:bg-gray-600 dark:text-gray-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.8" stroke="currentColor" class="h-7 w-7">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M3 16.5 8.25 11l4.5 4.5 4.5 4.5L21 15" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 19.5h18" />
-                                </svg>
-                            </div>
-                            <p class="mt-4 font-semibold text-gray-700 dark:text-gray-200">
-                                Belum ada pengajuan kendaraan
-                            </p>
-                            <p class="mt-1 text-xs text-gray-400 dark:text-gray-400">
-                                Belum ada pengajuan kendaraan yang perlu diproses.
-                            </p>
-                        </div>
+                        <p class="font-semibold text-gray-700 dark:text-gray-200">
+                            Belum ada pengajuan
+                        </p>
+                        <p class="mt-1 text-xs text-gray-400">
+                            Belum ada kendaraan yang perlu diproses.
+                        </p>
                     </div>
                 @endforelse
             </div>
 
-            @if (method_exists($approvement, 'links'))
+            {{-- PAGINATION --}}
+            @if ($approvement->hasPages())
                 <div class="mt-6">
                     {{ $approvement->links() }}
                 </div>
             @endif
         </section>
+
+
     </section>
 @endsection
 

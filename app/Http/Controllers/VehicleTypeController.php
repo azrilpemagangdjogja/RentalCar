@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\VehicleType;
 
@@ -46,6 +47,11 @@ class VehicleTypeController extends Controller
             "status" => "required|in:Active,Inactive"
         ]);
 
+        UserHistory::record(
+            "Tipe Kendaraan",
+            "Menambahkan tipe kendaraan " . $data['name'] . ", " . $data['description'] . ", " . $data['status'],
+        );
+
         VehicleType::create($data);
         return redirect()->route('vehicle-type.index');
     }
@@ -88,6 +94,11 @@ class VehicleTypeController extends Controller
             "description" => "nullable",
             "status" => "required|in:Active,Inactive"
         ]);
+
+        UserHistory::record(
+            "Tipe Kendaraan",
+            "Memperbarui tipe kendaraan " . $vehicleType->name . ", " . $vehicleType->description . ", " . $vehicleType->status . " menjadi " . $data['name'] . ", " . $data['description'] . ", " . $data['status'],
+        );
 
         $vehicleType->update($data);
         return redirect()->route('vehicle-type.index');

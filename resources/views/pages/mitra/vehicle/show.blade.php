@@ -23,11 +23,14 @@
         <section class="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
             <div
                 class="col-span-2 row-span-2 h-64 overflow-hidden rounded-2xl border border-gray-100 bg-gray-100 dark:border-gray-600 dark:bg-gray-700 sm:h-[420px]">
-                @if ($vehicle->vehicleDocument?->front_photo)
-                    <img src="{{ asset('storage/' . $vehicle->vehicleDocument->front_photo) }}"
-                        alt="{{ $vehicle->brand }} {{ $vehicle->model }}" class="h-full w-full object-cover">
+                @if ($vehicle->profile)
+                    <img src="{{ asset('storage/' . $vehicle->profile) }}" alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
+                        class="h-full w-full object-cover">
+                @elseif ($vehicle->vehicleDocument?->odometer_photo)
+                    <img src="{{ asset('storage/' . $vehicle->vehicleDocument->odometer_photo) }}"
+                        alt="Dokumentasi kendaraan" class="h-full w-full object-cover">
                 @else
-                    <div class="flex h-full items-center justify-center text-sm text-gray-400 dark:text-gray-500">Foto belum
+                    <div class="flex h-full items-center justify-center text-xs text-gray-400 dark:text-gray-500">Tidak
                         tersedia</div>
                 @endif
             </div>
@@ -64,14 +67,11 @@
             </div>
             <div
                 class="h-32 overflow-hidden rounded-2xl border border-gray-100 bg-gray-100 dark:border-gray-600 dark:bg-gray-700 sm:h-[207px]">
-                @if ($vehicle->profile)
-                    <img src="{{ asset('storage/' . $vehicle->profile) }}"
+                @if ($vehicle->vehicleDocument?->front_photo)
+                    <img src="{{ asset('storage/' . $vehicle->vehicleDocument->front_photo) }}"
                         alt="{{ $vehicle->brand }} {{ $vehicle->model }}" class="h-full w-full object-cover">
-                @elseif ($vehicle->vehicleDocument?->odometer_photo)
-                    <img src="{{ asset('storage/' . $vehicle->vehicleDocument->odometer_photo) }}"
-                        alt="Dokumentasi kendaraan" class="h-full w-full object-cover">
                 @else
-                    <div class="flex h-full items-center justify-center text-xs text-gray-400 dark:text-gray-500">Tidak
+                    <div class="flex h-full items-center justify-center text-sm text-gray-400 dark:text-gray-500">Foto belum
                         tersedia</div>
                 @endif
             </div>
@@ -82,27 +82,16 @@
         <section class="mb-6 rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
             <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                    <div class="mb-2 flex flex-wrap items-center gap-2">
-                        <span
-                            class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600 dark:text-gray-200">{{ $vehicle->type->name }}</span>
-                        @if ($vehicle->status == 'Active')
-                            <span
-                                class="rounded-full bg-gray-700 px-3 py-1 text-xs font-medium text-white dark:bg-white dark:text-gray-800">Aktif</span>
-                        @else
-                            <span
-                                class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500 dark:bg-gray-800 dark:text-gray-300">{{ $vehicle->status }}</span>
-                        @endif
-                    </div>
                     <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 sm:text-3xl">{{ $vehicle->brand }}
                         {{ $vehicle->model }}</h2>
                     <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                         {{ $vehicle->description ?: 'Tidak ada deskripsi kendaraan.' }}</p>
                 </div>
-                <div class="shrink-0 rounded-2xl bg-gray-50 px-5 py-4 dark:bg-gray-600">
+                {{-- <div class="shrink-0 rounded-2xl bg-gray-50 px-5 py-4 dark:bg-gray-600">
                     <p class="text-xs text-gray-500 dark:text-gray-300">Deposit</p>
                     <p class="mt-1 text-lg font-semibold text-gray-800 dark:text-gray-100">Rp
                         {{ number_format($vehicle->deposit_amount, 0, ',', '.') }}</p>
-                </div>
+                </div> --}}
             </div>
         </section>
 
@@ -120,10 +109,10 @@
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi teknis kendaraan.</p>
                     </div>
                     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                        <div class="rounded-xl bg-gray-50 p-4 dark:bg-gray-600">
+                        {{-- <div class="rounded-xl bg-gray-50 p-4 dark:bg-gray-600">
                             <p class="text-xs text-gray-500 dark:text-gray-300">Tahun</p>
                             <p class="mt-1 font-medium text-gray-700 dark:text-gray-100">{{ $vehicle->year }}</p>
-                        </div>
+                        </div> --}}
                         <div class="rounded-xl bg-gray-50 p-4 dark:bg-gray-600">
                             <p class="text-xs text-gray-500 dark:text-gray-300">Warna</p>
                             <p class="mt-1 font-medium text-gray-700 dark:text-gray-100">{{ $vehicle->color }}</p>
@@ -166,21 +155,41 @@
 
                 {{-- LOKASI PENGAMBILAN --}}
 
-                <section
-                    class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
-                    <div class="p-5 sm:p-6">
-                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Lokasi Pengambilan</h2>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $vehicle->pickupLocation->name }}</p>
-                        <p class="mt-2 text-sm leading-5 text-gray-500 dark:text-gray-300">
-                            {{ $vehicle->pickupLocation->address }}</p>
-                    </div>
-                    <div class="h-64 w-full bg-gray-100 dark:bg-gray-600 sm:h-80">
-                        <iframe
-                            src="https://www.google.com/maps?q={{ $vehicle->pickupLocation->latitude }},{{ $vehicle->pickupLocation->longitude }}&output=embed"
-                            class="h-full w-full border-0" loading="lazy" allowfullscreen>
-                        </iframe>
-                    </div>
-                </section>
+                @if ($vehicle->pickup_location_id !== null)
+                    <section
+                        class="overflow-hidden rounded-2xl border border-gray-100 bg-white dark:border-gray-600 dark:bg-gray-700">
+                        <div class="p-5 sm:p-6">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Lokasi Pengambilan</h2>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $vehicle->pickupLocation?->name }}
+                            </p>
+                            <p class="mt-2 text-sm leading-5 text-gray-500 dark:text-gray-300">
+                                {{ $vehicle->pickupLocation?->address }}</p>
+                        </div>
+                        <div class="h-64 w-full bg-gray-100 dark:bg-gray-600 sm:h-80">
+                            <iframe
+                                src="https://www.google.com/maps?q={{ $vehicle->pickupLocation?->latitude }},{{ $vehicle->pickupLocation?->longitude }}&output=embed"
+                                class="h-full w-full border-0" loading="lazy" allowfullscreen>
+                            </iframe>
+                        </div>
+                    </section>
+                @else
+                    <section
+                        class="flex flex-col items-center justify-center gap-3 rounded-2xl border border-gray-100 bg-gray-100 px-6 py-16 dark:border-gray-600 dark:bg-gray-800">
+                        <h2 class="text-lg font-semibold text-center text-gray-800 dark:text-gray-100">
+                            Belum Tersedia
+                        </h2>
+                        <p class="text-sm text-center text-gray-500 dark:text-gray-300">
+                            Anda belum bergabung dengan lokasi pengambilan mana pun.
+                        </p>
+                        <a href="{{ route('join-pickup-location.index') }}"
+                            class="inline-flex items-center gap-2 rounded-xl bg-gray-800 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white">
+                            {{-- <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                            </svg> --}}
+                            Gabung Lokasi Pengambilan
+                        </a>
+                    </section>
+                @endif
             </div>
 
             <div class="space-y-6">
@@ -239,38 +248,41 @@
 
                 {{-- PEMILIK KENDARAAN --}}
 
-                <section
-                    class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
-                    <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Pemilik Kendaraan</h2>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi pemilik kendaraan.</p>
-                    <div class="mt-5 mb-3 pb-3 border-b border-gray-200 dark:border-gray-600 flex items-center gap-4">
-                        <div class="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
-                            @if ($vehicle->owner?->profile)
-                                <img src="{{ asset('storage/' . $vehicle->owner->profile) }}"
-                                    alt="{{ $vehicle->owner->name }}" class="h-full w-full object-cover">
-                            @else
-                                <div
-                                    class="flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-300">
-                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
-                                    </svg>
-                                </div>
-                            @endif
+                @if ($vehicle->owner_id == $user->id)
+                @else
+                    <section
+                        class="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Pemilik Kendaraan</h2>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi pemilik kendaraan.</p>
+                        <div class="mt-5 mb-3 pb-3 border-b border-gray-200 dark:border-gray-600 flex items-center gap-4">
+                            <div class="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600">
+                                @if ($vehicle->owner?->profile)
+                                    <img src="{{ asset('storage/' . $vehicle->owner->profile) }}"
+                                        alt="{{ $vehicle->owner->name }}" class="h-full w-full object-cover">
+                                @else
+                                    <div
+                                        class="flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-300">
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                                        </svg>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="min-w-0">
+                                <p class="truncate font-medium text-gray-700 dark:text-gray-100">
+                                    {{ $vehicle->owner?->name ?? 'Tidak diketahui' }}</p>
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $vehicle->owner?->email ?? 'Tidak diketahui' }}</p>
+                            </div>
                         </div>
-                        <div class="min-w-0">
-                            <p class="truncate font-medium text-gray-700 dark:text-gray-100">
-                                {{ $vehicle->owner?->name ?? 'Tidak diketahui' }}</p>
-                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                {{ $vehicle->owner?->email ?? 'Tidak diketahui' }}</p>
-                        </div>
-                    </div>
-                    <a href="{{ route('profile.show', $vehicle->owner->id) }}"
-                        class="flex w-full items-center justify-center rounded-xl bg-gray-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
-                        Lihat Profil Pemilik
-                    </a>
-                </section>
+                        <a href="{{ route('profile.show', $vehicle->owner->id) }}"
+                            class="flex w-full items-center justify-center rounded-xl bg-gray-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
+                            Lihat Profil Pemilik
+                        </a>
+                    </section>
+                @endif
             </div>
         </div>
     </section>

@@ -12,6 +12,8 @@ class ApprovalMitraIdentity extends Model
         "nik",
         "full_name",
         "ktp_photo",
+        "email",
+        "telp",
         "reviewer_id",
         "status",
     ];

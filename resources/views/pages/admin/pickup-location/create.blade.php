@@ -6,7 +6,8 @@
         <div class="mb-8">
             <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Tambah Pickup Location
             </h1>
-            <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Tambahkan lokasi yang dapat digunakan sebagai tempat
+            <p class="mt-1 text-sm hidden sm:block text-gray-500 dark:text-gray-400">Tambahkan lokasi yang dapat digunakan
+                sebagai tempat
                 pengambilan kendaraan.</p>
         </div>
 
@@ -131,51 +132,82 @@
                     </button>
                 </div>
 
-                <div class="mt-5 flex gap-3 rounded-xl bg-gray-50 p-4 dark:bg-gray-800">
+                {{-- MAX VEHICLE --}}
+
+                <div>
+                    <label for="max_vehicle" class="mb-2 block text-sm mt-2 font-medium text-gray-700 dark:text-gray-200">
+                        Kapasitas Maksimum
+                    </label>
+
+                    <div class="relative">
+                        <input type="number" name="max_vehicle" id="max_vehicle" min="0"
+                            {{-- value="{{ old('max_vehicle', $pickupLocation->max_vehicle) }}" --}}
+                            class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pr-24 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-gray-300/10">
+
+                        <span
+                            class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-xs text-gray-400 dark:text-gray-400">
+                            kendaraan
+                        </span>
+                    </div>
+
+                    <p class="mt-1.5 text-xs text-gray-400 dark:text-gray-400">
+                        Kapasitas jumlah kendaraan yang bisa berada di lokasi.
+                    </p>
+
+                    @error('max_vehicle')
+                        <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                    @enderror
+
+                    @if (session('error'))
+                        <p class="mt-1.5 text-xs text-red-500">{{ session('error') }}</p>
+                    @enderror
+            </div>
+
+            <div class="mt-5 flex gap-3 rounded-xl bg-gray-50 p-4 dark:bg-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                    stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-500 dark:text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.5 3.75h3L21 18.75H3L10.5 3.75Z" />
+                </svg>
+                <p class="text-xs leading-5 text-gray-500 dark:text-gray-400">Pastikan koordinat sesuai dengan lokasi
+                    sebenarnya. Koordinat dapat diperoleh dari Google Maps atau layanan peta lainnya.</p>
+            </div>
+        </div>
+
+        {{-- MITRA INFORMATION --}}
+
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
+            <div class="flex gap-4">
+                <div
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-5 w-5 shrink-0 text-gray-500 dark:text-gray-400">
+                        stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.5 3.75h3L21 18.75H3L10.5 3.75Z" />
+                            d="M18 18.72a9.094 9.094 0 0 0 3.75-1.67M18 18.72a9.094 9.094 0 0 1-12 0M18 18.72V21m-12-2.28V21m12-2.28a9.094 9.094 0 0 0 3.75-1.67M6 18.72a9.094 9.094 0 0 1-3.75-1.67M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 12a3 3 0 1 1-6 0M3 12a3 3 0 1 1 6 0" />
                     </svg>
-                    <p class="text-xs leading-5 text-gray-500 dark:text-gray-400">Pastikan koordinat sesuai dengan lokasi
-                        sebenarnya. Koordinat dapat diperoleh dari Google Maps atau layanan peta lainnya.</p>
+                </div>
+                <div>
+                    <h2 class="text-sm font-semibold text-gray-800 dark:text-white">Hubungan dengan Mitra</h2>
+                    <p class="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400">
+                        Pickup location dapat dibuat terlebih dahulu tanpa mitra. Setelah lokasi dibuat, kamu dapat
+                        menghubungkannya dengan mitra untuk membuatnya tersedia bagi pelanggan.
+                    </p>
                 </div>
             </div>
+        </div>
 
-            {{-- MITRA INFORMATION --}}
+        {{-- ACTION --}}
 
-            <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-600 dark:bg-gray-700 sm:p-6">
-                <div class="flex gap-4">
-                    <div
-                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M18 18.72a9.094 9.094 0 0 0 3.75-1.67M18 18.72a9.094 9.094 0 0 1-12 0M18 18.72V21m-12-2.28V21m12-2.28a9.094 9.094 0 0 0 3.75-1.67M6 18.72a9.094 9.094 0 0 1-3.75-1.67M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 12a3 3 0 1 1-6 0M3 12a3 3 0 1 1 6 0" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h2 class="text-sm font-semibold text-gray-800 dark:text-white">Hubungan dengan Mitra</h2>
-                        <p class="mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                            Pickup location dapat dibuat terlebih dahulu tanpa mitra. Setelah lokasi dibuat, kamu dapat
-                            menghubungkannya dengan mitra untuk membuatnya tersedia bagi pelanggan.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+            <a href="{{ route('pickup-location.index') }}"
+                class="inline-flex w-full items-center justify-center rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 sm:w-auto">Batal</a>
+            <button type="submit"
+                class="inline-flex w-full items-center justify-center rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-gray-50 dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">Simpan
+                Lokasi</button>
+        </div>
 
-            {{-- ACTION --}}
-
-            <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-                <a href="{{ route('pickup-location.index') }}"
-                    class="inline-flex w-full items-center justify-center rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 sm:w-auto">Batal</a>
-                <button type="submit"
-                    class="inline-flex w-full items-center justify-center rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-gray-50 dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">Simpan
-                    Lokasi</button>
-            </div>
-
-        </form>
-    </section>
+    </form>
+</section>
 @endsection
 <script>
     function getLocation() {

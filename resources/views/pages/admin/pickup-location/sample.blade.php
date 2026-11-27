@@ -219,7 +219,7 @@
                             <a href="{{ route('vehicle.show', $vehicle->id) }}"
                                 class="group min-w-0 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 transition hover:border-gray-200 hover:bg-white dark:border-gray-600 dark:bg-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 
-                                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-500">
+                                <div class="relative aspect-4/3 overflow-hidden bg-gray-100 dark:bg-gray-500">
                                     <img src="{{ $vehicle->profile ? asset('storage/' . $vehicle->profile) : asset('images/default-vehicle.png') }}"
                                         alt="{{ $vehicle->brand }} {{ $vehicle->model }}"
                                         class="h-full w-full object-cover transition duration-300 group-hover:scale-105">

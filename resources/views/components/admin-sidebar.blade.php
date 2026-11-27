@@ -81,7 +81,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
                     </svg>
-                    <span>Kelola Users</span>
+                    <span>Pengguna</span>
                 </a>
 
                 {{-- REGION FILTER --}}
@@ -105,7 +105,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
                     </svg>
-                    <span>Kelola Waktu Rental</span>
+                    <span>Waktu Rental</span>
                 </a>
 
                 {{-- TYPE VEHICLES --}}
@@ -117,7 +117,19 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
                     </svg>
-                    <span>Kelola Jenis Kendaraan</span>
+                    <span>Jenis Kendaraan</span>
+                </a>
+
+                {{-- VEHICLE'S TRANSMISSION --}}
+
+                <a href="{{ route('vehicle-transmission.index') }}"
+                    class="{{ request()->routeIs('vehicle-transmission.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
+                    </svg>
+                    <span>Transmisi</span>
                 </a>
 
                 {{-- PICKUP LOCATIONS --}}
@@ -131,7 +143,19 @@
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M19.5 10.5c0 7.5-7.5 10.5-7.5 10.5S4.5 18 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                     </svg>
-                    <span>Pickup Locations</span>
+                    <span>Lokasi Pengambilan</span>
+                </a>
+
+                {{-- VEHICLE --}}
+
+                <a href="{{ route('vehicle-admin.index') }}"
+                    class="{{ request()->routeIs('vehicle-admin.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
+                    </svg>
+                    <span>Kendaraan</span>
                 </a>
 
             </div>
@@ -149,11 +173,11 @@
                 {{-- MITRA APPROVAL --}}
 
                 <a href="{{ route('approval-join-vehicle.index') }}"
-                    class="{{ request()->routeIs('approaval-join-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
+                    class="{{ request()->routeIs('approval-join-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
 
                     <div class="flex items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                            stroke="currentColor" class="h-5 w-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
@@ -190,8 +214,8 @@
 
                 {{-- FINE APPROVAL --}}
 
-                <a href="#"
-                    class="{{ request()->routeIs('admin.dashboard') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
+                <a href="{{ route('approval-vehicle.index') }}"
+                    class="{{ request()->routeIs('approval-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
 
                     <div class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -199,7 +223,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.5 3.75h3L21 18.75H3L10.5 3.75Z" />
                         </svg>
-                        <span>Approval Denda</span>
+                        <span>Approval Kendaraan</span>
                     </div>
 
                     <span
@@ -318,8 +342,8 @@
 
                 {{-- SYSTEM SETTINGS --}}
 
-                <a href="#"
-                    class="{{ request()->routeIs('user.index') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                <a href="{{ route('app-identity.index') }}"
+                    class="{{ request()->routeIs('app-identity.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                         stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -551,7 +575,7 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
                     </svg>
-                    <span>Kelola Users</span>
+                    <span>Pengguna</span>
                 </a>
 
                 {{-- REGION FILTER --}}
@@ -575,7 +599,7 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
                     </svg>
-                    <span>Kelola Waktu Rental</span>
+                    <span>Waktu Rental</span>
                 </a>
 
                 {{-- TYPE VEHICLES --}}
@@ -587,10 +611,10 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
                     </svg>
-                    <span>Kelola Jenis Kendaraan</span>
+                    <span>Jenis Kendaraan</span>
                 </a>
 
-                {{-- TYPE VEHICLES --}}
+                {{-- VEHICLE'S TRANSMISSION --}}
 
                 <a href="{{ route('vehicle-transmission.index') }}"
                     class="{{ request()->routeIs('vehicle-transmission.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
@@ -599,7 +623,7 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
                     </svg>
-                    <span>Kelola Transmisi Kendaraan</span>
+                    <span>Transmisi</span>
                 </a>
 
                 {{-- PICKUP LOCATIONS --}}
@@ -613,7 +637,19 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M19.5 10.5c0 7.5-7.5 10.5-7.5 10.5S4.5 18 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                     </svg>
-                    <span>Pickup Locations</span>
+                    <span>Lokasi Pengambilan</span>
+                </a>
+
+                {{-- VEHICLE --}}
+
+                <a href="{{ route('vehicle-admin.index') }}"
+                    class="{{ request()->routeIs('vehicle-admin.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
+                        stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.25 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM18.75 18.75a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM3 18.75V9.75l2.25-4.5h13.5L21 9.75v9M3 12h18" />
+                    </svg>
+                    <span>Kendaraan</span>
                 </a>
 
             </div>
@@ -631,7 +667,7 @@ pl-2 text-gray-800 dark:text-gray-50 md:flex md:flex-col">
                 {{-- MITRA APPROVAL --}}
 
                 <a href="{{ route('approval-join-vehicle.index') }}"
-                    class="{{ request()->routeIs('approaval-join-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
+                    class="{{ request()->routeIs('approval-join-vehicle.*') ? 'flex items-center gap-3 rounded-lg bg-gray-800 px-3 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500' : 'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition duration-200 hover:bg-gray-200 dark:hover:bg-gray-600' }}' }}">
 
                     <div class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

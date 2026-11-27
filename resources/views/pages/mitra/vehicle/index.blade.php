@@ -149,10 +149,26 @@
                                     </svg>
                                 </div>
                             @endif
-                            <span
-                                class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">
-                                {{ $item->status }}
-                            </span>
+                            @if (
+                                    !$item->pickupLocation ||
+                                    $item->deposit_amount < 10000 ||
+                                    $item->price_amount < 10000 ||
+                                    !$item->vehicleTime)
+                                <span
+                                    class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">
+                                    Belum Lengkap
+                                </span>
+                            @elseif ($item->status == 'Active')
+                                <span
+                                    class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">
+                                    Aktif
+                                </span>
+                            @else
+                                <span
+                                    class="absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-gray-700 backdrop-blur dark:bg-gray-800/90 dark:text-gray-200">
+                                    Tidak Aktif
+                                </span>
+                            @endif
                         </div>
                         <div class="p-3 sm:p-4">
                             <div class="flex items-start justify-between gap-2">

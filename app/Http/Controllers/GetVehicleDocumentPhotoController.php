@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\ApprovalVehicle;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use App\Models\VehicleDocument;
 use Illuminate\Support\Facades\Storage;
 
 class GetVehicleDocumentPhotoController extends Controller
 {
-    public function photo(ApprovalVehicle $vehicle, string $photo){
+    public function document(VehicleDocument $vehicle, string $photo){
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin"){
             abort(403);

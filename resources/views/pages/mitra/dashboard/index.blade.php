@@ -34,7 +34,12 @@
             <div class="relative mt-6 h-32 w-full overflow-hidden rounded-2xl sm:col-span-2 sm:h-64">
                 <img src="{{ asset('images/login-background.png') }}" alt="Dashboard Mitra"
                     class="absolute inset-0 h-full w-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-gray-800/90 via-gray-800/40 to-gray-800/10"></div>
+                <div class="absolute inset-0 bg-gradient-to-t
+                from-gray-800/10 
+                via-gray-800/10 
+                to-gray-800/10
+                ">
+            </div>
                 <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-6">
                     <div class="min-w-0 text-white">
                         <h2 class="truncate text-base font-semibold sm:text-2xl">Kelola kendaraanmu</h2>
@@ -51,7 +56,12 @@
                 <a href="#"
                     class="relative flex min-h-24 w-full overflow-hidden rounded-2xl bg-gray-700 bg-cover bg-center p-2 sm:min-h-0 sm:p-4"
                     style="background-image: url('{{ asset('images/mitra-default.png') }}');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-800/90 via-gray-800/60 to-gray-700/20"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t
+                    from-gray-800/40 
+                    via-gray-800/20 
+                    to-gray-700/10
+                    ">
+                </div>
                     <div class="relative z-10 flex w-full items-end">
                         <div class="flex flex-col items-start gap-2 text-white sm:flex-row sm:items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -66,7 +76,12 @@
                 <a href="{{ route('vehicle.index') }}"
                     class="relative flex min-h-24 w-full overflow-hidden rounded-2xl bg-gray-700 bg-cover bg-center p-2 sm:min-h-0 sm:p-4"
                     style="background-image: url('{{ asset('images/mitra-default.png') }}');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-800/90 via-gray-800/60 to-gray-700/20"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t
+                    from-gray-800/40 
+                    via-gray-800/20 
+                    to-gray-700/10
+                    ">
+                </div>
                     <div class="relative z-10 flex w-full items-end">
                         <div class="flex flex-col items-start gap-2 text-white sm:flex-row sm:items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -81,7 +96,12 @@
                 <a href="#"
                     class="relative flex min-h-24 w-full overflow-hidden rounded-2xl bg-gray-700 bg-cover bg-center p-2 sm:min-h-0 sm:p-4"
                     style="background-image: url('{{ asset('images/mitra-default.png') }}');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-800/90 via-gray-800/60 to-gray-700/20"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t
+                    from-gray-800/40 
+                    via-gray-800/20 
+                    to-gray-700/10
+                    ">
+                </div>
                     <div class="relative z-10 flex w-full items-end">
                         <div class="flex flex-col items-start gap-2 text-white sm:flex-row sm:items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -98,7 +118,12 @@
                 <a href="#"
                     class="relative flex min-h-24 w-full overflow-hidden rounded-2xl bg-gray-700 bg-cover bg-center p-2 sm:min-h-0 sm:p-4"
                     style="background-image: url('{{ asset('images/mitra-default.png') }}');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-800/90 via-gray-800/60 to-gray-700/20"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t
+                    from-gray-800/40 
+                    via-gray-800/20 
+                    to-gray-700/10
+                    ">
+                </div>
                     <div class="relative z-10 flex w-full items-end">
                         <div class="flex flex-col items-start gap-2 text-white sm:flex-row sm:items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"

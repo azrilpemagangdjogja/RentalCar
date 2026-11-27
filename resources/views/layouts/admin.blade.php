@@ -13,7 +13,7 @@
     @if (auth()->user()->role == 'Admin' || auth()->user()->role == 'Superadmin')
     <div
         class="flex h-screen w-full flex-col overflow-hidden 
-        bg-gradient-to-b from-slate-200/60 via-slate-200/50 to-slate-100/90
+        bg-gradient-to-b from-slate-200/60 via-slate-200/50 to-slate-100
         {{-- bg-slate-100/80 dark:bg-gray-800/95 --}}
         dark:bg-gradient-to-t dark:from-slate-800 dark:via-gray-800 dark:to-gray-800/95
         text-gray-800 dark:text-gray-50">

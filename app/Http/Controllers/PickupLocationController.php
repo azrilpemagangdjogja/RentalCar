@@ -58,6 +58,7 @@ class PickupLocationController extends Controller
             "address" => "required",
             "latitude" => "required",
             "longitude" => "required",
+            "max_vehicle" => "required",
         ]);
 
         $data["owner_id"] = $user->id;
@@ -134,11 +135,17 @@ class PickupLocationController extends Controller
     public function destroy(string $id)
     {
         $user = auth()->user();
-        if ($user->role !== "Admin" && $user !== "Superadmin"){
+        if ($user->role !== "Admin" && $user->role !== "Superadmin"){
             abort(403);
         }
 
-        $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
+        if ($user->role == "Admin"){
+            $pickupLocation = PickupLocation::where('owner_id', $user->id)->findOrFail($id);
+        }
+
+        if ($user->role == "Superadmin"){
+            $pickupLocation = PickupLocation::findOrFail($id);
+        }
 
         UserHistory::record(
             "Lokasi Pengambilan",

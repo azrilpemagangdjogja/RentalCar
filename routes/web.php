@@ -32,6 +32,7 @@ use App\Http\Controllers\ApprovalMitraIdentityController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\VehicleTransmissionController;
 use App\Http\Controllers\ApprovalVehicleController;
+use App\Http\Controllers\VehicleAdminController;
 
 
 //Landing Page
@@ -52,6 +53,7 @@ Route::post('/message/{id}/new', [MessageController::class, 'new'])->name('messa
 Route::post('/message/{id}/send', [MessageController::class, 'send'])->name('message.send');
 Route::resource('message', MessageController::class);
 Route::resource('profile', ProfileController::class);
+Route::get('/vehicle/{id}/show', [VehicleController::class, 'show'])->name('vehicle.show');
 
 
 
@@ -77,7 +79,7 @@ Route::middleware(['auth', 'mitra.verified'])->group(function () {
         Route::get('/mitra-dashboard', [LayoutsController::class, 'indexmitra'])->name('mitra.dashboard');
         Route::get('/join-pickup-location/{id}/veh', [JoinPickupLocationController::class, 'veh'])->name('join-pickup-location.veh');
         Route::get('/join-pickup-location/{pickupLocation}/vehun', [JoinPickupLocationController::class, 'vehun'])->name('join-pickup-location.vehun');
-        Route::patch('/join-pickup-location/{pickupLocation}/unveh/{vehicle}', [JoinPickupLocationController::class, 'unveh'])->name('join-pickup-location.unveh');
+        Route::post('/join-pickup-location/{pickupLocation}/unveh/{vehicle}', [JoinPickupLocationController::class, 'unveh'])->name('join-pickup-location.unveh');
         Route::post('/join-pickup-location/{pickupLocation}/addveh/{vehicle}', [JoinPickupLocationController::class, 'addveh'])->name('join-pickup-location.addveh');
         Route::patch('/join-pickup-location/{pickupLocation}/cancelveh/{vehicle}', [JoinPickupLocationController::class, 'cancelveh'])->name('join-pickup-location.cancelveh');
         Route::resource('join-pickup-location', JoinPickupLocationController::class);
@@ -99,8 +101,11 @@ Route::middleware(['auth', 'role:Admin,Superadmin'])->group(function () {
     Route::resource('vehicle-transmission', VehicleTransmissionController::class);
     Route::resource('region-filter', RegionFilterController::class);
     Route::resource('rental-time', RentalTimeController::class);
+    Route::resource('vehicle-admin', VehicleAdminController::class);
     Route::resource('approval-mitra-identity', ApprovalMitraIdentityController::class);
     Route::patch('/approval-mitra-identity/{id}/approve', [ApprovalMitraIdentityController::class, 'approve'])->name('approval-mitra-identity.approve');
+    Route::patch('/approval-mitra-identity/{id}/reject', [ApprovalMitraIdentityController::class, 'reject'])->name('approval-mitra-identity.reject');
+    Route::get('/approval-mitra-identity/{id}/rejection', [ApprovalMitraIdentityController::class, 'rejection'])->name('approval-mitra-identity.rejection');
 
     Route::patch('/approval-vehicle/{id}/approve', [ApprovalVehicleController::class, 'approve'])->name('approval-vehicle.approve');
     Route::get('/approval-vehicle/{id}/rejection', [ApprovalVehicleController::class, 'rejection'])->name('approval-vehicle.rejection');

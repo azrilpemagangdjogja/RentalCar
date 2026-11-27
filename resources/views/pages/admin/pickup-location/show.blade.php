@@ -5,7 +5,7 @@
         {{-- HEADER --}}
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
-                <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                {{-- <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('pickup-location.index') }}"
                         class="truncate transition hover:text-gray-700 dark:hover:text-gray-200">Lokasi Pengambilan</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -13,7 +13,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
                     </svg>
                     <span class="truncate">{{ $pickupLocation->name }}</span>
-                </div>
+                </div> --}}
                 <h1 class="truncate text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     {{ $pickupLocation->name }}</h1>
                 <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">Detail dan kendaraan yang tersedia
@@ -194,7 +194,7 @@
 
                                     <p class="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">
                                         {{ $vehicle->plate_number }} · {{ $vehicle->year }} ·
-                                        {{ $vehicle->transmission ?? '-' }}
+                                        {{ $vehicle->transmission->name ?? '-' }}
                                     </p>
 
                                     <p class="mt-1 truncate text-xs text-gray-400 dark:text-gray-500">

@@ -101,6 +101,8 @@ class VehicleController extends Controller
             "engine_capacity" => "required",
             "seats" => "required",
             "description" => "required",
+            "price_amount" => "required",
+            "deposit_amount" => "required",
             "type_id" => "required",
             "front_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
             "left_photo" => "required|image|mimes:jpg,jpeg,png,webp|max:2048",
@@ -179,14 +181,24 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
+        // dd($id);
         $user = auth()->user();
         $owner = $user?->id;
-        if ($user->mitra_status !== "Verified") {
+        if ($user->mitra_status !== "Verified" && $user->role !== "Admin" && $user->role !== "Superadmin") {
             abort(404);
         }
+            
 
-        $vehicle = Vehicle::where("owner_id", $owner)->with(['pickupLocation', 'type'])->findOrFail($id);
-        return view("pages.mitra.vehicle.show", compact("vehicle"));
+        if ($user->mitra_status == "Verified"){
+            $vehicle = Vehicle::where("owner_id", $owner)->with(['pickupLocation', 'type'])->findOrFail($id);
+        }
+
+        if ($user->role == "Admin" || $user->role == "Superadmin"){
+            $vehicle = Vehicle::with(['pickupLocation', 'type'])->findOrFail($id);
+        }
+        return view("pages.mitra.vehicle.show"
+        , compact(["vehicle", "user"])
+        );
     }
 
     /**
@@ -220,22 +232,10 @@ class VehicleController extends Controller
         }
 
         $data = $request->validate([
-            "profile" => "nullable|image|mimes:jpg,jpeg,png,webp|max:2048",
-            "brand" => "required",
-            "type_id" => "required",
-            "year" => "required",
-            "model" => "required",
-            "fuel_type" => "required",
-            "transmission" => "required",
-            "engine_capacity" => "required",
-            "seats" => "required",
-            "plate_number" => "required|unique:vehicles,plate_number," . $id,
-            "deposit_amount" => "nullable",
-            "description" => "nullable",
-            "status" => "nullable",
-            "color" => "nullable",
-            "role" => "nullable",
-            "pickup_location_id" => "nullable",
+            "deposit_amount" => "required",
+            "price_amount" => "required",
+            "description" => "required",
+            "status" => "required|in:Active,Inactive",
         ]);
 
         $vehicle = Vehicle::where('owner_id', $owner)->findOrFail($id);
@@ -246,18 +246,22 @@ class VehicleController extends Controller
             unset($data['profile']);
         }
 
-        if (isset($data['pickup_location_id'])) {
-            $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
-            $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
-        } else {
-            $pickuLocation = null;
+        if ($data['deposit_amount'] - $data['price_amount'] < 10000){
+            return back()->with('lessdeposit', 'Deposit harus lebih besar 10000 dari harga');
         }
 
-        if (isset($data['pickup_location_id'])) {
-            if ($vehicleCount >= $pickuLocation?->max_vehicle) {
-                return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
-            }
-        }
+        // if (isset($data['pickup_location_id'])) {
+        //     $pickuLocation = PickupLocation::where("id", $data['pickup_location_id'])->first();
+        //     $vehicleCount = Vehicle::where("pickup_location_id", $data['pickup_location_id'])->count();
+        // } else {
+        //     $pickuLocation = null;
+        // }
+
+        // if (isset($data['pickup_location_id'])) {
+        //     if ($vehicleCount >= $pickuLocation?->max_vehicle) {
+        //         return redirect()->back()->withErrors(['pickup_location_id' => 'Kapasitas kendaraan pada lokasi pengambilan ini sudah penuh.']);
+        //     }
+        // }
 
         $time = $request->validate([
             "days" => 'Required|array',

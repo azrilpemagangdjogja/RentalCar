@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('history_approval_mitras', function (Blueprint $table) {
+        Schema::create('history_approval_mitra_identities', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('applicant_id')
@@ -42,9 +42,10 @@ return new class extends Migration
             $table->string('reviewer_email')->nullable();
             $table->string('reviewer_telp')->nullable();
             $table->string('reviewer_profile')->nullable();
-
+            
             $table->enum('status', ['Approved', 'Rejected']);
-
+            $table->text('rejected_reason')->nullable();
+            
             $table->timestamps();
         });
     }
@@ -54,6 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('approval_mitras');
+        Schema::dropIfExists('history_approval_mitra_identities');
     }
 };

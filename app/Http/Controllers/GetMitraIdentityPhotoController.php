@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ApprovalMitraIdentity;
+use App\Models\MitraIdentity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class GetMitraIdentityPhotoController extends Controller
 {
-    public function photo(ApprovalMitraIdentity $mitra, string $photo){
+    public function identity(MitraIdentity $mitra, string $photo){
         $user = auth()->user();
         if ($user->role !== "Admin" && $user->role !== "Superadmin"){
             abort(403);

@@ -4,9 +4,19 @@
     {{-- HEADER --}}
 
     <section class="mb-6">
-        <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Ajukan Kendaraan</h1>
-        <p class="mt-1 hidden text-sm text-gray-500 dark:text-gray-400 sm:block">Lengkapi data kendaraan dan dokumen untuk
-            mengajukan kendaraan ke dalam mitramu.</p>
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">Ajukan Kendaraan
+                </h1>
+                <p class="mt-1 hidden text-sm text-gray-500 dark:text-gray-400 sm:block">Lengkapi data kendaraan dan dokumen
+                    untuk
+                    mengajukan kendaraan ke dalam mitramu.</p>
+            </div>
+            <a href="{{ url()->previous() }}"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-700 active:scale-[0.98] dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white sm:w-auto">
+                Kembali
+            </a>
+        </div>
     </section>
 
     {{-- VALIDATION ERROR --}}
@@ -234,7 +244,8 @@
                                 class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-gray-500 focus:ring-2 focus:ring-gray-800/10 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-300 dark:focus:ring-white/10">
                                 <option value="">Pilih transmisi</option>
                                 @foreach ($transmissions as $transmission)
-                                    <option value="{{ $transmission->id }}" @selected(old('transmission_id') == $transmission->id)>{{ $transmission->name }}
+                                    <option value="{{ $transmission->id }}" @selected(old('transmission_id') == $transmission->id)>
+                                        {{ $transmission->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -363,7 +374,8 @@
 
                         <div class="">
                             <label for="selfie_photo"
-                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Foto Selfie dengan kendaraan
+                                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Foto Selfie dengan
+                                kendaraan
                                 {{-- <span class="text-red-500">*</span> --}}
                             </label>
                             <input type="file" name="selfie_photo" id="selfie_photo" accept="image/*" required

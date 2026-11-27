@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->string('owner_telp');
             $table->string('owner_profile')->nullable();
 
-            $table->foreignId('vehicle_id')
-                ->constrained('vehicles')
+            $table->foreignId('transmission_id')
+                ->constrained('vehicle_transmissions')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
                 
@@ -31,13 +31,14 @@ return new class extends Migration {
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('transmission_id')
-                ->constrained('vehicle_transmissions')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+            $table->foreignId('vehicle_id')
+                ->nullable()
+                ->constrained('vehicles')
+                ->nullOnUpdate()
+                ->nullOnDelete();
 
             $table->string('profile');
-            $table->string('plate_number')->unique();
+            $table->string('plate_number');
             $table->string('brand');
             $table->year('year');
             $table->string('color');

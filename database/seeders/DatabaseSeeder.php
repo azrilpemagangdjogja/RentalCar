@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\ApprovalMitraIdentity;
+use App\Models\RentalTime;
 use App\Models\User;
+use App\Models\VehicleTransmission;
+use App\Models\VehicleType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -77,5 +81,50 @@ class DatabaseSeeder extends Seeder
             'last_login_at' => now(),
         ]);
 
+        VehicleTransmission::create([
+            'name' => 'Manual',
+            'description' => 'Transmisi manual',
+            'status' => 'Active',
+        ]);
+
+        VehicleTransmission::create([
+            'name' => 'Automatic',
+            'description' => 'Transmisi otomatis',
+            'status' => 'Active',
+        ]);
+
+        VehicleType::create([
+            'name' => 'Mobil',
+            'description' => 'Roda empat',
+            'status' => 'Active',
+        ]);
+
+        VehicleType::create([
+            'name' => 'Motor',
+            'description' => 'Roda dua',
+            'status' => 'Active',
+        ]);
+
+        RentalTime::create([
+            'day' => '1',
+            'description' => 'Sewa kendaraan selama 1 hari',
+            'status' => 'Active',
+        ]);
+
+        RentalTime::create([
+            'day' => '2',
+            'description' => 'Sewa kendaraan selama 2 hari',
+            'status' => 'Active',
+        ]);
+
+        // ApprovalMitraIdentity::create([
+        //     'applicant_id' => 3,
+        //     'mitra_identity_id' => 1,
+        //     'nik' => '1234567890123456',
+        //     'full_name' => 'Test User',
+        //     'ktp_photo' => 'ktp_photo.jpg',
+        //     'email' => 'testcostumer@example.com',
+        //     'status' => 'Pending',
+        // ]);
     }
 }

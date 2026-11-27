@@ -1,12 +1,12 @@
 <header class="sticky top-0 z-50 w-full shrink-0 border-b border-gray-100/50 bg-white/70 text-gray-800 shadow-sm backdrop-blur-md dark:border-gray-600/50 dark:bg-gray-700/70 dark:text-white">
-    <nav class="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <nav class="mx-auto flex w-full items-center justify-between gap-4 px-4 py-3 sm:px-16">
 
         {{-- LOGO --}}
         <a href="{{ route('customer.dashboard') }}" class="flex shrink-0 items-center gap-3">
             <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800 text-white dark:bg-gray-50 dark:text-gray-800">
                 <x-icon.icon-car />
             </div>
-            <span class="hidden text-lg font-bold tracking-tight sm:block">RentalCar</span>
+            <span class="hidden text-lg font-bold tracking-tight sm:block">{{ $app_identity?->app_name ? $app_identity->app_name : "RentalCar" }}</span>
         </a>
 
         {{-- NAVIGATION --}}

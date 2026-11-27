@@ -30,15 +30,19 @@ class VehiclesController extends Controller
     {
         $user = auth()->user();
         $userHasApplied = auth()->user()->applicantMitra()
-        // ->where('status', 'Pending')
+        ->where('status', 'Pending')
         ->exists();
 
         if (!$userHasApplied){
-            abort(404);
+            abort(403);
         }
 
-        if ($user->approvementVehicles()->exists()){
+        if ($user->approvementVehicles()->where('status', 'Pending')->exists()){
             return view('pages.mitra.mitra_verification.wascreate');
+        }
+
+        if ($user->mitra_status == "Verified"){
+            abort(403);
         }
 
         $transmissions = VehicleTransmission::where('status', 'Active')->get();
@@ -59,7 +63,7 @@ class VehiclesController extends Controller
             abort(404);
         }
 
-        if ($user->approvementVehicles()->exists()){
+        if ($user->approvementVehicles()->where('status', 'Pending')->exists()){
             return view('pages.mitra.mitra_verification.wascreate');
         }
 
@@ -159,7 +163,7 @@ class VehiclesController extends Controller
 
 
         $vehicle = Vehicle::with(['pickupLocation', 'type'])->findOrFail($id);
-        return view("pages.customer.vehicles.show", compact("vehicle"));
+        return view("pages.mitra.vehicle.show", compact(["vehicle", "user"]));
     }
 
     /**

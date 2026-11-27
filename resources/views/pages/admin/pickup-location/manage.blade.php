@@ -7,7 +7,7 @@
 
         <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
+                {{-- <div class="mb-2 hidden sm:flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400">
                     <a href="{{ route('pickup-location.index') }}"
                         class="transition hover:text-gray-700 dark:hover:text-gray-200">Pickup Locations</a>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
@@ -23,7 +23,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" />
                     </svg>
                     <span>Kelola</span>
-                </div>
+                </div> --}}
 
                 <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
                     Kelola Pickup Location
@@ -33,6 +33,13 @@
                     Kelola alamat, koordinat, kapasitas, dan status pickup location.
                 </p>
             </div>
+            <a href="{{ route('pickup-location.show', $pickupLocation->id) }}"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
+                {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487 19.5 7.125M18.5 2.5a2.121 2.121 0 0 1 3 3L8.5 18.5l-4 1 1-4L18.5 2.5Z" />
+                </svg> --}}
+                Kembali
+            </a>
         </div>
 
         <form action="{{ route('pickup-location.addmanage', $pickupLocation->id) }}" method="POST">
@@ -165,7 +172,6 @@
                             <p class="mt-1.5 text-xs text-red-500">{{ session('error') }}</p>
                         @enderror
                 </div>
-
             </div>
         </div>
 
@@ -212,7 +218,7 @@
 
 <script>
     function getLocation() {
-        navigator.geolocation.getCurrentPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
             document.getElementById('latitude').value = position.coords.latitude.toFixed(7);
             document.getElementById('longitude').value = position.coords.longitude.toFixed(7);
         });

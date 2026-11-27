@@ -5,25 +5,28 @@
 
         {{-- HEADER --}}
 
-        <div class="mb-8">
-            <div class="mb-2">
-                <a href="{{ url()->previous() }}"
-                    class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition hover:text-gray-800 dark:text-gray-400 dark:hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
-                        stroke="currentColor" class="h-4 w-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                    </svg>
-                    Kembali
-                </a>
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+
+                <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
+                    Edit User
+                </h1>
+
+                <p class="mt-1 hidden sm:block text-sm text-gray-500 dark:text-gray-400">
+                    Edit dan kelola informasi mengenai akun user ini.
+                </p>
             </div>
 
-            <h1 class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white sm:text-3xl">
-                Edit User
-            </h1>
+            {{-- ACTION HEADER --}}
 
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Perbarui informasi dan pengaturan akun user.
-            </p>
+            <a href="{{ route('user.index') }}"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-800 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-800/20 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-200 dark:focus:ring-gray-50/20 sm:w-auto">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+                </svg>
+                Kembali
+            </a>
+
         </div>
 
         {{-- FORM --}}

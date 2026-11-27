@@ -9,6 +9,7 @@ use App\Models\RegionFilter;
 use App\Models\UserHistory;
 use App\Models\Vehicle;
 use App\Models\User;
+use App\Models\MitraIdentity;
 use Illuminate\Http\Request;
 
 class JoinPickupLocationController extends Controller
@@ -24,17 +25,17 @@ class JoinPickupLocationController extends Controller
             abort(404);
         }
         $recommendedLocations = PickupLocation::where('status', 'Active')->withCount('vehicles')->get()
-        ->filter(function ($item){
-            return $item->vehicle_count < $item->max_vehicle;
-        });
-
-        $area = $request->area;
-        if (isset($area)){
-            $recommendedLocations = PickupLocation::where('status', 'Active')->withCount('vehicles')
-            ->where('address', 'LIKE' , '%' . $area . '%')->get()
-            ->filter(function ($item){
+            ->filter(function ($item) {
                 return $item->vehicle_count < $item->max_vehicle;
             });
+
+        $area = $request->area;
+        if (isset($area)) {
+            $recommendedLocations = PickupLocation::where('status', 'Active')->withCount('vehicles')
+                ->where('address', 'LIKE', '%' . $area . '%')->get()
+                ->filter(function ($item) {
+                    return $item->vehicle_count < $item->max_vehicle;
+                });
         }
         $suggestedLocations = PickupLocation::where('status', 'Active')->get();
         $pickupLocations = PickupLocation::where('status', 'Active')->paginate(10);
@@ -74,7 +75,7 @@ class JoinPickupLocationController extends Controller
         }
         $pickupLocation = PickupLocation::findOrFail($id);
         $vehicles = Vehicle::where('pickup_location_id', $pickupLocation->id)->inRandomOrder()->limit(6)->get();
-        $owner = User::whereHas('vehicles', function($query) use ($id){
+        $owner = User::whereHas('vehicles', function ($query) use ($id) {
             $query->where('pickup_location_id', $id);
         })->get();
         return view("pages.mitra.pickup-location.show", compact(['pickupLocation', 'vehicles', 'owner']));
@@ -133,9 +134,9 @@ class JoinPickupLocationController extends Controller
         $pickupLocation = PickupLocation::find($pickupLocation);
 
         $vehicles = Vehicle::whereDoesntHave('approvalJoin', function ($query) {
-            $query->whereIn('status', ['Pending', 'Approved'])
-            ->where('category', 'In');
-        })->get();
+            $query->where('status', 'Pending')
+                ->where('category', 'In');
+        })->where('pickup_location_id', null)->get();
 
         $deployedVehicles = Vehicle::whereHas('approvalJoin', function ($query) {
             $query->whereIn('status', ['Pending']);
@@ -155,6 +156,7 @@ class JoinPickupLocationController extends Controller
 
 
         $vehicle = Vehicle::where('owner_id', $user->id)->find($vehicle);
+        $mitra = MitraIdentity::where('user_id', $user->id)->first();
 
         $vehicleCount = Vehicle::where('pickup_location_id', $pickupLocation)->count();
         $pickupLocations = PickupLocation::find($pickupLocation);
@@ -171,7 +173,7 @@ class JoinPickupLocationController extends Controller
                 "vehicle_id" => $vehicle->id,
                 "vehicle_brand" => $vehicle->brand,
                 "vehicle_model" => $vehicle->model,
-                "vehicle_transmission" => $vehicle->transmission,
+                "vehicle_transmission" => $vehicle->transmission->name,
                 "vehicle_fuel_type" => $vehicle->fuel_type,
                 "vehicle_type" => $vehicle->type_id,
                 "vehicle_seats" => $vehicle->seats,
@@ -192,6 +194,9 @@ class JoinPickupLocationController extends Controller
                 "owner_email" => $pickupLocations->owner->email,
                 "owner_telp" => $pickupLocations->owner->telp,
                 "owner_profile" => $pickupLocations->owner->profile,
+                "mitra_id" => $mitra->id,
+                "mitra_full_name" => $mitra->full_name,
+                "mitra_nik" => $mitra->nik,
             ]);
 
             UserHistory::record(
@@ -213,11 +218,12 @@ class JoinPickupLocationController extends Controller
         $pickupLocations = PickupLocation::find($pickupLocation);
 
         $vehicles = Vehicle::where('pickup_location_id', $pickupLocation)->where('owner_id', $user->id)
-        ->whereHas('approvalJoin', function($query){
-            $query->where('category', 'In');
-        })->get();
+        // ->whereDoesntHave('approvalJoin', function ($query) {
+        //     $query->where('status', 'Pending');
+        // })
+        ->get();
 
-        return view('pages.mitra.pickup-location.unveh', compact(['vehicles', 'pickupLocations']));
+        return view('pages.mitra.pickup-location.unveh', compact(['vehicles', 'pickupLocations', 'pickupLocation']));
     }
 
 
@@ -229,13 +235,57 @@ class JoinPickupLocationController extends Controller
             abort(404);
         }
 
+        $vehicles = Vehicle::where('id', $vehicle)->where('owner_id', $user->id)->where('pickup_location_id', $pickupLocation)
+            ->whereDoesntHave('approvalJoin', function ($query) {
+                $query->where('status', 'pending');
+            })
+            ->firstOrFail();
+        $pickupLocations = PickupLocation::where('id', $pickupLocation)->firstOrFail();
+        $owner = User::where('id', $pickupLocations->owner_id)->firstOrFail();
 
-        $vehicles = Vehicle::where('owner_id', $user->id)->where('pickup_location_id', $pickupLocation)->find($vehicle);
-        $approvement = ApprovalJoinVehicle::where('id', $pickupLocation)->where('vehicle_id', $vehicle)->where('applicant_id', $user->id)->first();
-        $approvement->update([
-            "category" => "Out",
-            "status" => "Pending",
+
+        ApprovalJoinVehicle::create([
+            'vehicle_id' => $vehicles->id,
+            'vehicle_brand' => $vehicles->brand,
+            'vehicle_model' => $vehicles->model,
+            'vehicle_transmission' => $vehicles->transmission->name,
+            'vehicle_engine_capacity' => $vehicles->engine_capacity,
+            'vehicle_seats' => $vehicles->seats,
+            'vehicle_fuel_type' => $vehicles->fuel_type,
+            'vehicle_color' => $vehicles->color,
+            'vehicle_profile' => $vehicles->profile,
+            'vehicle_plate_number' => $vehicles->plate_number,
+            'vehicle_type' => $vehicles->type->name,
+            'vehicle_year' => $vehicles->year,
+            'vehicle_description' => $vehicles->description,
+            'applicant_id' => $user->id,
+            'applicant_name' => $user->name,
+            'applicant_email' => $user->email,
+            'applicant_telp' => $user->telp,
+            'applicant_profile' => $user->profile,
+            'mitra_id' => $user->mitraIdentity->id,
+            'mitra_full_name' => $user->mitraIdentity->full_name,
+            'mitra_nik' => $user->mitraIdentity->nik,
+            'location_id' => $pickupLocations->id,
+            'location_name' => $pickupLocations->name,
+            'location_address' => $pickupLocations->address,
+            'location_longitude' => $pickupLocations->longitude,
+            'location_latitude' => $pickupLocations->latitude,
+            'location_description' => $pickupLocations->description,
+            'owner_id' => $owner->id,
+            'owner_name' => $pickupLocations->name,
+            'owner_email' => $pickupLocations->email,
+            'owner_telp' => $pickupLocations->telp,
+            'owner_profile' => $pickupLocations->profile,
+            'category' => 'Out',
         ]);
+
+        $vehicles = Vehicle::where('owner_id', $user->id)->where('pickup_location_id', $pickupLocation)
+        // ->whereDoesntHave('approvalJoin', function ($query) {
+        //     $query->where('status', 'Pending');
+        // })
+        ->get();
+
         return redirect()->route('join-pickup-location.vehun', $pickupLocation);
     }
 

@@ -9,7 +9,6 @@ class ApprovalJoinVehicle extends Model
     protected $table = "approval_join_vehicles";
     protected $fillable = [
         'vehicle_id',
-        'vehicles',
         'vehicle_brand',
         'vehicle_model',
         'vehicle_transmission',

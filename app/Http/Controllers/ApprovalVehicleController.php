@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\HistoryApprovalVehicle;
 use Illuminate\Http\Request;
 use App\Models\ApprovalVehicle;
 use App\Models\Vehicle;
@@ -15,9 +16,19 @@ class ApprovalVehicleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $approvement = ApprovalVehicle::where('status', 'Pending')->get();
+        $approvement = ApprovalVehicle::whereHas('applicant', function ($query) {
+                $query->where('mitra_status', 'Verified');
+            })
+        ->orderByRaw("
+            CASE
+            WHEN status = 'Pending' THEN 0 ELSE 1
+            END 
+        ")
+        ->latest()
+        ->paginate(25);
+        
         $totalApprovement = ApprovalVehicle::where('status', 'Pending')->count();
         $totalPending = ApprovalVehicle::where('status', 'Pending')->count();
         $totalApproved = ApprovalVehicle::where('status', 'Approved')->count();
@@ -46,7 +57,7 @@ class ApprovalVehicleController extends Controller
      */
     public function show(string $id)
     {
-        $approvalVehicle = ApprovalVehicle::where('status', 'Pending')->findOrFail($id);
+        $approvalVehicle = ApprovalVehicle::findOrFail($id);
         return view('pages.admin.approval.vehicle.show', compact('approvalVehicle'));
     }
 
@@ -82,10 +93,17 @@ class ApprovalVehicleController extends Controller
         }
 
         $approvalVehicle = ApprovalVehicle::findOrFail($id);
-        $approvalVehicle->status = 'Approved';
-        $approvalVehicle->save();
 
-        Vehicle::create([
+        if (isset($approvalVehicle->price_amount) && isset($approvalVehicle->deposit_amount)){
+            if ( $approvalVehicle->deposit_amount - $approvalVehicle->price_amount < 10000){
+                return redirect()->back();
+            }
+        } else {
+            $approvalVehicle->price_amount = 0;
+            $approvalVehicle->deposit_amount = 0;
+        }
+
+        $vehicle = Vehicle::create([
             'owner_id' => $approvalVehicle->owner_id,
             'brand' => $approvalVehicle->brand,
             'model' => $approvalVehicle->model,
@@ -98,13 +116,14 @@ class ApprovalVehicleController extends Controller
             'description' => $approvalVehicle->description,
             'fuel_type' => $approvalVehicle->fuel_type,
             'seats' => $approvalVehicle->seats,
+            'engine_capacity' => $approvalVehicle->engine_capacity,
             'status' => 'Active',
-            'price_amount' => '100000',
-            'deposit_amount' => '100000',
+            'price_amount' => $approvalVehicle->price_amount,
+            'deposit_amount' => $approvalVehicle->deposit_amount,
         ]);
 
         VehicleDocument::create([
-            'vehicle_id' => Vehicle::latest()->first()->id,
+            'vehicle_id' => $vehicle->id,
             'front_photo' => $approvalVehicle->front_photo,
             'left_photo' => $approvalVehicle->left_photo,
             'right_photo' => $approvalVehicle->right_photo,
@@ -128,6 +147,9 @@ class ApprovalVehicleController extends Controller
             'Announcement',
             'Kendaraan Anda dengan merk ' . $approvalVehicle->brand . ' dan model ' . $approvalVehicle->model . ' telah disetujui oleh admin. Silakan cek kendaraan Anda di halaman kendaraan.',
         );
+
+        $approvalVehicle->status = "Approved";
+        $approvalVehicle->save();
 
         return redirect()->route('approval-vehicle.index')->with('success', 'Approval kendaraan berhasil dilakukan.');
     }
@@ -154,9 +176,44 @@ class ApprovalVehicleController extends Controller
         }
 
         $approvalVehicle = ApprovalVehicle::findOrFail($id);
-        $approvalVehicle->status = 'Rejected';
-        $approvalVehicle->rejected_reason = $request->rejected_reason;
-        $approvalVehicle->save();
+
+        // HistoryApprovalVehicle::create([
+        //     "reviewer_id" => $user->id,
+        //     "reviewer_profile" => $user->profile,
+        //     "reviewer_name" => $user->name,
+        //     "reviewer_email" => $user->email,
+        //     "reviewer_telp" => $user->telp,
+
+        //     "owner_id" => $approvalVehicle->owner_id,
+        //     "owner_name" => $approvalVehicle->full_name,
+        //     "owner_email" => $approvalVehicle->applicant->email,
+        //     "owner_telp" => $approvalVehicle->applicant->telp,
+        //     "owner_profile" => $approvalVehicle->applicant->profile,
+
+        //     "type_id" => $approvalVehicle->type_id,
+        //     "transmission_id" => $approvalVehicle->transmission_id,
+        //     "profile" => $approvalVehicle->profile,
+        //     "plate_number" => $approvalVehicle->plate_number,
+        //     "brand" => $approvalVehicle->brand,
+        //     "year" => $approvalVehicle->year,
+        //     "color" => $approvalVehicle->color,
+        //     "model" => $approvalVehicle->model,
+        //     "description" => $approvalVehicle->description,
+        //     "fuel_type" => $approvalVehicle->fuel_type,
+        //     "engine_capacity" => $approvalVehicle->engine_capacity,
+        //     "seats" => $approvalVehicle->seats,
+        //     "front_photo" => $approvalVehicle->front_photo,
+        //     "left_photo" => $approvalVehicle->left_photo,
+        //     "right_photo" => $approvalVehicle->right_photo,
+        //     "back_photo" => $approvalVehicle->back_photo,
+        //     "odometer_photo" => $approvalVehicle->odometer_photo,
+        //     "chassis_photo" => $approvalVehicle->chassis_photo,
+        //     "selfie_photo" => $approvalVehicle->selfie_photo,
+        //     "stnk_photo" => $approvalVehicle->stnk_photo,
+        //     "stnk_due_date" => $approvalVehicle->stnk_due_date,
+        //     "status" => "Rejected",
+        //     "rejected_reason" => $request->rejected_reason,
+        // ]);
 
         UserHistory::record(
             'Kendaraan',
@@ -169,6 +226,10 @@ class ApprovalVehicleController extends Controller
             'Announcement',
             'Kendaraan Anda dengan merk ' . $approvalVehicle->brand . ' dan model ' . $approvalVehicle->model . ' telah ditolak oleh admin. Alasan penolakan: ' . $request->rejected_reason,
         );
+
+        $approvalVehicle->status = "Rejected";
+        $approvalVehicle->rejected_reason = $request->rejected_reason;
+        $approvalVehicle->save();
 
         return redirect()->route('approval-vehicle.index')->with('success', 'Approval kendaraan berhasil ditolak.');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
 use App\Models\VehicleTransmission;
 
@@ -53,6 +54,11 @@ class VehicleTransmissionController extends Controller
 
         VehicleTransmission::create($data);
 
+        UserHistory::record(
+            "Transmisi",
+            "Menambahkan transmisi kendaraan " . $data['name'] . ", " . $data['description'] . ", " . $data['status'],
+        );
+
         return redirect()->route('vehicle-transmission.index')->with('success', 'Transmisi kendaraan berhasil ditambahkan.');
     }
 
@@ -95,8 +101,13 @@ class VehicleTransmissionController extends Controller
         ]);
 
         $vehicleTransmission = VehicleTransmission::findOrFail($id);
-        $vehicleTransmission->update($data);
 
+        UserHistory::record(
+            "Transmisi",
+            "Memperbarui transmisi kendaraan " . $vehicleTransmission->name . ", " . $vehicleTransmission->description . ", " . $vehicleTransmission->status . " menjadi " . $data['name'] . ", " . $data['description'] . ", " . $data['status'],
+        );        
+
+        $vehicleTransmission->update($data);
         return redirect()->route('vehicle-transmission.index')->with('success', 'Transmisi kendaraan berhasil diperbarui.');
     }
 

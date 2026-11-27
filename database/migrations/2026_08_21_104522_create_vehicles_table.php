@@ -40,7 +40,7 @@ return new class extends Migration
 
             $table->string('brand');
             $table->year('year');
-            $table->string('color')->nullable();
+            $table->string('color');
             $table->string('model');
 
             $table->enum('status', ['Active', 'Inactive', 'Service'])->default('Active');

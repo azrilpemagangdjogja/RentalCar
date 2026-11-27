@@ -22,11 +22,10 @@ class MitraIdentityController extends Controller
         $user = auth()->user();
         $mitraIdentity = MitraIdentity::where('user_id', $user->id)->where('status', 'Pending')->first();
 
-        if ($user->applicantMitra()->where('status', 'Pending')->exists() && $user->mitra_status !== "Verified") {
+        if ($user->applicantMitra()->where('status', 'Pending')->exists() && $user->mitra_status !== "Verified" && $user->approvementVehicles()->where('status', 'Pending')->exists()) {
             return view('pages.mitra.mitra_verification.wascreate');
         }
-        // if ($user->mitra_status == "Verified" || $mitraIdentity) {
-        // }
+        
         return view('pages.mitra.mitra_verification.index');
     }
 
